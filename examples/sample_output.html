@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>삼투와 삼투압</title>
+<style>
+/* exam.css — 2-column A4 exam sheet. Teacher prints to PDF via Chrome.
+   @media print hides the teacher-only block so the STUDENT sheet stays clean. */
+@page { size: A4; margin: 15mm 12mm 16mm 12mm; }
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  font-family: "Pretendard", "Apple SD Gothic Neo", "Malgun Gothic", "맑은 고딕", sans-serif;
+  font-size: 10pt;
+  line-height: 1.6;
+  color: #111;
+}
+
+.sheet { padding: 0; }
+
+.exam-header { text-align: center; border-bottom: 2px solid #111; padding-bottom: 6px; margin-bottom: 10px; }
+.exam-header .title { font-size: 15pt; font-weight: 700; margin: 0; }
+.exam-header .meta { font-size: 8.5pt; color: #555; margin-top: 3px; }
+
+.columns { column-count: 2; column-gap: 9mm; column-rule: 1px solid #ddd; }
+
+/* Long passages must be allowed to flow across columns/pages, else a tall box
+   that can't fit the first page's columns leaves page 1 blank. */
+.passage-block { margin: 0 0 6mm 0; break-inside: auto; }
+.passage-instruction { font-weight: 700; margin-bottom: 3px; }
+.passage-title { text-align: center; font-weight: 700; margin: 2px 0 4px; }
+.passage-body {
+  border: 1px solid #222; padding: 6px 8px; text-align: justify;
+  background: #fff;
+}
+.passage-body p { margin: 0 0 5px; text-indent: 0.5em; }
+.passage-body p:last-child { margin-bottom: 0; }
+.marker { font-weight: 700; }
+.passage-body u { text-underline-offset: 2px; }
+
+.view-box { border: 1px solid #222; padding: 5px 8px; margin: 4px 0; }
+.view-box .view-title { text-align: center; font-weight: 700; margin-bottom: 3px; }
+
+.question { margin: 0 0 5mm 0; break-inside: avoid; }
+.question .stem { font-weight: 600; }
+.question .stem .num { font-weight: 700; margin-right: 3px; }
+.choices { list-style: none; margin: 3px 0 0; padding: 0; }
+.choices li { margin: 1px 0; }
+
+/* teacher-only: answer key + verification report + sources. Hidden when printed. */
+.teacher-only {
+  margin-top: 10mm; border-top: 2px dashed #b00; padding-top: 6px;
+  column-span: all; font-size: 9pt; background: #fffdf5;
+}
+.teacher-only h2 { font-size: 11pt; margin: 6px 0 3px; color: #b00; }
+.answer-key { font-weight: 700; }
+.report-check.ok::before { content: "✔ "; color: #1a7f37; }
+.report-check.bad::before { content: "✗ "; color: #b00; }
+.disclaimer { margin-top: 6px; font-weight: 700; color: #b00; }
+.sources-list { font-size: 8.5pt; color: #444; }
+.sources-list li { margin-bottom: 2px; }
+
+@media print {
+  .teacher-only { display: none !important; }
+  .no-print { display: none !important; }
+}
+.no-print { text-align: center; margin: 8px 0; }
+.no-print button { font-size: 10pt; padding: 4px 10px; }
+</style>
+</head>
+<body>
+<div class="sheet">
+<div class="exam-header"><p class="title">삼투와 삼투압</p><p class="meta">고2 · 난이도 상 · 과학기술 · 3문항</p></div>
+<div class="no-print"><button onclick="window.print()">🖨 학생용 인쇄(PDF)</button> &nbsp; 화면의 빨간 점선 아래 정답·검증 리포트는 인쇄 시 자동으로 빠집니다.</div>
+<div class="columns">
+<div class="passage-block"><div class="passage-instruction">[1~3] 다음 글을 읽고 물음에 답하시오.</div><div class="passage-title">삼투와 삼투압</div><div class="passage-body"><p>삼투는 용매가 반투막을 통해 농도가 낮은 쪽에서 높은 쪽으로 이동하는 현상이다. 이때 <span class="marker">㉠</span><u>반투막</u>은 용매 분자만 통과시키고 용질 분자는 통과시키지 않는다.</p><p>삼투압은 삼투를 멈추기 위해 농도가 높은 용액 쪽에 가해야 하는 압력이다. 용액의 농도가 높을수록 삼투압은 커진다. 또한 온도가 높아지면 삼투압도 커진다.</p><p>적혈구를 농도가 낮은 용액에 넣으면 물이 세포 안으로 들어가 부풀고, 농도가 높은 용액에 넣으면 물이 빠져나가 쭈그러든다.</p></div></div>
+<div class="question"><div class="stem"><span class="num">1.</span>윗글에 대한 이해로 적절한 것은?</div><ul class="choices"><li>① 반투막은 용질 분자도 자유롭게 통과시킨다.</li><li>② 온도가 높아지면 삼투압은 작아진다.</li><li>③ 용액의 농도가 높을수록 삼투압은 커진다.</li><li>④ 삼투에서 용매는 농도가 높은 쪽에서 낮은 쪽으로 이동한다.</li><li>⑤ 적혈구를 농도가 낮은 용액에 넣으면 물이 빠져나가 쭈그러든다.</li></ul></div>
+<div class="question"><div class="stem"><span class="num">2.</span>삼투압의 크기에 영향을 주는 조건에 대한 이해로 적절한 것은?</div><ul class="choices"><li>① 농도와 온도가 모두 높아지면 삼투압은 커진다.</li><li>② 농도가 높아지면 삼투압은 작아진다.</li><li>③ 온도만이 삼투압을 결정하고 농도는 무관하다.</li><li>④ 삼투압이 커지면 농도가 낮아진다.</li><li>⑤ 온도가 높아지면 삼투압도 작아진다.</li></ul></div>
+<div class="question"><div class="stem"><span class="num">3.</span>㉠(반투막)의 역할로 미루어 알 수 있는 것은?</div><ul class="choices"><li>① 반투막이 없어도 삼투는 동일하게 일어난다.</li><li>② 반투막은 용질을 통과시켜 양쪽 농도를 같게 만든다.</li><li>③ 반투막을 통과하는 것은 용질 분자뿐이다.</li><li>④ 반투막이 용질의 이동을 막아 농도 차이가 유지되므로 삼투가 일어난다.</li><li>⑤ 반투막은 용매의 이동을 막아 삼투를 멈춘다.</li></ul></div>
+</div>
+<div class="teacher-only"><h2>정답 (교사용 · 인쇄 시 자동 숨김)</h2><div class="answer-key">1번 ③   2번 ①   3번 ④</div><h2>검증 리포트</h2><ul><li class="report-check ok">사실 근거(축자 인용) 대조 — 모든 사실 문장의 sourceQuote가 원자료의 실제 부분문자열임을 확인</li><li class="report-check ok">문항 정답 유일성 — 각 문항 정답 1개, 오답 4개 모두 반증 인용 확인</li><li class="report-check ok">난이도 인지계약(상: 근거 2·도출 2) — 모든 문항이 근거 2개 이상, 도출 2단계 이상</li><li class="report-check ok">약한 오답 점검 — weakDistractorIndexes 없음</li></ul><h2>근거·출처</h2><ol class='sources-list'><li>[s1] 삼투 현상 설명 자료</li></ol><div class="disclaimer">본 시험지는 AI가 보조 생성한 것으로, 실제 출제 전 반드시 교사의 최종 검토가 필요합니다.</div></div>
+</div>
+</body></html>

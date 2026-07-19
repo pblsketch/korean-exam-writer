@@ -1,0 +1,14 @@
+# exam-generator scripts — dependencies
+
+# validate_exam.py, render_html.py run on the Python STANDARD LIBRARY only.
+
+# HWPX output (exam_to_hwpx.py) uses the python-hwpx / hwpx-plugins stack
+# (https://github.com/airmang/hwpx-plugins). Install:
+python-hwpx>=3.2.0
+lxml
+
+# Optional — enables full JSON Schema structural validation in validate_exam.py:
+jsonschema>=4.0
+
+# Install everything:
+#   python -m pip install -U python-hwpx lxml jsonschema

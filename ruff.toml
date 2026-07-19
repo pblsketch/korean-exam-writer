@@ -1,0 +1,13 @@
+# ruff configuration for korean-bimunhak-exam
+# master 원본 스크립트의 사소한 스타일 경고(E702 세미콜론, F841 미사용 변수)는
+# 기능에 영향이 없고 원본 코드를 존중해 수정하지 않는다. 보안/버그 관련 규칙은 유지.
+
+# 선택적 무시: master 원본 코드의 기존 스타일
+[lint]
+ignore = [
+    "E702",   # multiple statements on one line (semicolon) — master 원본 _paragraphs()
+    "F841",   # unused local variable — master 원본 _postprocess_columns_and_box()
+]
+
+[lint.extend-per-file-ignores]
+"scripts/security_scan.py" = ["E501"]  # 보안 패턴 문자열이 길 수 있음

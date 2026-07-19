@@ -1,0 +1,324 @@
+{
+  "artifact": "csat-korean-reading-empirical-aggregate",
+  "schema_version": 1,
+  "coverage": {
+    "admission_years": [
+      2017,
+      2026
+    ],
+    "n_admission_years": 10,
+    "section": "Korean (국어) main CSAT 독서/비문학 reading only; literature, speech/writing, language/media, and mock exams excluded",
+    "forms": "odd (홀수형) canonical for coding; even (짝수형) used for numbering cross-check",
+    "source_authority": "KICE www.suneung.re.kr official attachments only",
+    "odd_even_numbering_crosscheck_agreement": 1.0,
+    "items_per_paper": 45
+  },
+  "section_structure": {
+    "common_format_era": {
+      "admission_years_span": [
+        2022,
+        2026
+      ],
+      "years_count": 5,
+      "reading_sets_per_year_min": 4,
+      "reading_sets_per_year_max": 4,
+      "reading_items_per_year_min": 17,
+      "reading_items_per_year_max": 17,
+      "composite_sets_per_year_min": 1,
+      "composite_sets_per_year_max": 2,
+      "reading_section_item_span": "1–17 (17 items)",
+      "opens_with_reading_theory_set": true
+    },
+    "integrated_format_era": {
+      "admission_years_span": [
+        2017,
+        2021
+      ],
+      "years_count": 5,
+      "reading_sets_per_year_min": 3,
+      "reading_sets_per_year_max": 3,
+      "reading_items_per_year_min": 15,
+      "reading_items_per_year_max": 15,
+      "composite_sets_per_year_min": 0,
+      "composite_sets_per_year_max": 1,
+      "reading_theory_standalone_set": false
+    }
+  },
+  "reading_domains_corpus_level": {
+    "definition": "knowledge domain of each standalone 독서 reading passage-set, human-adjudicated, dual-coder cross-checked",
+    "counts": {
+      "humanities": 10,
+      "science_tech": 10,
+      "social": 10,
+      "reading_theory": 5
+    },
+    "suppressed_or_absent": {
+      "arts": "0 standalone reading passages observed across corpus"
+    },
+    "balanced_core_domains": [
+      "humanities",
+      "science_tech",
+      "social"
+    ]
+  },
+  "reading_set_structure": {
+    "choices_per_item": 5,
+    "items_per_reading_set": {
+      "n": 35,
+      "min": 3,
+      "p50": 4,
+      "max": 6,
+      "mean": 4.6
+    },
+    "passage_hangul_length_band": {
+      "n": 35,
+      "min": 645,
+      "p50": 1168,
+      "max": 1913,
+      "mean": 1233.8
+    },
+    "composite_gana_present_every_year": false,
+    "reference_box_boygi_common": true
+  },
+  "reliability": {
+    "section_type": {
+      "AB_percent_agreement": 0.548,
+      "AB_cohen_kappa": 0.326,
+      "coderA_acc_vs_gold": 0.894,
+      "coderB_acc_vs_gold": 0.51,
+      "krippendorff_alpha_nominal": 0.283
+    },
+    "reading_domain": {
+      "AB_percent_agreement": 0.771,
+      "AB_cohen_kappa": 0.691,
+      "coderA_acc_vs_gold": 1.0,
+      "coderB_acc_vs_gold": 0.771,
+      "krippendorff_alpha_nominal": 0.72
+    },
+    "note": "Small corpus (n=35 reading sets); kappa on rare domain categories (arts) is unstable. Gold is single-adjudicator; treat domain kappa as indicative."
+  },
+  "extraction_quality": {
+    "corpus_hangul_chars": 267205,
+    "unmapped_cid_glyph_markers": 105,
+    "cid_rate_per_10k_hangul": 3.93,
+    "segmentation_boundary_accuracy_vs_gold": 1.0,
+    "dual_extractor_hangul_overlap_mean": 0.985,
+    "odd_even_numbering_crosscheck_agreement": 1.0
+  },
+  "provenance_summary": [
+    {
+      "admission_year": 2017,
+      "administer_date": "2016-11-17",
+      "publish_date": "2016-11-19",
+      "board_url": "https://www.suneung.re.kr/boardCnts/view.do?boardID=1500234&boardSeq=5008712&m=0403&s=suneung",
+      "attachments": [
+        {
+          "role": "questions",
+          "sha256": "2843a3f4aefc3098806336b8d68407418959a15ac8f7b172290dfb9eb9166acb",
+          "bytes": 1790020,
+          "http_status": 200
+        },
+        {
+          "role": "answers",
+          "sha256": "2b7628d2072ae1a4e4ed36ef003caf72deb10c4e0b6b12c82fd34d832b27923b",
+          "bytes": 93687,
+          "http_status": 200
+        }
+      ]
+    },
+    {
+      "admission_year": 2018,
+      "administer_date": "2017-11-23",
+      "publish_date": "2017-11-24",
+      "board_url": "https://www.suneung.re.kr/boardCnts/view.do?boardID=1500234&boardSeq=5019795&m=0403&s=suneung",
+      "attachments": [
+        {
+          "role": "questions",
+          "sha256": "467dc5d14df4bd147842ac8d052c11a7737b3cbaae3fb69720740baff6515935",
+          "bytes": 3453814,
+          "http_status": 200
+        },
+        {
+          "role": "answers",
+          "sha256": "96f6ad3896d79e48199cb8f0e4dadb9d832b43c5b6cdf0a3ca57df8a4278c13f",
+          "bytes": 82281,
+          "http_status": 200
+        }
+      ]
+    },
+    {
+      "admission_year": 2019,
+      "administer_date": "2018-11-15",
+      "publish_date": "2018-11-16",
+      "board_url": "https://www.suneung.re.kr/boardCnts/view.do?boardID=1500234&boardSeq=5031124&m=0403&s=suneung",
+      "attachments": [
+        {
+          "role": "questions",
+          "sha256": "87d5b8438bdb2c3bccaa8b2a81aa12954a12279cd28cb9619fd35ea7b699adba",
+          "bytes": 3297654,
+          "http_status": 200
+        },
+        {
+          "role": "answers",
+          "sha256": "4247f2a687b53f73871ab9255a1665a0af7d12c02b9010176c0bb7b67e1edfe4",
+          "bytes": 82173,
+          "http_status": 200
+        }
+      ]
+    },
+    {
+      "admission_year": 2020,
+      "administer_date": "2019-11-14",
+      "publish_date": "2019-11-15",
+      "board_url": "https://www.suneung.re.kr/boardCnts/view.do?boardID=1500234&boardSeq=5045861&m=0403&s=suneung",
+      "attachments": [
+        {
+          "role": "questions",
+          "sha256": "007d6674f2bb2270eef295a2738f836121033a1b687053db7ee59b004a00b522",
+          "bytes": 3640026,
+          "http_status": 200
+        },
+        {
+          "role": "answers",
+          "sha256": "7108be241c722aae5023763a1d0f70f095afa4506ff1e192728e46839ba3ac50",
+          "bytes": 91191,
+          "http_status": 200
+        }
+      ]
+    },
+    {
+      "admission_year": 2021,
+      "administer_date": "2020-12-03",
+      "publish_date": "2020-12-04",
+      "board_url": "https://www.suneung.re.kr/boardCnts/view.do?boardID=1500234&boardSeq=5061635&m=0403&s=suneung",
+      "attachments": [
+        {
+          "role": "questions",
+          "sha256": "fd49ba2f6c01d0b967a450afaf3df8441645604ece7c1f8267e9e7bba2673da5",
+          "bytes": 5015912,
+          "http_status": 200
+        },
+        {
+          "role": "answers",
+          "sha256": "76d8e9bb1ee80fa2211fb55f2ed1ce3c99bda88d494168dd4ad77e52988bd7ad",
+          "bytes": 97063,
+          "http_status": 200
+        }
+      ]
+    },
+    {
+      "admission_year": 2022,
+      "administer_date": "2021-11-18",
+      "publish_date": "2021-11-22",
+      "board_url": "https://www.suneung.re.kr/boardCnts/view.do?boardID=1500234&boardSeq=5070166&m=0403&s=suneung",
+      "attachments": [
+        {
+          "role": "questions",
+          "sha256": "2a14d925c48524d6d7b19daf5771120ff57d409e39756d5d4775979719f1803c",
+          "bytes": 7451634,
+          "http_status": 200
+        },
+        {
+          "role": "answers",
+          "sha256": "b74033e88ee0207106a7c255b4964059100290b85c840a3a65beadfe50d2d5c9",
+          "bytes": 87343,
+          "http_status": 200
+        }
+      ]
+    },
+    {
+      "admission_year": 2023,
+      "administer_date": "2022-11-17",
+      "publish_date": "2022-11-21",
+      "board_url": "https://www.suneung.re.kr/boardCnts/view.do?boardID=1500234&boardSeq=5080829&m=0403&s=suneung",
+      "attachments": [
+        {
+          "role": "questions",
+          "sha256": "1130d5f3bd2b2ec7e9af9707f790f39a1eca933ed4d7927c0b0f747b621f1fd5",
+          "bytes": 4633741,
+          "http_status": 200
+        },
+        {
+          "role": "answers",
+          "sha256": "c49f6f8a3e852a46b9c00e4c8d2f57d84eaa3b3b3db4d697283408143afe37c5",
+          "bytes": 104762,
+          "http_status": 200
+        }
+      ]
+    },
+    {
+      "admission_year": 2024,
+      "administer_date": "2023-11-16",
+      "publish_date": "2023-11-20",
+      "board_url": "https://www.suneung.re.kr/boardCnts/view.do?boardID=1500234&boardSeq=5086093&m=0403&s=suneung",
+      "attachments": [
+        {
+          "role": "questions",
+          "sha256": "f68412f3d96decf51fb0bde265de0f2f7a7f4864f39bd1cfaa29ccb3002ad7ba",
+          "bytes": 2964444,
+          "http_status": 200
+        },
+        {
+          "role": "answers",
+          "sha256": "228a55f018a2b08568e92fac55d81bb0505d76ca81eb8a2daed04f4b6f8825fd",
+          "bytes": 87116,
+          "http_status": 200
+        }
+      ]
+    },
+    {
+      "admission_year": 2025,
+      "administer_date": "2024-11-14",
+      "publish_date": "2024-11-18",
+      "board_url": "https://www.suneung.re.kr/boardCnts/view.do?boardID=1500234&boardSeq=5089364&m=0403&s=suneung",
+      "attachments": [
+        {
+          "role": "questions_odd",
+          "sha256": "fd03b004f35e39da2380c68bf8efadcdbdd9ef2e18c53f03c435d3e2fb31f247",
+          "bytes": 4706719,
+          "http_status": 200
+        },
+        {
+          "role": "questions_even",
+          "sha256": "3ff8e1d3e9261f26d13256f02dc391f853d59e622db7b13cab9d03565d5eee49",
+          "bytes": 4725652,
+          "http_status": 200
+        },
+        {
+          "role": "answers",
+          "sha256": "26b9fbe6b16a3d2b9e3639fd7501686082050e3f5e1050f7fee6379c115b9f4f",
+          "bytes": 303699,
+          "http_status": 200
+        }
+      ]
+    },
+    {
+      "admission_year": 2026,
+      "administer_date": "2025-11-13",
+      "publish_date": "2025-11-17",
+      "board_url": "https://www.suneung.re.kr/boardCnts/view.do?boardID=1500234&boardSeq=5093801&m=0403&s=suneung",
+      "attachments": [
+        {
+          "role": "questions",
+          "sha256": "ddb1ede52e317cb67c94172b39aad24b0150bf888455be33f8e333010ce16a0a",
+          "bytes": 4135202,
+          "http_status": 200
+        },
+        {
+          "role": "answers",
+          "sha256": "e5912f96dca0cb54d05b6c5f3147cb79ab34f9a931462264a5b57f90e581aac8",
+          "bytes": 80931,
+          "http_status": 200
+        }
+      ]
+    }
+  ],
+  "non_reconstructive_guarantees": [
+    "no item numbers or per-set rows",
+    "no passage text, titles, topics, or n-grams",
+    "no answer keys",
+    "no file ids or shared join keys",
+    "small-cell suppression applied (threshold 5)",
+    "domain counts reported only at corpus level, not mapped to positions"
+  ]
+}

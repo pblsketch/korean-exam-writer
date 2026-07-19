@@ -1,0 +1,81 @@
+{
+  "meta": {
+    "title": "불량 샘플 (게이트 거부 테스트)",
+    "grade": "고2",
+    "difficulty": "상",
+    "sourceMode": "B_material",
+    "subjectField": "과학기술",
+    "questionCount": 1,
+    "passageForm": "single",
+    "createdAt": "FIXED"
+  },
+  "sources": [
+    {
+      "sourceId": "s1",
+      "kind": "teacher_material",
+      "title": "삼투 현상 설명 자료",
+      "text": "삼투는 용매가 반투막을 통해 농도가 낮은 쪽에서 높은 쪽으로 이동하는 현상이다. 반투막은 용매 분자는 통과시키지만 용질 분자는 통과시키지 않는다. 용액의 농도가 높을수록 삼투압은 커진다."
+    }
+  ],
+  "passages": [
+    {
+      "passageId": "P1",
+      "subject": "과학",
+      "title": "삼투와 삼투압",
+      "instruction": "[1] 다음 글을 읽고 물음에 답하시오.",
+      "sentences": [
+        {
+          "sid": "p1",
+          "text": "삼투는 용매가 반투막을 통해 농도가 낮은 쪽에서 높은 쪽으로 이동하는 현상이다.",
+          "paragraphStart": true,
+          "factual": true,
+          "sourceId": "s1",
+          "sourceQuote": "삼투는 용매가 반투막을 통해 농도가 낮은 쪽에서 높은 쪽으로 이동하는 현상이다"
+        },
+        {
+          "sid": "p2",
+          "text": "반투막은 용질도 자유롭게 통과시켜 농도를 빠르게 평형에 이르게 한다.",
+          "factual": true,
+          "sourceId": "s1",
+          "sourceQuote": "반투막은 용질도 자유롭게 통과시킨다"
+        }
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "qid": "Q1",
+      "number": 1,
+      "type": "factual",
+      "stem": "윗글에 대한 이해로 적절한 것은?",
+      "choices": [
+        "반투막은 용질을 자유롭게 통과시킨다.",
+        "온도가 높아지면 삼투압은 작아진다.",
+        "용액의 농도가 높을수록 삼투압은 커진다.",
+        "삼투에서 용매는 농도가 높은 쪽에서 낮은 쪽으로 이동한다.",
+        "삼투는 반투막이 없어도 동일하게 일어난다."
+      ],
+      "answerIndex": 2,
+      "evidenceLocations": [
+        {"passageRef": "p1", "role": "definition", "passageQuote": "삼투는 용매가 반투막을 통해"}
+      ],
+      "derivation": [
+        "p1을 근거로 정답을 고른다."
+      ],
+      "distractors": [
+        {"index": 0, "recipe": "scope_shift", "whyFalse": "반투막은 용질을 막는다.", "whyFalseRef": "p2", "whyFalseQuote": "용질 분자는 통과시키지 않는다"},
+        {"index": 1, "recipe": "contradiction", "whyFalse": "온도가 높아지면 삼투압은 커진다.", "whyFalseRef": "p2", "whyFalseQuote": "삼투압도 커진다"},
+        {"index": 2, "recipe": "condition_confusion", "whyFalse": "정답과 겹치는 잘못된 오답 인덱스.", "whyFalseRef": "p1", "whyFalseQuote": "삼투는 용매가 반투막을 통해"},
+        {"index": 4, "recipe": "condition_confusion", "whyFalse": "반투막이 있어야 삼투가 성립한다.", "whyFalseRef": "p1", "whyFalseQuote": "삼투는 용매가 반투막을 통해"}
+      ]
+    }
+  ],
+  "verificationReport": {
+    "checks": [
+      {"name": "사실 근거 대조", "ok": true, "detail": "(거짓 보고 — 실제로는 위반 존재)"}
+    ],
+    "removedItems": [],
+    "lowConfidenceFlags": [],
+    "disclaimer": "본 시험지는 AI가 보조 생성한 것으로, 실제 출제 전 반드시 교사의 최종 검토가 필요합니다."
+  }
+}

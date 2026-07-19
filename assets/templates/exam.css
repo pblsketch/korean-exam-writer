@@ -1,0 +1,63 @@
+/* exam.css — 2-column A4 exam sheet. Teacher prints to PDF via Chrome.
+   @media print hides the teacher-only block so the STUDENT sheet stays clean. */
+@page { size: A4; margin: 15mm 12mm 16mm 12mm; }
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  font-family: "Pretendard", "Apple SD Gothic Neo", "Malgun Gothic", "맑은 고딕", sans-serif;
+  font-size: 10pt;
+  line-height: 1.6;
+  color: #111;
+}
+
+.sheet { padding: 0; }
+
+.exam-header { text-align: center; border-bottom: 2px solid #111; padding-bottom: 6px; margin-bottom: 10px; }
+.exam-header .title { font-size: 15pt; font-weight: 700; margin: 0; }
+.exam-header .meta { font-size: 8.5pt; color: #555; margin-top: 3px; }
+
+.columns { column-count: 2; column-gap: 9mm; column-rule: 1px solid #ddd; }
+
+/* Long passages must be allowed to flow across columns/pages, else a tall box
+   that can't fit the first page's columns leaves page 1 blank. */
+.passage-block { margin: 0 0 6mm 0; break-inside: auto; }
+.passage-instruction { font-weight: 700; margin-bottom: 3px; }
+.passage-title { text-align: center; font-weight: 700; margin: 2px 0 4px; }
+.passage-body {
+  border: 1px solid #222; padding: 6px 8px; text-align: justify;
+  background: #fff;
+}
+.passage-body p { margin: 0 0 5px; text-indent: 0.5em; }
+.passage-body p:last-child { margin-bottom: 0; }
+.marker { font-weight: 700; }
+.passage-body u { text-underline-offset: 2px; }
+
+.view-box { border: 1px solid #222; padding: 5px 8px; margin: 4px 0; }
+.view-box .view-title { text-align: center; font-weight: 700; margin-bottom: 3px; }
+
+.question { margin: 0 0 5mm 0; break-inside: avoid; }
+.question .stem { font-weight: 600; }
+.question .stem .num { font-weight: 700; margin-right: 3px; }
+.choices { list-style: none; margin: 3px 0 0; padding: 0; }
+.choices li { margin: 1px 0; }
+
+/* teacher-only: answer key + verification report + sources. Hidden when printed. */
+.teacher-only {
+  margin-top: 10mm; border-top: 2px dashed #b00; padding-top: 6px;
+  column-span: all; font-size: 9pt; background: #fffdf5;
+}
+.teacher-only h2 { font-size: 11pt; margin: 6px 0 3px; color: #b00; }
+.answer-key { font-weight: 700; }
+.report-check.ok::before { content: "✔ "; color: #1a7f37; }
+.report-check.bad::before { content: "✗ "; color: #b00; }
+.disclaimer { margin-top: 6px; font-weight: 700; color: #b00; }
+.sources-list { font-size: 8.5pt; color: #444; }
+.sources-list li { margin-bottom: 2px; }
+
+@media print {
+  .teacher-only { display: none !important; }
+  .no-print { display: none !important; }
+}
+.no-print { text-align: center; margin: 8px 0; }
+.no-print button { font-size: 10pt; padding: 4px 10px; }

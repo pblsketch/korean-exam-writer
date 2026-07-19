@@ -1,0 +1,53 @@
+name: ci
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install deps
+        run: pip install -U jsonschema python-hwpx lxml ruff
+
+      - name: Hygiene scan
+        run: python scripts/security_scan.py
+
+      - name: Validate good examples (anti-hallucination gate)
+        run: |
+          set -e
+          for f in game_exam game_full_exam map_exam philosophy_exam sample_exam tech_exam; do
+            echo "== validate $f =="
+            python scripts/validate_exam.py "examples/$f.json"
+          done
+
+      - name: Bad example must be rejected
+        run: |
+          if python scripts/validate_exam.py examples/sample_exam_bad.json; then
+            echo "ERROR: bad sample was accepted"; exit 1
+          else
+            echo "OK: bad sample correctly rejected"
+          fi
+
+      - name: Render HTML (2-column A4)
+        run: |
+          set -e
+          for f in game_exam game_full_exam map_exam philosophy_exam sample_exam tech_exam; do
+            python scripts/render_html.py "examples/$f.json" -o "/tmp/$f.html"
+          done
+
+      - name: Render HWPX
+        run: |
+          set -e
+          for f in game_exam game_full_exam map_exam philosophy_exam sample_exam tech_exam; do
+            python scripts/exam_to_hwpx.py "examples/$f.json" -o "/tmp/$f.hwpx"
+          done
+
+      - name: Lint
+        run: ruff check scripts/

@@ -1,0 +1,297 @@
+{
+  "meta": {
+    "title": "삼투와 삼투압",
+    "grade": "고2",
+    "difficulty": "상",
+    "sourceMode": "B_material",
+    "subjectField": "과학기술",
+    "questionCount": 3,
+    "passageForm": "single",
+    "createdAt": "FIXED"
+  },
+  "sources": [
+    {
+      "sourceId": "s1",
+      "kind": "teacher_material",
+      "title": "삼투 현상 설명 자료",
+      "text": "삼투는 용매가 반투막을 통해 농도가 낮은 쪽에서 높은 쪽으로 이동하는 현상이다. 반투막은 용매 분자는 통과시키지만 용질 분자는 통과시키지 않는다. 삼투압은 이 삼투를 멈추기 위해 농도가 높은 용액 쪽에 가해야 하는 압력이다. 용액의 농도가 높을수록 삼투압은 커진다. 온도가 높아지면 삼투압도 커진다. 적혈구를 농도가 낮은 용액에 넣으면 물이 세포 안으로 들어가 부풀고, 농도가 높은 용액에 넣으면 물이 빠져나가 쭈그러든다."
+    }
+  ],
+  "passages": [
+    {
+      "passageId": "P1",
+      "subject": "과학",
+      "title": "삼투와 삼투압",
+      "part": "",
+      "instruction": "[1~3] 다음 글을 읽고 물음에 답하시오.",
+      "sentences": [
+        {
+          "sid": "p1",
+          "text": "삼투는 용매가 반투막을 통해 농도가 낮은 쪽에서 높은 쪽으로 이동하는 현상이다.",
+          "paragraphStart": true,
+          "factual": true,
+          "sourceId": "s1",
+          "sourceQuote": "삼투는 용매가 반투막을 통해 농도가 낮은 쪽에서 높은 쪽으로 이동하는 현상이다"
+        },
+        {
+          "sid": "p2",
+          "text": "이때 반투막은 용매 분자만 통과시키고 용질 분자는 통과시키지 않는다.",
+          "factual": true,
+          "sourceId": "s1",
+          "sourceQuote": "용질 분자는 통과시키지 않는다",
+          "markers": [
+            {
+              "marker": "㉠",
+              "span": "반투막"
+            }
+          ]
+        },
+        {
+          "sid": "p3",
+          "text": "삼투압은 삼투를 멈추기 위해 농도가 높은 용액 쪽에 가해야 하는 압력이다.",
+          "paragraphStart": true,
+          "factual": true,
+          "sourceId": "s1",
+          "sourceQuote": "삼투압은 이 삼투를 멈추기 위해 농도가 높은 용액 쪽에 가해야 하는 압력이다"
+        },
+        {
+          "sid": "p4",
+          "text": "용액의 농도가 높을수록 삼투압은 커진다.",
+          "factual": true,
+          "sourceId": "s1",
+          "sourceQuote": "용액의 농도가 높을수록 삼투압은 커진다"
+        },
+        {
+          "sid": "p5",
+          "text": "또한 온도가 높아지면 삼투압도 커진다.",
+          "factual": true,
+          "sourceId": "s1",
+          "sourceQuote": "온도가 높아지면 삼투압도 커진다"
+        },
+        {
+          "sid": "p6",
+          "text": "적혈구를 농도가 낮은 용액에 넣으면 물이 세포 안으로 들어가 부풀고, 농도가 높은 용액에 넣으면 물이 빠져나가 쭈그러든다.",
+          "paragraphStart": true,
+          "factual": true,
+          "sourceId": "s1",
+          "sourceQuote": "적혈구를 농도가 낮은 용액에 넣으면 물이 세포 안으로 들어가 부풀고, 농도가 높은 용액에 넣으면 물이 빠져나가 쭈그러든다"
+        }
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "qid": "Q1",
+      "number": 1,
+      "type": "detail_check",
+      "stem": "윗글에 대한 이해로 적절한 것은?",
+      "choices": [
+        "반투막은 용질 분자도 자유롭게 통과시킨다.",
+        "온도가 높아지면 삼투압은 작아진다.",
+        "용액의 농도가 높을수록 삼투압은 커진다.",
+        "삼투에서 용매는 농도가 높은 쪽에서 낮은 쪽으로 이동한다.",
+        "적혈구를 농도가 낮은 용액에 넣으면 물이 빠져나가 쭈그러든다."
+      ],
+      "answerIndex": 2,
+      "evidenceLocations": [
+        {
+          "passageRef": "p4",
+          "role": "condition_qualification",
+          "passageQuote": "용액의 농도가 높을수록 삼투압은 커진다"
+        },
+        {
+          "passageRef": "p1",
+          "role": "definition",
+          "passageQuote": "삼투는 용매가 반투막을 통해 농도가 낮은 쪽에서 높은 쪽으로 이동하는 현상이다"
+        }
+      ],
+      "derivation": [
+        "p4는 농도가 높을수록 삼투압이 커진다는 조건-효과 관계를 밝힌다.",
+        "선택지 3은 이 관계를 그대로 진술하므로 적절하다."
+      ],
+      "distractors": [
+        {
+          "index": 0,
+          "recipe": "scope_shift",
+          "whyFalse": "반투막은 용매 분자만 통과시키고 용질은 막는다.",
+          "whyFalseRef": "p2",
+          "whyFalseQuote": "용질 분자는 통과시키지 않는다"
+        },
+        {
+          "index": 1,
+          "recipe": "contradiction",
+          "whyFalse": "온도가 높아지면 삼투압은 커진다.",
+          "whyFalseRef": "p5",
+          "whyFalseQuote": "삼투압도 커진다"
+        },
+        {
+          "index": 3,
+          "recipe": "contradiction",
+          "whyFalse": "삼투에서 용매는 농도가 낮은 쪽에서 높은 쪽으로 이동한다.",
+          "whyFalseRef": "p1",
+          "whyFalseQuote": "농도가 낮은 쪽에서 높은 쪽으로 이동하는"
+        },
+        {
+          "index": 4,
+          "recipe": "contradiction",
+          "whyFalse": "농도가 낮은 용액에서는 물이 세포로 들어가 부푼다.",
+          "whyFalseRef": "p6",
+          "whyFalseQuote": "물이 세포 안으로 들어가 부풀고"
+        }
+      ],
+      "explanation": "정답은 3번. p4가 농도와 삼투압의 정비례 관계를 직접 진술한다.",
+      "demand": "recall"
+    },
+    {
+      "qid": "Q2",
+      "number": 2,
+      "type": "relation_reasoning",
+      "stem": "삼투압의 크기에 영향을 주는 조건에 대한 이해로 적절한 것은?",
+      "choices": [
+        "농도와 온도가 모두 높아지면 삼투압은 커진다.",
+        "농도가 높아지면 삼투압은 작아진다.",
+        "온도만이 삼투압을 결정하고 농도는 무관하다.",
+        "삼투압이 커지면 농도가 낮아진다.",
+        "온도가 높아지면 삼투압도 작아진다."
+      ],
+      "answerIndex": 0,
+      "evidenceLocations": [
+        {
+          "passageRef": "p4",
+          "role": "condition_qualification",
+          "passageQuote": "용액의 농도가 높을수록 삼투압은 커진다"
+        },
+        {
+          "passageRef": "p5",
+          "role": "condition_qualification",
+          "passageQuote": "온도가 높아지면 삼투압도 커진다"
+        }
+      ],
+      "derivation": [
+        "p4는 농도 증가가, p5는 온도 증가가 각각 삼투압을 키운다고 제시한다.",
+        "두 조건이 함께 커지면 삼투압도 커지므로 선택지 1이 적절하다."
+      ],
+      "distractors": [
+        {
+          "index": 1,
+          "recipe": "contradiction",
+          "whyFalse": "농도가 높아지면 삼투압은 커진다.",
+          "whyFalseRef": "p4",
+          "whyFalseQuote": "삼투압은 커진다"
+        },
+        {
+          "index": 2,
+          "recipe": "condition_confusion",
+          "whyFalse": "농도도 삼투압을 결정하는 조건이다.",
+          "whyFalseRef": "p4",
+          "whyFalseQuote": "용액의 농도가 높을수록 삼투압은 커진다"
+        },
+        {
+          "index": 3,
+          "recipe": "causal_error",
+          "whyFalse": "농도가 원인이고 삼투압이 결과이므로 방향이 반대다.",
+          "whyFalseRef": "p4",
+          "whyFalseQuote": "농도가 높을수록 삼투압은 커진다"
+        },
+        {
+          "index": 4,
+          "recipe": "contradiction",
+          "whyFalse": "온도가 높아지면 삼투압도 커진다.",
+          "whyFalseRef": "p5",
+          "whyFalseQuote": "삼투압도 커진다"
+        }
+      ],
+      "explanation": "정답은 1번. p4와 p5의 두 조건을 결합한 진술이다.",
+      "demand": "inference"
+    },
+    {
+      "qid": "Q3",
+      "number": 3,
+      "type": "implicit_inference",
+      "stem": "㉠(반투막)의 역할로 미루어 알 수 있는 것은?",
+      "choices": [
+        "반투막이 없어도 삼투는 동일하게 일어난다.",
+        "반투막은 용질을 통과시켜 양쪽 농도를 같게 만든다.",
+        "반투막을 통과하는 것은 용질 분자뿐이다.",
+        "반투막이 용질의 이동을 막아 농도 차이가 유지되므로 삼투가 일어난다.",
+        "반투막은 용매의 이동을 막아 삼투를 멈춘다."
+      ],
+      "answerIndex": 3,
+      "evidenceLocations": [
+        {
+          "passageRef": "p2",
+          "role": "condition_qualification",
+          "passageQuote": "용질 분자는 통과시키지 않는다"
+        },
+        {
+          "passageRef": "p1",
+          "role": "cause_effect",
+          "passageQuote": "농도가 낮은 쪽에서 높은 쪽으로 이동하는"
+        }
+      ],
+      "derivation": [
+        "p2에서 반투막은 용질을 통과시키지 않아 막 양쪽의 농도 차가 유지된다.",
+        "p1의 삼투 정의와 결합하면 농도 차가 삼투를 일으키므로 선택지 4가 적절하다."
+      ],
+      "distractors": [
+        {
+          "index": 0,
+          "recipe": "condition_confusion",
+          "whyFalse": "반투막이 용질을 막기에 삼투가 성립한다.",
+          "whyFalseRef": "p2",
+          "whyFalseQuote": "용매 분자만 통과시키고"
+        },
+        {
+          "index": 1,
+          "recipe": "scope_shift",
+          "whyFalse": "반투막은 용질을 통과시키지 않는다.",
+          "whyFalseRef": "p2",
+          "whyFalseQuote": "용질 분자는 통과시키지 않는다"
+        },
+        {
+          "index": 2,
+          "recipe": "scope_shift",
+          "whyFalse": "통과하는 것은 용매 분자다.",
+          "whyFalseRef": "p2",
+          "whyFalseQuote": "용매 분자만 통과시키고"
+        },
+        {
+          "index": 4,
+          "recipe": "contradiction",
+          "whyFalse": "반투막은 용매를 통과시킨다.",
+          "whyFalseRef": "p2",
+          "whyFalseQuote": "용매 분자만 통과시키고"
+        }
+      ],
+      "explanation": "정답은 4번. 반투막이 용질을 막아 농도 차가 유지되는 것이 삼투의 조건이다.",
+      "demand": "inference"
+    }
+  ],
+  "verificationReport": {
+    "checks": [
+      {
+        "name": "사실 근거(축자 인용) 대조",
+        "ok": true,
+        "detail": "모든 사실 문장의 sourceQuote가 원자료의 실제 부분문자열임을 확인"
+      },
+      {
+        "name": "문항 정답 유일성",
+        "ok": true,
+        "detail": "각 문항 정답 1개, 오답 4개 모두 반증 인용 확인"
+      },
+      {
+        "name": "난이도 인지계약(상: 근거 2·도출 2)",
+        "ok": true,
+        "detail": "모든 문항이 근거 2개 이상, 도출 2단계 이상"
+      },
+      {
+        "name": "약한 오답 점검",
+        "ok": true,
+        "detail": "weakDistractorIndexes 없음"
+      }
+    ],
+    "removedItems": [],
+    "lowConfidenceFlags": [],
+    "disclaimer": "본 시험지는 AI가 보조 생성한 것으로, 실제 출제 전 반드시 교사의 최종 검토가 필요합니다."
+  }
+}

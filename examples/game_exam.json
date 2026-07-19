@@ -1,0 +1,605 @@
+{
+  "meta": {
+    "title": "합리적 선택은 무엇이 결정하는가",
+    "grade": "고3",
+    "difficulty": "최상",
+    "sourceMode": "B_material",
+    "subjectField": "사회",
+    "questionCount": 5,
+    "passageForm": "single",
+    "createdAt": "FIXED"
+  },
+  "sources": [
+    {
+      "sourceId": "s1",
+      "kind": "teacher_material",
+      "title": "게임 이론 개념 정리",
+      "text": "여러 주체의 선택이 서로의 이익에 영향을 주는 상황에서 각자가 어떻게 행동할지를 분석하는 이론을 게임 이론이라 한다. 게임은 선택의 주체인 경기자, 각 경기자가 택할 수 있는 전략, 그리고 전략의 조합이 낳는 보수로 구성된다. 보수는 각 경기자가 특정 결과에 대해 느끼는 이득의 크기를 수치로 나타낸 것이다. 게임 이론은 각 경기자가 자신의 보수를 되도록 크게 만들려는 합리적 존재라고 가정한다. 여기서는 경기자들이 상대의 선택을 모른 채 동시에 자신의 전략을 정하는 게임을 다룬다. 지배 전략은 상대가 어떤 전략을 택하든 자신에게 언제나 가장 큰 보수를 주는 전략이다. 지배 전략이 있는 경기자는 상대의 선택을 알지 못해도 그 전략을 택하는 것이 합리적이다. 반대로 상대의 어떤 선택에 대해서도 다른 전략보다 낮은 보수만을 주는 전략을 지배당하는 전략이라 한다. 합리적인 경기자는 지배당하는 전략을 결코 선택하지 않는다. 지배당하는 전략을 차례로 제거해 나가면 경기자가 고려할 전략의 수를 줄일 수 있다. 내시 균형은 다른 경기자들의 전략이 주어졌을 때 어떤 경기자도 혼자 전략을 바꾸어 더 큰 보수를 얻을 수 없는 전략의 조합이다. 내시 균형에서는 각 경기자의 전략이 상대의 전략에 대한 최선의 대응을 이룬다. 모든 경기자가 지배 전략을 가진다면 그 전략들의 조합은 반드시 내시 균형이 된다. 그러나 어떤 조합이 내시 균형이라고 해서 각 경기자가 지배 전략을 가지는 것은 아니다. 지배 전략이 없더라도 서로가 최선의 대응을 이루는 전략의 조합이 존재할 수 있기 때문이다. 그래서 내시 균형은 지배 전략 균형보다 더 넓은 범위의 상황을 설명한다. 죄수의 딜레마는 각자의 합리적 선택이 집단적으로는 더 나쁜 결과를 낳는 상황을 보여 준다. 두 경기자 모두에게 배신이 지배 전략이어서 둘 다 배신을 선택하는 경우를 생각해 보자. 이때의 결과는 두 경기자가 함께 협력했을 경우보다 둘 모두에게 더 낮은 보수를 준다. 즉 각자가 지배 전략을 따른 결과가 서로에게 더 이로운 결과를 가로막는 것이다. 이 상황에서 각 경기자에게는 배신이 합리적이므로 협력은 안정적으로 유지되기 어렵다. 협력을 이끌어 내려면 약속을 강제하거나 같은 게임을 여러 번 반복하도록 게임의 조건을 바꾸어야 한다. 게임의 조건이 달라지면 무엇이 합리적 선택인지도 달라지기 때문이다. 한 번뿐인 게임에서 합리적이던 선택이 여러 번 반복되는 게임에서는 합리적이지 않을 수 있다. 이처럼 게임 이론은 각자의 합리성만으로는 모두에게 최선인 결과에 이르지 못할 수 있음을 밝힌다. 무엇이 합리적 선택인지는 상대의 전략과 게임 전체의 구조에 따라 규정된다."
+    }
+  ],
+  "passages": [
+    {
+      "passageId": "P1",
+      "subject": "사회",
+      "title": "합리적 선택은 무엇이 결정하는가",
+      "part": "",
+      "instruction": "[1~5] 다음 글을 읽고 물음에 답하시오.",
+      "sentences": [
+        {
+          "sid": "p1",
+          "text": "여러 주체의 선택이 서로의 이익에 영향을 주는 상황에서 각자가 어떻게 행동할지를 분석하는 이론을 게임 이론이라 한다.",
+          "factual": true,
+          "sourceId": "s1",
+          "sourceQuote": "여러 주체의 선택이 서로의 이익에 영향을 주는 상황에서 각자가 어떻게 행동할지를 분석하는 이론을 게임 이론이라 한다.",
+          "paragraphStart": true
+        },
+        {
+          "sid": "p2",
+          "text": "게임은 선택의 주체인 경기자, 각 경기자가 택할 수 있는 전략, 그리고 전략의 조합이 낳는 보수로 구성된다.",
+          "factual": true,
+          "sourceId": "s1",
+          "sourceQuote": "게임은 선택의 주체인 경기자, 각 경기자가 택할 수 있는 전략, 그리고 전략의 조합이 낳는 보수로 구성된다."
+        },
+        {
+          "sid": "p3",
+          "text": "보수는 각 경기자가 특정 결과에 대해 느끼는 이득의 크기를 수치로 나타낸 것이다.",
+          "factual": true,
+          "sourceId": "s1",
+          "sourceQuote": "보수는 각 경기자가 특정 결과에 대해 느끼는 이득의 크기를 수치로 나타낸 것이다."
+        },
+        {
+          "sid": "p4",
+          "text": "게임 이론은 각 경기자가 자신의 보수를 되도록 크게 만들려는 합리적 존재라고 가정한다.",
+          "factual": true,
+          "sourceId": "s1",
+          "sourceQuote": "게임 이론은 각 경기자가 자신의 보수를 되도록 크게 만들려는 합리적 존재라고 가정한다."
+        },
+        {
+          "sid": "p5",
+          "text": "여기서는 경기자들이 상대의 선택을 모른 채 동시에 자신의 전략을 정하는 게임을 다룬다.",
+          "factual": true,
+          "sourceId": "s1",
+          "sourceQuote": "여기서는 경기자들이 상대의 선택을 모른 채 동시에 자신의 전략을 정하는 게임을 다룬다."
+        },
+        {
+          "sid": "p6",
+          "text": "지배 전략은 상대가 어떤 전략을 택하든 자신에게 언제나 가장 큰 보수를 주는 전략이다.",
+          "factual": true,
+          "sourceId": "s1",
+          "sourceQuote": "지배 전략은 상대가 어떤 전략을 택하든 자신에게 언제나 가장 큰 보수를 주는 전략이다.",
+          "paragraphStart": true,
+          "markers": [
+            {
+              "marker": "㉠",
+              "span": "지배 전략"
+            }
+          ]
+        },
+        {
+          "sid": "p7",
+          "text": "지배 전략이 있는 경기자는 상대의 선택을 알지 못해도 그 전략을 택하는 것이 합리적이다.",
+          "factual": true,
+          "sourceId": "s1",
+          "sourceQuote": "지배 전략이 있는 경기자는 상대의 선택을 알지 못해도 그 전략을 택하는 것이 합리적이다."
+        },
+        {
+          "sid": "p8",
+          "text": "반대로 상대의 어떤 선택에 대해서도 다른 전략보다 낮은 보수만을 주는 전략을 지배당하는 전략이라 한다.",
+          "factual": true,
+          "sourceId": "s1",
+          "sourceQuote": "반대로 상대의 어떤 선택에 대해서도 다른 전략보다 낮은 보수만을 주는 전략을 지배당하는 전략이라 한다."
+        },
+        {
+          "sid": "p9",
+          "text": "합리적인 경기자는 지배당하는 전략을 결코 선택하지 않는다.",
+          "factual": true,
+          "sourceId": "s1",
+          "sourceQuote": "합리적인 경기자는 지배당하는 전략을 결코 선택하지 않는다."
+        },
+        {
+          "sid": "p10",
+          "text": "지배당하는 전략을 차례로 제거해 나가면 경기자가 고려할 전략의 수를 줄일 수 있다.",
+          "factual": true,
+          "sourceId": "s1",
+          "sourceQuote": "지배당하는 전략을 차례로 제거해 나가면 경기자가 고려할 전략의 수를 줄일 수 있다."
+        },
+        {
+          "sid": "p11",
+          "text": "내시 균형은 다른 경기자들의 전략이 주어졌을 때 어떤 경기자도 혼자 전략을 바꾸어 더 큰 보수를 얻을 수 없는 전략의 조합이다.",
+          "factual": true,
+          "sourceId": "s1",
+          "sourceQuote": "내시 균형은 다른 경기자들의 전략이 주어졌을 때 어떤 경기자도 혼자 전략을 바꾸어 더 큰 보수를 얻을 수 없는 전략의 조합이다.",
+          "paragraphStart": true,
+          "markers": [
+            {
+              "marker": "㉡",
+              "span": "내시 균형"
+            }
+          ]
+        },
+        {
+          "sid": "p12",
+          "text": "내시 균형에서는 각 경기자의 전략이 상대의 전략에 대한 최선의 대응을 이룬다.",
+          "factual": true,
+          "sourceId": "s1",
+          "sourceQuote": "내시 균형에서는 각 경기자의 전략이 상대의 전략에 대한 최선의 대응을 이룬다."
+        },
+        {
+          "sid": "p13",
+          "text": "모든 경기자가 지배 전략을 가진다면 그 전략들의 조합은 반드시 내시 균형이 된다.",
+          "factual": true,
+          "sourceId": "s1",
+          "sourceQuote": "모든 경기자가 지배 전략을 가진다면 그 전략들의 조합은 반드시 내시 균형이 된다."
+        },
+        {
+          "sid": "p14",
+          "text": "그러나 어떤 조합이 내시 균형이라고 해서 각 경기자가 지배 전략을 가지는 것은 아니다.",
+          "factual": true,
+          "sourceId": "s1",
+          "sourceQuote": "그러나 어떤 조합이 내시 균형이라고 해서 각 경기자가 지배 전략을 가지는 것은 아니다."
+        },
+        {
+          "sid": "p15",
+          "text": "지배 전략이 없더라도 서로가 최선의 대응을 이루는 전략의 조합이 존재할 수 있기 때문이다.",
+          "factual": true,
+          "sourceId": "s1",
+          "sourceQuote": "지배 전략이 없더라도 서로가 최선의 대응을 이루는 전략의 조합이 존재할 수 있기 때문이다."
+        },
+        {
+          "sid": "p16",
+          "text": "그래서 내시 균형은 지배 전략 균형보다 더 넓은 범위의 상황을 설명한다.",
+          "factual": true,
+          "sourceId": "s1",
+          "sourceQuote": "그래서 내시 균형은 지배 전략 균형보다 더 넓은 범위의 상황을 설명한다."
+        },
+        {
+          "sid": "p17",
+          "text": "죄수의 딜레마는 각자의 합리적 선택이 집단적으로는 더 나쁜 결과를 낳는 상황을 보여 준다.",
+          "factual": true,
+          "sourceId": "s1",
+          "sourceQuote": "죄수의 딜레마는 각자의 합리적 선택이 집단적으로는 더 나쁜 결과를 낳는 상황을 보여 준다.",
+          "paragraphStart": true,
+          "markers": [
+            {
+              "marker": "㉢",
+              "span": "죄수의 딜레마"
+            }
+          ]
+        },
+        {
+          "sid": "p18",
+          "text": "두 경기자 모두에게 배신이 지배 전략이어서 둘 다 배신을 선택하는 경우를 생각해 보자.",
+          "factual": true,
+          "sourceId": "s1",
+          "sourceQuote": "두 경기자 모두에게 배신이 지배 전략이어서 둘 다 배신을 선택하는 경우를 생각해 보자."
+        },
+        {
+          "sid": "p19",
+          "text": "이때의 결과는 두 경기자가 함께 협력했을 경우보다 둘 모두에게 더 낮은 보수를 준다.",
+          "factual": true,
+          "sourceId": "s1",
+          "sourceQuote": "이때의 결과는 두 경기자가 함께 협력했을 경우보다 둘 모두에게 더 낮은 보수를 준다."
+        },
+        {
+          "sid": "p20",
+          "text": "즉 각자가 지배 전략을 따른 결과가 서로에게 더 이로운 결과를 가로막는 것이다.",
+          "factual": true,
+          "sourceId": "s1",
+          "sourceQuote": "즉 각자가 지배 전략을 따른 결과가 서로에게 더 이로운 결과를 가로막는 것이다."
+        },
+        {
+          "sid": "p21",
+          "text": "이 상황에서 각 경기자에게는 배신이 합리적이므로 협력은 안정적으로 유지되기 어렵다.",
+          "factual": true,
+          "sourceId": "s1",
+          "sourceQuote": "이 상황에서 각 경기자에게는 배신이 합리적이므로 협력은 안정적으로 유지되기 어렵다.",
+          "paragraphStart": true
+        },
+        {
+          "sid": "p22",
+          "text": "협력을 이끌어 내려면 약속을 강제하거나 같은 게임을 여러 번 반복하도록 게임의 조건을 바꾸어야 한다.",
+          "factual": true,
+          "sourceId": "s1",
+          "sourceQuote": "협력을 이끌어 내려면 약속을 강제하거나 같은 게임을 여러 번 반복하도록 게임의 조건을 바꾸어야 한다."
+        },
+        {
+          "sid": "p23",
+          "text": "게임의 조건이 달라지면 무엇이 합리적 선택인지도 달라지기 때문이다.",
+          "factual": true,
+          "sourceId": "s1",
+          "sourceQuote": "게임의 조건이 달라지면 무엇이 합리적 선택인지도 달라지기 때문이다."
+        },
+        {
+          "sid": "p24",
+          "text": "한 번뿐인 게임에서 합리적이던 선택이 여러 번 반복되는 게임에서는 합리적이지 않을 수 있다.",
+          "factual": true,
+          "sourceId": "s1",
+          "sourceQuote": "한 번뿐인 게임에서 합리적이던 선택이 여러 번 반복되는 게임에서는 합리적이지 않을 수 있다."
+        },
+        {
+          "sid": "p25",
+          "text": "이처럼 게임 이론은 각자의 합리성만으로는 모두에게 최선인 결과에 이르지 못할 수 있음을 밝힌다.",
+          "factual": true,
+          "sourceId": "s1",
+          "sourceQuote": "이처럼 게임 이론은 각자의 합리성만으로는 모두에게 최선인 결과에 이르지 못할 수 있음을 밝힌다.",
+          "paragraphStart": true
+        },
+        {
+          "sid": "p26",
+          "text": "무엇이 합리적 선택인지는 상대의 전략과 게임 전체의 구조에 따라 규정된다.",
+          "factual": true,
+          "sourceId": "s1",
+          "sourceQuote": "무엇이 합리적 선택인지는 상대의 전략과 게임 전체의 구조에 따라 규정된다."
+        }
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "qid": "Q1",
+      "number": 1,
+      "type": "detail_check",
+      "stem": "윗글에 대한 이해로 적절한 것은?",
+      "choices": [
+        "지배 전략은 상대의 특정 전략에 대해서만 가장 큰 보수를 준다.",
+        "보수는 경기자가 느끼는 이득과 무관하게 정해진 값이다.",
+        "합리적 경기자는 지배당하는 전략을 택하지 않으며, 그런 전략은 차례로 제거해 고려 대상을 줄일 수 있다.",
+        "합리적 경기자도 상황에 따라 지배당하는 전략을 선택한다.",
+        "이 글이 다루는 게임에서 경기자는 상대의 선택을 확인한 뒤 전략을 정한다."
+      ],
+      "answerIndex": 2,
+      "evidenceLocations": [
+        {
+          "passageRef": "p8",
+          "role": "definition",
+          "passageQuote": "다른 전략보다 낮은 보수만을 주는 전략을 지배당하는 전략이라 한다"
+        },
+        {
+          "passageRef": "p9",
+          "role": "condition_qualification",
+          "passageQuote": "지배당하는 전략을 결코 선택하지 않는다"
+        },
+        {
+          "passageRef": "p10",
+          "role": "evidence_support",
+          "passageQuote": "지배당하는 전략을 차례로 제거해 나가면"
+        }
+      ],
+      "derivation": [
+        "p8은 지배당하는 전략을 낮은 보수만 주는 전략으로 정의한다.",
+        "p9는 합리적 경기자가 그것을 선택하지 않음을 밝힌다.",
+        "p10은 그런 전략을 제거해 고려 대상을 줄일 수 있음을 보이므로 선택지 3이 적절하다."
+      ],
+      "distractors": [
+        {
+          "index": 0,
+          "recipe": "scope_shift",
+          "whyFalse": "지배 전략은 상대가 어떤 전략을 택하든 가장 큰 보수를 준다.",
+          "whyFalseRef": "p6",
+          "whyFalseQuote": "상대가 어떤 전략을 택하든 자신에게 언제나 가장 큰 보수를 주는 전략"
+        },
+        {
+          "index": 1,
+          "recipe": "contradiction",
+          "whyFalse": "보수는 이득의 크기를 나타낸 값이다.",
+          "whyFalseRef": "p3",
+          "whyFalseQuote": "이득의 크기를 수치로 나타낸 것"
+        },
+        {
+          "index": 3,
+          "recipe": "condition_confusion",
+          "whyFalse": "합리적 경기자는 지배당하는 전략을 선택하지 않는다.",
+          "whyFalseRef": "p9",
+          "whyFalseQuote": "지배당하는 전략을 결코 선택하지 않는다"
+        },
+        {
+          "index": 4,
+          "recipe": "contradiction",
+          "whyFalse": "경기자는 상대의 선택을 모른 채 동시에 전략을 정한다.",
+          "whyFalseRef": "p5",
+          "whyFalseQuote": "상대의 선택을 모른 채 동시에 자신의 전략을 정하는"
+        }
+      ],
+      "demand": "recall"
+    },
+    {
+      "qid": "Q2",
+      "number": 2,
+      "type": "relation_reasoning",
+      "stem": "㉠(지배 전략)과 ㉡(내시 균형)의 관계에 대한 이해로 적절한 것은?",
+      "choices": [
+        "모든 경기자가 지배 전략을 가지면 그 조합은 내시 균형이지만, 내시 균형이 언제나 지배 전략으로 이루어지는 것은 아니다.",
+        "내시 균형은 반드시 모든 경기자의 지배 전략으로만 이루어진다.",
+        "지배 전략들의 조합은 내시 균형이 될 수 없다.",
+        "지배 전략이 없으면 최선의 대응을 이루는 조합도 존재하지 않는다.",
+        "내시 균형은 지배 전략 균형보다 좁은 범위의 상황에만 적용된다."
+      ],
+      "answerIndex": 0,
+      "evidenceLocations": [
+        {
+          "passageRef": "p13",
+          "role": "condition_qualification",
+          "passageQuote": "모든 경기자가 지배 전략을 가진다면 그 전략들의 조합은 반드시 내시 균형이 된다"
+        },
+        {
+          "passageRef": "p14",
+          "role": "comparison_contrast",
+          "passageQuote": "내시 균형이라고 해서 각 경기자가 지배 전략을 가지는 것은 아니다"
+        },
+        {
+          "passageRef": "p15",
+          "role": "condition_qualification",
+          "passageQuote": "지배 전략이 없더라도 서로가 최선의 대응을 이루는 전략의 조합이 존재할 수 있기"
+        }
+      ],
+      "derivation": [
+        "p13은 모두가 지배 전략을 가지면 그 조합이 반드시 내시 균형임을 밝힌다.",
+        "p14·p15는 내시 균형이 지배 전략 없이도 성립할 수 있음을 보인다.",
+        "따라서 지배 전략 균형은 내시 균형이지만 그 역은 성립하지 않는다."
+      ],
+      "distractors": [
+        {
+          "index": 1,
+          "recipe": "scope_shift",
+          "whyFalse": "내시 균형이 늘 지배 전략으로만 이루어지지는 않는다.",
+          "whyFalseRef": "p14",
+          "whyFalseQuote": "각 경기자가 지배 전략을 가지는 것은 아니다"
+        },
+        {
+          "index": 2,
+          "recipe": "contradiction",
+          "whyFalse": "지배 전략들의 조합은 반드시 내시 균형이 된다.",
+          "whyFalseRef": "p13",
+          "whyFalseQuote": "반드시 내시 균형이 된다"
+        },
+        {
+          "index": 3,
+          "recipe": "condition_confusion",
+          "whyFalse": "지배 전략이 없어도 최선의 대응 조합이 존재할 수 있다.",
+          "whyFalseRef": "p15",
+          "whyFalseQuote": "서로가 최선의 대응을 이루는 전략의 조합이 존재할 수 있기"
+        },
+        {
+          "index": 4,
+          "recipe": "contradiction",
+          "whyFalse": "내시 균형은 지배 전략 균형보다 더 넓은 범위에 적용된다.",
+          "whyFalseRef": "p16",
+          "whyFalseQuote": "지배 전략 균형보다 더 넓은 범위의 상황을 설명"
+        }
+      ],
+      "demand": "inference"
+    },
+    {
+      "qid": "Q3",
+      "number": 3,
+      "type": "structure_flow",
+      "stem": "㉢(죄수의 딜레마)을 통해 글쓴이가 드러내려는 바로 가장 적절한 것은?",
+      "choices": [
+        "협력은 언제나 각 개인에게 최선의 선택이 된다.",
+        "각자의 합리적 선택이 모두에게 더 이로운 결과를 가로막을 수 있다.",
+        "지배 전략을 따르면 집단에도 언제나 최선의 결과가 된다.",
+        "죄수의 딜레마에서는 어떤 경기자도 지배 전략을 갖지 않는다.",
+        "개인의 합리성과 집단의 이익은 언제나 일치한다."
+      ],
+      "answerIndex": 1,
+      "evidenceLocations": [
+        {
+          "passageRef": "p17",
+          "role": "definition",
+          "passageQuote": "각자의 합리적 선택이 집단적으로는 더 나쁜 결과를 낳는 상황"
+        },
+        {
+          "passageRef": "p19",
+          "role": "cause_effect",
+          "passageQuote": "함께 협력했을 경우보다 둘 모두에게 더 낮은 보수를 준다"
+        },
+        {
+          "passageRef": "p20",
+          "role": "exception_limit",
+          "passageQuote": "각자가 지배 전략을 따른 결과가 서로에게 더 이로운 결과를 가로막는"
+        }
+      ],
+      "derivation": [
+        "p17은 개인의 합리적 선택이 집단적으로 더 나쁜 결과를 낳음을 정의한다.",
+        "p19는 둘 다 배신한 결과가 협력보다 낮은 보수임을 보인다.",
+        "p20은 지배 전략을 따른 결과가 더 이로운 결과를 가로막음을 밝히므로 선택지 2가 적절하다."
+      ],
+      "distractors": [
+        {
+          "index": 0,
+          "recipe": "contradiction",
+          "whyFalse": "각 개인에게는 배신이 합리적이어서 협력이 유지되기 어렵다.",
+          "whyFalseRef": "p21",
+          "whyFalseQuote": "배신이 합리적이므로 협력은 안정적으로 유지되기 어렵다"
+        },
+        {
+          "index": 2,
+          "recipe": "contradiction",
+          "whyFalse": "지배 전략을 따른 결과가 집단적으로 더 나쁠 수 있다.",
+          "whyFalseRef": "p17",
+          "whyFalseQuote": "집단적으로는 더 나쁜 결과를 낳는 상황"
+        },
+        {
+          "index": 3,
+          "recipe": "contradiction",
+          "whyFalse": "두 경기자 모두 배신이라는 지배 전략을 가진다.",
+          "whyFalseRef": "p18",
+          "whyFalseQuote": "두 경기자 모두에게 배신이 지배 전략이어서"
+        },
+        {
+          "index": 4,
+          "recipe": "scope_shift",
+          "whyFalse": "개인의 합리성이 집단의 이익을 가로막을 수 있다.",
+          "whyFalseRef": "p20",
+          "whyFalseQuote": "서로에게 더 이로운 결과를 가로막는"
+        }
+      ],
+      "demand": "inference"
+    },
+    {
+      "qid": "Q4",
+      "number": 4,
+      "type": "implicit_inference",
+      "stem": "윗글을 바탕으로 추론한 내용으로 적절한 것은?",
+      "choices": [
+        "게임의 조건이 달라져도 합리적 선택은 변하지 않는다.",
+        "협력은 조건을 바꾸지 않아도 저절로 안정적으로 유지된다.",
+        "여러 번 반복되는 게임에서는 어떤 선택도 합리적일 수 없다.",
+        "같은 게임이라도 반복되도록 조건이 바뀌면, 한 번뿐인 게임에서와 다른 선택이 합리적일 수 있다.",
+        "합리적 선택은 상대의 전략과 무관하게 결정된다."
+      ],
+      "answerIndex": 3,
+      "evidenceLocations": [
+        {
+          "passageRef": "p22",
+          "role": "condition_qualification",
+          "passageQuote": "같은 게임을 여러 번 반복하도록 게임의 조건을 바꾸어야 한다"
+        },
+        {
+          "passageRef": "p23",
+          "role": "cause_effect",
+          "passageQuote": "게임의 조건이 달라지면 무엇이 합리적 선택인지도 달라지기"
+        },
+        {
+          "passageRef": "p24",
+          "role": "condition_qualification",
+          "passageQuote": "여러 번 반복되는 게임에서는 합리적이지 않을 수 있다"
+        }
+      ],
+      "derivation": [
+        "p22는 반복 등으로 게임의 조건을 바꿀 수 있음을 제시한다.",
+        "p23은 조건이 달라지면 합리적 선택도 달라짐을 밝힌다.",
+        "p24와 연결하면 반복 게임에서는 한 번뿐인 게임과 다른 선택이 합리적일 수 있음을 추론할 수 있다."
+      ],
+      "distractors": [
+        {
+          "index": 0,
+          "recipe": "contradiction",
+          "whyFalse": "게임의 조건이 달라지면 합리적 선택도 달라진다.",
+          "whyFalseRef": "p23",
+          "whyFalseQuote": "무엇이 합리적 선택인지도 달라지기"
+        },
+        {
+          "index": 1,
+          "recipe": "condition_confusion",
+          "whyFalse": "조건을 바꾸지 않으면 협력은 유지되기 어렵다.",
+          "whyFalseRef": "p21",
+          "whyFalseQuote": "협력은 안정적으로 유지되기 어렵다"
+        },
+        {
+          "index": 2,
+          "recipe": "scope_shift",
+          "whyFalse": "반복 게임에서 특정 선택이 합리적이지 않을 수 있을 뿐이다.",
+          "whyFalseRef": "p24",
+          "whyFalseQuote": "여러 번 반복되는 게임에서는 합리적이지 않을 수 있다"
+        },
+        {
+          "index": 4,
+          "recipe": "condition_confusion",
+          "whyFalse": "합리적 선택은 상대의 전략과 게임 구조에 따라 규정된다.",
+          "whyFalseRef": "p26",
+          "whyFalseQuote": "상대의 전략과 게임 전체의 구조에 따라 규정"
+        }
+      ],
+      "demand": "inference"
+    },
+    {
+      "qid": "Q5",
+      "number": 5,
+      "type": "crosstext_integration",
+      "stem": "<보기>에 대한 이해로 적절한 것은?",
+      "view": {
+        "title": "",
+        "text": "두 기업 A와 B가 서로의 선택을 모른 채 동시에 ‘고가’와 ‘저가’ 중 가격을 정한다. 두 기업 모두 상대가 무엇을 택하든 ‘저가’가 ‘고가’보다 큰 이익을 준다. 그런데 두 기업이 함께 ‘고가’를 택하면, 함께 ‘저가’를 택할 때보다 둘 다 더 큰 이익을 얻는다."
+      },
+      "choices": [
+        "두 기업에게는 ‘고가’가 지배 전략이다.",
+        "둘 다 ‘저가’를 택한 조합은 내시 균형이 아니다.",
+        "두 기업에게 ‘저가’가 지배 전략이며, 둘 다 ‘저가’를 택한 조합은 내시 균형이지만 더 이로운 결과를 가로막는다.",
+        "두 기업이 함께 ‘저가’를 택하면 함께 ‘고가’를 택할 때보다 더 큰 이익을 얻는다.",
+        "‘저가’는 지배당하는 전략이므로 합리적 기업은 택하지 않는다."
+      ],
+      "answerIndex": 2,
+      "evidenceLocations": [
+        {
+          "passageRef": "p6",
+          "role": "definition",
+          "passageQuote": "상대가 어떤 전략을 택하든 자신에게 언제나 가장 큰 보수를 주는 전략"
+        },
+        {
+          "passageRef": "p13",
+          "role": "condition_qualification",
+          "passageQuote": "모든 경기자가 지배 전략을 가진다면 그 전략들의 조합은 반드시 내시 균형이 된다"
+        },
+        {
+          "passageRef": "p20",
+          "role": "exception_limit",
+          "passageQuote": "각자가 지배 전략을 따른 결과가 서로에게 더 이로운 결과를 가로막는"
+        }
+      ],
+      "derivation": [
+        "<보기>에서 저가는 상대가 무엇을 택하든 큰 이익을 주므로 p6의 정의상 지배 전략이다.",
+        "두 기업이 지배 전략을 가지므로 p13에 따라 둘 다 저가인 조합은 내시 균형이다.",
+        "함께 고가일 때 이익이 더 크므로 p20처럼 지배 전략의 결과가 더 이로운 결과를 가로막는다."
+      ],
+      "distractors": [
+        {
+          "index": 0,
+          "recipe": "contradiction",
+          "whyFalse": "저가가 언제나 큰 이익을 주므로 지배 전략은 저가다.",
+          "whyFalseRef": "p6",
+          "whyFalseQuote": "언제나 가장 큰 보수를 주는 전략"
+        },
+        {
+          "index": 1,
+          "recipe": "contradiction",
+          "whyFalse": "두 기업이 지배 전략을 가지므로 그 조합은 내시 균형이다.",
+          "whyFalseRef": "p13",
+          "whyFalseQuote": "반드시 내시 균형이 된다"
+        },
+        {
+          "index": 3,
+          "recipe": "contradiction",
+          "whyFalse": "함께 고가일 때 이익이 더 크므로 저가는 더 이로운 결과를 가로막는다.",
+          "whyFalseRef": "p20",
+          "whyFalseQuote": "서로에게 더 이로운 결과를 가로막는"
+        },
+        {
+          "index": 4,
+          "recipe": "attribute_swap",
+          "whyFalse": "저가는 낮은 보수가 아니라 큰 이익을 주므로 지배당하는 전략이 아니다.",
+          "whyFalseRef": "p8",
+          "whyFalseQuote": "다른 전략보다 낮은 보수만을 주는 전략을 지배당하는 전략"
+        }
+      ],
+      "demand": "integration"
+    }
+  ],
+  "verificationReport": {
+    "checks": [
+      {
+        "name": "사실 근거(축자 인용) 대조",
+        "ok": true,
+        "detail": "모든 사실 문장 sourceQuote가 원자료의 실제 부분문자열"
+      },
+      {
+        "name": "문항 정답 유일성",
+        "ok": true,
+        "detail": "정답 1개, 오답 4개 반증 인용 확인"
+      },
+      {
+        "name": "난이도 인지계약(최상: 근거 3·도출 3)",
+        "ok": true,
+        "detail": "모든 문항 근거 3개·도출 3단계"
+      },
+      {
+        "name": "유형 배분",
+        "ok": true,
+        "detail": "사실·관계·구조/밑줄·추론·적용(<보기>) 5유형 중복 없음"
+      }
+    ],
+    "removedItems": [],
+    "lowConfidenceFlags": [],
+    "disclaimer": "본 시험지는 AI가 보조 생성한 것으로, 실제 출제 전 반드시 교사의 최종 검토가 필요합니다."
+  }
+}

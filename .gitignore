@@ -1,0 +1,20 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# scratch / test artifacts
+_test/
+_render/
+_*.py
+examples/_*.hwpx
+examples/*.pdf
+*.tmp
+
+# OS
+.DS_Store
+Thumbs.db
+
+# OMC state
+.omc/

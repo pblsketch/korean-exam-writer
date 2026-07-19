@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>국어 시험지 스킬 — 구조 한눈에 보기</title>
+<link rel="preconnect" href="https://cdn.jsdelivr.net">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<style>
+  :root{
+    --bg:#f6f7fb; --ink:#1f2430; --muted:#5b6472; --line:#e2e6ef; --card:#ffffff;
+    --arch:#3b82f6; --author:#8b5cf6; --eng:#0ea5a4; --qa:#f59e0b; --cur:#ef4444;
+    --orch:#111827; --pause:#e11d48; --gate:#16a34a; --soft:#eef2ff;
+    --shadow:0 6px 24px rgba(24,39,75,.08);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{font-family:"Pretendard",-apple-system,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+    background:var(--bg); color:var(--ink); line-height:1.72; -webkit-text-size-adjust:100%;}
+  .wrap{max-width:920px; margin:0 auto; padding:28px 18px 80px;}
+  header.hero{text-align:center; padding:26px 16px 6px;}
+  header.hero h1{font-size:28px; margin:.2em 0; letter-spacing:-.02em;}
+  header.hero p{color:var(--muted); margin:.3em auto; max-width:640px;}
+  .tag{display:inline-block; font-size:12.5px; color:#334155; background:#fff; border:1px solid var(--line);
+    border-radius:999px; padding:4px 11px; margin:4px 3px; box-shadow:var(--shadow)}
+  section{background:var(--card); border:1px solid var(--line); border-radius:18px; padding:22px 20px;
+    margin:22px 0; box-shadow:var(--shadow);}
+  .sec-h{display:flex; align-items:center; gap:10px; margin:0 0 2px;}
+  .sec-h .no{flex:0 0 auto; width:34px; height:34px; border-radius:10px; color:#fff; font-weight:800;
+    display:grid; place-items:center; font-size:16px;}
+  .sec-h h2{font-size:21px; margin:0; letter-spacing:-.02em;}
+  .lead{color:var(--muted); margin:.4em 0 1.1em;}
+  .analogy{background:linear-gradient(180deg,#fff, #fbfcff); border:1px dashed #c9d4ee; border-radius:14px;
+    padding:12px 14px; margin:12px 0 18px; font-size:15px;}
+  .analogy b{color:#1d4ed8}
+  h3{font-size:16.5px; margin:18px 0 8px;}
+  ul{margin:.3em 0 .6em; padding-left:1.1em}
+  li{margin:.24em 0}
+  .muted{color:var(--muted)}
+  .small{font-size:13.5px}
+  /* ---- flow diagram ---- */
+  .flow{display:flex; flex-direction:column; align-items:stretch; gap:0; margin:14px 0 6px;}
+  .node{border-radius:14px; padding:12px 14px; color:#fff; box-shadow:var(--shadow); position:relative;}
+  .node .role{font-weight:800; font-size:15.5px; display:flex; align-items:center; gap:8px}
+  .node .desc{font-size:13px; opacity:.95; margin-top:2px}
+  .node .chip{font-size:11px; background:rgba(255,255,255,.22); padding:1px 7px; border-radius:999px}
+  .down{align-self:center; width:2px; height:22px; background:#c3cbdb; position:relative}
+  .down::after{content:""; position:absolute; left:50%; bottom:-1px; transform:translateX(-50%);
+    border:6px solid transparent; border-top-color:#c3cbdb;}
+  .row{display:flex; gap:12px; flex-wrap:wrap;}
+  .row .node{flex:1 1 220px}
+  /* ---- real fan-out / fan-in connectors ---- */
+  .trunk{width:2px; height:16px; background:#c3cbdb; margin:0 auto;}
+  .forklabel{text-align:center; font-size:12.5px; color:#1d4ed8; font-weight:700; margin:2px 0 0;}
+  .frow{display:flex; gap:12px; align-items:stretch;}
+  .fcell{position:relative; flex:1 1 0; padding-top:18px;}
+  .fcell::before,.fcell::after{content:""; position:absolute; top:0; height:18px; width:50%; box-sizing:border-box;}
+  .fcell::before{left:0; border-top:2px solid #9db0d6;}
+  .fcell::after{right:0; border-top:2px solid #9db0d6;}
+  .fcell:first-child::before{border-top:0;}
+  .fcell:last-child::after{border-top:0;}
+  .fcell .vd{position:absolute; top:0; left:50%; transform:translateX(-50%); width:2px; height:18px; background:#9db0d6;}
+  .jrow{display:flex; gap:12px; align-items:stretch;}
+  .jcell{position:relative; flex:1 1 0; height:18px;}
+  .jcell::before,.jcell::after{content:""; position:absolute; bottom:0; height:18px; width:50%; box-sizing:border-box;}
+  .jcell::before{left:0; border-bottom:2px solid #9db0d6;}
+  .jcell::after{right:0; border-bottom:2px solid #9db0d6;}
+  .jcell:first-child::before{border-bottom:0;}
+  .jcell:last-child::after{border-bottom:0;}
+  .jcell .vu{position:absolute; bottom:0; left:50%; transform:translateX(-50%); width:2px; height:18px; background:#9db0d6;}
+  .par-badge{display:inline-block; font-size:11px; font-weight:800; color:#1d4ed8; background:#e0e7ff; border-radius:999px; padding:1px 9px; margin:0 auto; display:table;}
+  .orch{background:linear-gradient(135deg,#1f2937,#111827)}
+  .n-arch{background:linear-gradient(135deg,#3b82f6,#2563eb)}
+  .n-author{background:linear-gradient(135deg,#8b5cf6,#7c3aed)}
+  .n-eng{background:linear-gradient(135deg,#0ea5a4,#0d9488)}
+  .n-qa{background:linear-gradient(135deg,#f59e0b,#d97706)}
+  .n-cur{background:linear-gradient(135deg,#ef4444,#dc2626)}
+  .n-res{background:linear-gradient(135deg,#0891b2,#0e7490)}
+  .n-write{background:linear-gradient(135deg,#7c3aed,#6d28d9)}
+  .n-verify{background:linear-gradient(135deg,#e11d48,#be123c)}
+  .n-item{background:linear-gradient(135deg,#2563eb,#1d4ed8)}
+  .n-review{background:linear-gradient(135deg,#ea580c,#c2410c)}
+  .n-asm{background:linear-gradient(135deg,#334155,#1e293b)}
+  .gate{background:linear-gradient(135deg,#16a34a,#15803d)}
+  .store{background:#f1f5f9; border:1px dashed #b9c3d6; color:#334155; border-radius:14px; padding:10px 14px;
+    font-size:13.5px; text-align:center; margin-top:6px}
+  .pause{display:inline-flex; align-items:center; gap:6px; background:#fff0f3; color:var(--pause);
+    border:1px solid #f6c9d4; border-radius:999px; padding:2px 10px; font-size:12.5px; font-weight:700;}
+  .cp{display:flex; gap:12px; align-items:flex-start; padding:12px 0; border-bottom:1px dashed var(--line)}
+  .cp:last-child{border-bottom:0}
+  .cp .step{flex:0 0 auto; width:30px; height:30px; border-radius:9px; background:var(--soft); color:#3730a3;
+    font-weight:800; display:grid; place-items:center; font-size:14px}
+  .cp .body{flex:1}
+  .cp .body b{font-size:15.5px}
+  .legend{display:flex; flex-wrap:wrap; gap:8px; margin:10px 0 2px}
+  .legend span{font-size:12.5px; color:#334155; display:inline-flex; align-items:center; gap:6px}
+  .dot{width:12px;height:12px;border-radius:4px;display:inline-block}
+  .note{background:#fffbeb; border:1px solid #fde68a; border-radius:12px; padding:11px 13px; font-size:14px; margin-top:12px}
+  footer{color:var(--muted); text-align:center; font-size:13px; margin-top:26px}
+  .kbd{font-size:12.5px; background:#0f172a; color:#e2e8f0; padding:1px 7px; border-radius:6px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="hero">
+  <h1>국어 시험지 스킬 — 구조 한눈에 보기</h1>
+  <p>이 문서는 우리가 만든 시스템을 <b>비개발자도 이해할 수 있게</b> 그림과 쉬운 말로 설명합니다.
+     세 가지를 봅니다: ① 스킬을 <b>만드는 공장</b>(하네스), ② 스킬 안에서 <b>일하는 AI 팀</b>, ③ 선생님이 <b>실제로 쓰는 흐름</b>.</p>
+  <div>
+    <span class="tag">① 프로젝트 하네스</span>
+    <span class="tag">② 스킬의 멀티 에이전트</span>
+    <span class="tag">③ 사용자 워크플로우</span>
+  </div>
+</header>
+
+<section>
+  <div class="analogy">
+    <b>먼저 세 단어만 기억하세요.</b><br>
+    · <b>스킬</b> = AI에게 "이 일은 이렇게 하라"고 적어 둔 <b>업무 매뉴얼</b>.<br>
+    · <b>에이전트</b> = 그 매뉴얼을 들고 일하는 <b>각자 역할이 정해진 AI 일꾼</b>.<br>
+    · <b>오케스트레이터(반장)</b> = 일꾼들에게 순서를 정해 주고 결과를 모으는 <b>작업 반장</b>.
+  </div>
+</section>
+
+<!-- ============ 1. 하네스 ============ -->
+<section id="harness">
+  <div class="sec-h"><div class="no" style="background:var(--arch)">1</div><h2>스킬을 만드는 공장 — “하네스”</h2></div>
+  <p class="lead">하네스는 <b>“새 스킬을 찍어내는 작업 공장”</b>입니다. “운문(시) 스킬 만들어줘” 한마디면,
+     정해진 <b>AI 팀</b>이 설계→집필→제작→검사→출고 순서로 스킬 하나를 완성합니다.</p>
+
+  <div class="analogy">🏭 <b>비유 — 출판사</b>: 반장이 기획자·작가·기술자·교정자·편집장에게 일을 나눠 주고,
+     각자 만든 원고를 한데 모아 책 한 권(=스킬 하나)을 펴내는 것과 같아요.</div>
+
+  <div class="flow">
+    <div class="node orch"><div class="role">🧭 반장 — skill-forge <span class="chip">오케스트레이터</span></div>
+      <div class="desc">누가 언제 무엇을 할지 순서를 정하고, 결과를 모아 최종 점검합니다.</div></div>
+    <div class="down"></div>
+    <div class="node n-arch"><div class="role">📐 설계자 — skill-architect</div>
+      <div class="desc">“무엇을·어떤 구조로 만들지” 청사진을 그립니다. 기존 비문학 스킬에서 재활용할 부분도 정해요.</div></div>
+    <div class="par-badge">⇉ 설계 후 동시(병렬)</div>
+    <div class="trunk"></div>
+    <div class="frow">
+      <div class="fcell"><div class="vd"></div>
+        <div class="node n-author"><div class="role">✍️ 집필가 — skill-author</div>
+          <div class="desc">매뉴얼(SKILL.md)과 규칙 문서를 씁니다.</div></div></div>
+      <div class="fcell"><div class="vd"></div>
+        <div class="node n-eng"><div class="role">🛠️ 기술자 — script-engineer</div>
+          <div class="desc">검사기·조판기 같은 프로그램을 만듭니다.</div></div></div>
+    </div>
+    <div class="jrow">
+      <div class="jcell"><div class="vu"></div></div>
+      <div class="jcell"><div class="vu"></div></div>
+    </div>
+    <div class="trunk"></div>
+    <div class="node n-qa"><div class="role">🔎 검사자 — skill-qa</div>
+      <div class="desc">진짜로 작동하는지 시험합니다: 검사기가 통과/거부를 제대로 하는지, 출력 모양이 똑같은지, 스킬이 알맞게 발동되는지.</div></div>
+    <div class="down"></div>
+    <div class="node n-cur"><div class="role">📦 편집장 — skill-curator</div>
+      <div class="desc">문서·라이선스를 정리하고 깃(GitHub)에 올리며, 다음에 더 잘 만들도록 “변경 이력”을 남깁니다.</div></div>
+    <div class="store">🗂️ 공유 창고 <span class="kbd">_workspace/</span> — 각 단계 중간 결과물을 여기 보관해 서로 넘겨받고, 나중에 되짚어 볼 수 있어요.</div>
+  </div>
+
+  <div class="note">💡 <b>왜 이렇게 나눴나요?</b> 한 명이 다 하면 실수를 스스로 못 잡습니다.
+     <b>만드는 사람과 검사하는 사람을 분리</b>하면 품질이 올라가요. 그리고 이 공장은 한 번 쓰고 버리는 게 아니라,
+     쓸수록 <b>더 똑똑해지도록</b> 매번 배운 점을 반영합니다.</div>
+</section>
+
+<!-- ============ 2. 멀티 에이전트 ============ -->
+<section id="agents">
+  <div class="sec-h"><div class="no" style="background:var(--author)">2</div><h2>스킬 안에서 일하는 AI 팀 — “멀티 에이전트”</h2></div>
+  <p class="lead">완성된 <b>비문학 스킬</b> 안에서도, 한 AI가 통째로 하지 않습니다.
+     역할이 나뉜 <b>AI 팀</b>이 만듭니다. <b>순서가 꼭 필요한 곳은 이어달리기(순차)</b>,
+     <b>서로 상관없는 곳은 동시에(병렬)</b> — 이 둘을 섞은 <b>하이브리드</b> 방식이에요.</p>
+
+  <div class="analogy">📰 <b>비유 — 신문 편집국</b>: 취재기자가 자료를 모으고, 데스크가 방향을 잡고, 기자가 기사를 쓰고,
+     <b>팩트체커</b>가 사실을 검증하고, 편집기자가 지면을 짭니다. — 단, <b>여러 꼭지 기사는 기자들이 동시에</b> 쓰죠(병렬).</div>
+
+  <div class="legend">
+    <span><span class="dot" style="background:#334155"></span> ↓ 화살표 = 순서대로(순차)</span>
+    <span><span class="dot" style="background:#2563eb"></span> ⇉ 여러 갈래 = 동시에(병렬 · 팬아웃/팬인)</span>
+  </div>
+
+  <div class="flow">
+    <div class="node orch"><div class="role">🧭 반장(오케스트레이터)</div>
+      <div class="desc">단계마다 선생님께 확인받으며(3번 참고) 팀을 조율합니다.</div></div>
+    <div class="down"></div>
+    <div class="node n-res"><div class="role">🔍 자료조사관 <span class="chip">여러 출처 동시(병렬)</span></div>
+      <div class="desc">글감을 찾고 <b>믿을 만한 원본 출처</b>와 근거 문장을 확보합니다. 출처가 여럿이면 동시에 모아요.</div></div>
+    <div class="down"></div>
+    <div class="node n-arch"><div class="role">📐 지문 설계자</div>
+      <div class="desc">어떤 <b>설명 방식</b>(비교·인과·통념 반박 등)으로, 어떤 문단 뼈대로 쓸지 개요를 짭니다.</div></div>
+    <div class="down"></div>
+    <div class="node n-write"><div class="role">✍️ 지문 집필가</div>
+      <div class="desc">개요와 근거로 지문을 씁니다. <b>사실 문장마다 원본에서 그대로 따온 근거</b>를 붙입니다.</div></div>
+    <div class="down"></div>
+    <div class="node n-verify"><div class="role">🕵️ 사실 검증관 <span class="chip">깐깐하게</span></div>
+      <div class="desc">집필가를 믿지 않고 <b>원본과 다시 대조</b>합니다. 근거 없는 사실은 삭제/수정. <span class="small">(통합형 (가)/(나)는 집필가 2명이 병렬로 씀)</span></div></div>
+    <div class="par-badge">⇉ 지문 확정 후 문항끼리 독립 → 동시 출제(팬아웃)</div>
+    <div class="trunk"></div>
+    <div class="frow">
+      <div class="fcell"><div class="vd"></div>
+        <div class="node n-item"><div class="role">🧩 1번 문항</div><div class="desc">출제가 A</div></div></div>
+      <div class="fcell"><div class="vd"></div>
+        <div class="node n-item"><div class="role">🧩 2번 문항</div><div class="desc">출제가 B</div></div></div>
+      <div class="fcell"><div class="vd"></div>
+        <div class="node n-item"><div class="role">🧩 …N번 문항</div><div class="desc">출제가 N</div></div></div>
+    </div>
+    <div class="jrow">
+      <div class="jcell"><div class="vu"></div></div>
+      <div class="jcell"><div class="vu"></div></div>
+      <div class="jcell"><div class="vu"></div></div>
+    </div>
+    <div class="trunk"></div>
+    <div class="node n-review"><div class="role">✅ 문항 검토관 <span class="chip">팬인 · 모아서 일괄 검증</span></div>
+      <div class="desc">여러 갈래로 만든 문항을 <b>한데 모아</b> 정답 유일성·유형 중복·약한 오답을 점검합니다.</div></div>
+    <div class="down"></div>
+    <div class="node gate"><div class="role">🚧 기계 검문소 — validate_exam.py <span class="chip">최종 심판</span></div>
+      <div class="desc">사람 의견과 별개로, <b>모든 근거가 원본에 “글자 그대로” 있는지 프로그램이 대조</b>합니다.
+        통과 못 하면 시험지를 만들지 않습니다. — 환각(지어내기)을 막는 핵심 장치.</div></div>
+    <div class="down"></div>
+    <div class="node n-asm"><div class="role">📄 조립·조판관 — Assembler</div>
+      <div class="desc">지문+문항을 <b>2단 A4 시험지</b>로 조판해 HTML/PDF·한글(HWPX)로 출력합니다.</div></div>
+  </div>
+
+  <div class="note">🛡️ <b>환각을 막는 3중 안전장치</b>: ①만든 사람 ≠ 검사한 사람(AI 층위) ②선생님 승인(사람 층위)
+     ③기계 검문소의 “글자 그대로” 대조(기계 층위). 세 겹이라 한 곳이 놓쳐도 다음에서 걸립니다.</div>
+</section>
+
+<!-- ============ 3. 사용자 워크플로우 ============ -->
+<section id="workflow">
+  <div class="sec-h"><div class="no" style="background:var(--gate)">3</div><h2>선생님이 실제로 쓰는 흐름 — “대화형”</h2></div>
+  <p class="lead">버튼 하나로 “딸깍” 뽑지 않습니다. <b>7개의 단계</b>를 대화로 밟으며, 중요한 지점마다
+     <span class="pause">⏸ 선생님 확인</span>을 받고 다음으로 넘어갑니다.</p>
+
+  <div class="analogy">🧵 <b>비유 — 맞춤 정장</b>: 치수를 재고 → 원단을 고르고 → 가봉(중간 점검)을 하고 → 완성하는 것처럼,
+     중간중간 선생님이 확인해야 “딱 맞는” 시험지가 나옵니다.</div>
+
+  <div style="margin-top:8px">
+    <div class="cp"><div class="step">1</div><div class="body"><b>교실 맥락 수집</b> <span class="pause">⏸ 확인</span><br>
+      <span class="muted small">학년·영역·난이도·문항 수·자료 유무 등 빠진 것만 여쭤봅니다.</span></div></div>
+    <div class="cp"><div class="step">2</div><div class="body"><b>글감·주제 선택</b> <span class="pause">⏸ 확인</span><br>
+      <span class="muted small">어울리는 주제 후보 3개를 제안 → 선생님이 고릅니다(직접 지정도 가능).</span></div></div>
+    <div class="cp"><div class="step">3</div><div class="body"><b>원본 출처 확인</b> <span class="pause" style="background:#ffe4e6">⏸ 필수 확인</span><br>
+      <span class="muted small">어떤 자료·근거를 쓸지 보여드리고 승인받습니다. <b>믿기 어려운 근거는 쓰지 않습니다.</b></span></div></div>
+    <div class="cp"><div class="step">4</div><div class="body"><b>지문 개요 검토</b> <span class="pause">⏸ 확인</span><br>
+      <span class="muted small">어떤 설명 방식·문단 구성으로 쓸지 밑그림을 보고 고칠 부분을 정합니다.</span></div></div>
+    <div class="cp"><div class="step">5</div><div class="body"><b>지문 초안 검토</b> <span class="pause" style="background:#ffe4e6">⏸ 필수 확인</span><br>
+      <span class="muted small">완성 지문 + “무엇을 근거로 썼는지” 요약을 함께 드립니다. 사실·난이도·표현을 검토.</span></div></div>
+    <div class="cp"><div class="step">6</div><div class="body"><b>문항 검토</b> <span class="pause" style="background:#ffe4e6">⏸ 필수 확인</span><br>
+      <span class="muted small">문제·정답·해설을 보여드립니다. 특정 문항만 다시 낼 수도 있어요.</span></div></div>
+    <div class="cp"><div class="step">7</div><div class="body"><b>조판·출력</b><br>
+      <span class="muted small">승인된 내용을 2단 A4 시험지로 출력(HTML/PDF·한글). 교사용 정답·검증 리포트 포함.</span></div></div>
+  </div>
+
+  <div class="legend" style="margin-top:14px">
+    <span><span class="dot" style="background:#ffe4e6;border:1px solid #f6c9d4"></span> ⏸ 필수 확인 = 절대 건너뛰지 않는 3곳(출처·지문·문항)</span>
+  </div>
+  <div class="note">⚡ <b>빠른 모드</b>도 있어요. “알아서 빠르게” 하면 1·2·4단계는 기본값으로 묶고,
+     그래도 <b>출처·지문·문항 검토(3·5·6)는 꼭</b> 선생님 눈을 거칩니다. 오류가 새는 지점이니까요.</div>
+  <div class="note" style="background:#eef7ff;border-color:#bfdbfe">👩‍🏫 마지막으로, 완성본에는 항상
+     <b>“실제 출제 전 반드시 교사의 최종 검토가 필요합니다”</b>라는 안내가 붙습니다. AI가 만든 보조 자료이기 때문이에요.</div>
+</section>
+
+<footer>
+  국어 비문학(독서) 시험지 스킬 · 구조 설명 문서 · 하네스는 revfactory/harness(Apache-2.0) 방법론으로 설계<br>
+  이 문서는 시스템 이해를 돕기 위한 것으로, 실제 시험지 산출물은 교사 검토가 필요합니다.
+</footer>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,467 @@
+{
+  "meta": {
+    "title": "오류를 견디는 부호",
+    "grade": "고3",
+    "difficulty": "최상",
+    "sourceMode": "B_material",
+    "subjectField": "과학기술",
+    "questionCount": 4,
+    "passageForm": "single",
+    "createdAt": "FIXED"
+  },
+  "sources": [
+    {
+      "sourceId": "s1",
+      "kind": "teacher_material",
+      "title": "오류 정정 부호 개념 정리",
+      "text": "디지털 통신에서는 잡음 때문에 전송 중 일부 비트가 0과 1 사이에서 뒤바뀌는 오류가 생긴다. 이런 오류를 다루기 위해 정보 비트에 검사 비트를 덧붙인 부호어를 전송한다. 부호란 이렇게 만들어진 부호어들의 집합이다. 두 부호어에서 같은 자리의 비트가 서로 다른 자리의 개수를 두 부호어 사이의 해밍 거리라 한다. 한 부호에 속한 서로 다른 두 부호어 사이의 거리 중 가장 작은 값을 그 부호의 최소 거리라 한다. 최소 거리가 클수록 부호어들은 서로 더 멀리 떨어져 있다. 수신기는 받은 비트열을 그것과 가장 가까운 부호어로 판정하는데, 이를 최근접 판정이라 한다. 최소 거리가 d인 부호는 한 부호어에서 d-1개까지 비트가 바뀐 오류를 검출할 수 있다. 같은 부호는 d-1을 2로 나눈 몫만큼의 오류까지 정정할 수 있다. 정정이 검출보다 더 적은 수의 오류만 감당하는 것은 판정에서 바른 부호어 하나를 특정해야 하기 때문이다. 오류의 수가 정정 한계를 넘으면 바뀐 비트열이 원래 부호어보다 다른 부호어에 더 가까워져 잘못 정정된다. 오류의 수가 검출 한계마저 넘어 비트열이 또 다른 부호어와 정확히 일치하면 오류는 검출조차 되지 않는다. 따라서 최소 거리는 그 부호가 감당할 수 있는 오류의 한계를 정한다. 검사 비트를 늘리면 최소 거리를 키워 정정 능력을 높일 수 있다. 그러나 전체 비트 중 정보 비트가 차지하는 비율인 전송 효율은 그만큼 낮아진다. 그러므로 부호 설계는 오류에 견디는 힘과 전송 효율 사이의 균형을 찾는 일이다."
+    }
+  ],
+  "passages": [
+    {
+      "passageId": "P1",
+      "subject": "기술",
+      "title": "오류를 견디는 부호",
+      "part": "",
+      "instruction": "[1~4] 다음 글을 읽고 물음에 답하시오.",
+      "sentences": [
+        {
+          "sid": "p1",
+          "text": "디지털 통신에서는 잡음 때문에 전송 중 일부 비트가 0과 1 사이에서 뒤바뀌는 오류가 생긴다.",
+          "factual": true,
+          "sourceId": "s1",
+          "sourceQuote": "디지털 통신에서는 잡음 때문에 전송 중 일부 비트가 0과 1 사이에서 뒤바뀌는 오류가 생긴다.",
+          "paragraphStart": true
+        },
+        {
+          "sid": "p2",
+          "text": "이런 오류를 다루기 위해 정보 비트에 검사 비트를 덧붙인 부호어를 전송한다.",
+          "factual": true,
+          "sourceId": "s1",
+          "sourceQuote": "이런 오류를 다루기 위해 정보 비트에 검사 비트를 덧붙인 부호어를 전송한다."
+        },
+        {
+          "sid": "p3",
+          "text": "부호란 이렇게 만들어진 부호어들의 집합이다.",
+          "factual": true,
+          "sourceId": "s1",
+          "sourceQuote": "부호란 이렇게 만들어진 부호어들의 집합이다."
+        },
+        {
+          "sid": "p4",
+          "text": "두 부호어에서 같은 자리의 비트가 서로 다른 자리의 개수를 두 부호어 사이의 해밍 거리라 한다.",
+          "factual": true,
+          "sourceId": "s1",
+          "sourceQuote": "두 부호어에서 같은 자리의 비트가 서로 다른 자리의 개수를 두 부호어 사이의 해밍 거리라 한다.",
+          "paragraphStart": true,
+          "markers": [
+            {
+              "marker": "㉠",
+              "span": "해밍 거리"
+            }
+          ]
+        },
+        {
+          "sid": "p5",
+          "text": "한 부호에 속한 서로 다른 두 부호어 사이의 거리 중 가장 작은 값을 그 부호의 최소 거리라 한다.",
+          "factual": true,
+          "sourceId": "s1",
+          "sourceQuote": "한 부호에 속한 서로 다른 두 부호어 사이의 거리 중 가장 작은 값을 그 부호의 최소 거리라 한다.",
+          "markers": [
+            {
+              "marker": "㉡",
+              "span": "최소 거리"
+            }
+          ]
+        },
+        {
+          "sid": "p6",
+          "text": "최소 거리가 클수록 부호어들은 서로 더 멀리 떨어져 있다.",
+          "factual": true,
+          "sourceId": "s1",
+          "sourceQuote": "최소 거리가 클수록 부호어들은 서로 더 멀리 떨어져 있다."
+        },
+        {
+          "sid": "p7",
+          "text": "수신기는 받은 비트열을 그것과 가장 가까운 부호어로 판정하는데, 이를 최근접 판정이라 한다.",
+          "factual": true,
+          "sourceId": "s1",
+          "sourceQuote": "수신기는 받은 비트열을 그것과 가장 가까운 부호어로 판정하는데, 이를 최근접 판정이라 한다.",
+          "paragraphStart": true,
+          "markers": [
+            {
+              "marker": "㉢",
+              "span": "최근접 판정"
+            }
+          ]
+        },
+        {
+          "sid": "p8",
+          "text": "최소 거리가 d인 부호는 한 부호어에서 d-1개까지 비트가 바뀐 오류를 검출할 수 있다.",
+          "factual": true,
+          "sourceId": "s1",
+          "sourceQuote": "최소 거리가 d인 부호는 한 부호어에서 d-1개까지 비트가 바뀐 오류를 검출할 수 있다."
+        },
+        {
+          "sid": "p9",
+          "text": "같은 부호는 d-1을 2로 나눈 몫만큼의 오류까지 정정할 수 있다.",
+          "factual": true,
+          "sourceId": "s1",
+          "sourceQuote": "같은 부호는 d-1을 2로 나눈 몫만큼의 오류까지 정정할 수 있다."
+        },
+        {
+          "sid": "p10",
+          "text": "정정이 검출보다 더 적은 수의 오류만 감당하는 것은 판정에서 바른 부호어 하나를 특정해야 하기 때문이다.",
+          "factual": true,
+          "sourceId": "s1",
+          "sourceQuote": "정정이 검출보다 더 적은 수의 오류만 감당하는 것은 판정에서 바른 부호어 하나를 특정해야 하기 때문이다."
+        },
+        {
+          "sid": "p11",
+          "text": "오류의 수가 정정 한계를 넘으면 바뀐 비트열이 원래 부호어보다 다른 부호어에 더 가까워져 잘못 정정된다.",
+          "factual": true,
+          "sourceId": "s1",
+          "sourceQuote": "오류의 수가 정정 한계를 넘으면 바뀐 비트열이 원래 부호어보다 다른 부호어에 더 가까워져 잘못 정정된다.",
+          "paragraphStart": true
+        },
+        {
+          "sid": "p12",
+          "text": "오류의 수가 검출 한계마저 넘어 비트열이 또 다른 부호어와 정확히 일치하면 오류는 검출조차 되지 않는다.",
+          "factual": true,
+          "sourceId": "s1",
+          "sourceQuote": "오류의 수가 검출 한계마저 넘어 비트열이 또 다른 부호어와 정확히 일치하면 오류는 검출조차 되지 않는다."
+        },
+        {
+          "sid": "p13",
+          "text": "따라서 최소 거리는 그 부호가 감당할 수 있는 오류의 한계를 정한다.",
+          "factual": true,
+          "sourceId": "s1",
+          "sourceQuote": "따라서 최소 거리는 그 부호가 감당할 수 있는 오류의 한계를 정한다."
+        },
+        {
+          "sid": "p14",
+          "text": "검사 비트를 늘리면 최소 거리를 키워 정정 능력을 높일 수 있다.",
+          "factual": true,
+          "sourceId": "s1",
+          "sourceQuote": "검사 비트를 늘리면 최소 거리를 키워 정정 능력을 높일 수 있다.",
+          "paragraphStart": true
+        },
+        {
+          "sid": "p15",
+          "text": "그러나 전체 비트 중 정보 비트가 차지하는 비율인 전송 효율은 그만큼 낮아진다.",
+          "factual": true,
+          "sourceId": "s1",
+          "sourceQuote": "그러나 전체 비트 중 정보 비트가 차지하는 비율인 전송 효율은 그만큼 낮아진다."
+        },
+        {
+          "sid": "p16",
+          "text": "그러므로 부호 설계는 오류에 견디는 힘과 전송 효율 사이의 균형을 찾는 일이다.",
+          "factual": true,
+          "sourceId": "s1",
+          "sourceQuote": "그러므로 부호 설계는 오류에 견디는 힘과 전송 효율 사이의 균형을 찾는 일이다."
+        }
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "qid": "Q1",
+      "number": 1,
+      "type": "detail_check",
+      "stem": "윗글에 대한 이해로 적절한 것은?",
+      "choices": [
+        "부호는 정정할 수 있는 오류 수와 같은 수의 오류를 검출한다.",
+        "최소 거리가 클수록 부호어들은 서로 더 가까워진다.",
+        "최소 거리가 d인 부호는 최대 d-1개의 오류를 검출하지만 정정할 수 있는 오류 수는 그보다 적다.",
+        "검사 비트를 늘리면 전송 효율이 함께 높아진다.",
+        "수신기는 받은 비트열을 임의의 부호어로 판정한다."
+      ],
+      "answerIndex": 2,
+      "evidenceLocations": [
+        {
+          "passageRef": "p8",
+          "role": "condition_qualification",
+          "passageQuote": "d-1개까지 비트가 바뀐 오류를 검출할 수 있다"
+        },
+        {
+          "passageRef": "p9",
+          "role": "condition_qualification",
+          "passageQuote": "d-1을 2로 나눈 몫만큼의 오류까지 정정할 수 있다"
+        },
+        {
+          "passageRef": "p10",
+          "role": "cause_effect",
+          "passageQuote": "정정이 검출보다 더 적은 수의 오류만 감당하는 것은"
+        }
+      ],
+      "derivation": [
+        "p8은 최소 거리 d인 부호가 d-1개까지 오류를 검출함을 밝힌다.",
+        "p9는 정정 가능한 오류가 (d-1)/2로 검출보다 적음을 보인다.",
+        "p10이 그 이유를 설명하므로 선택지 3은 검출과 정정의 한계 차이를 정확히 진술한다."
+      ],
+      "distractors": [
+        {
+          "index": 0,
+          "recipe": "contradiction",
+          "whyFalse": "정정 가능한 오류 수는 검출보다 적다.",
+          "whyFalseRef": "p10",
+          "whyFalseQuote": "정정이 검출보다 더 적은 수의 오류만 감당하는 것은"
+        },
+        {
+          "index": 1,
+          "recipe": "contradiction",
+          "whyFalse": "최소 거리가 클수록 부호어는 더 멀리 떨어진다.",
+          "whyFalseRef": "p6",
+          "whyFalseQuote": "최소 거리가 클수록 부호어들은 서로 더 멀리 떨어져 있다"
+        },
+        {
+          "index": 3,
+          "recipe": "contradiction",
+          "whyFalse": "검사 비트를 늘리면 전송 효율은 낮아진다.",
+          "whyFalseRef": "p15",
+          "whyFalseQuote": "전송 효율은 그만큼 낮아진다"
+        },
+        {
+          "index": 4,
+          "recipe": "condition_confusion",
+          "whyFalse": "수신기는 가장 가까운 부호어로 판정한다.",
+          "whyFalseRef": "p7",
+          "whyFalseQuote": "가장 가까운 부호어로 판정"
+        }
+      ],
+      "demand": "recall"
+    },
+    {
+      "qid": "Q2",
+      "number": 2,
+      "type": "relation_reasoning",
+      "stem": "㉡(최소 거리)과 부호의 오류 대응 능력의 관계로 적절한 것은?",
+      "choices": [
+        "최소 거리가 클수록 검출하거나 정정할 수 있는 오류의 수가 늘어난다.",
+        "최소 거리는 오류 검출 능력과 무관하다.",
+        "최소 거리가 작아질수록 정정 능력이 커진다.",
+        "최소 거리는 전송 효율만을 결정한다.",
+        "최소 거리가 커져도 검출 한계는 일정하게 유지된다."
+      ],
+      "answerIndex": 0,
+      "evidenceLocations": [
+        {
+          "passageRef": "p8",
+          "role": "condition_qualification",
+          "passageQuote": "d-1개까지 비트가 바뀐 오류를 검출할 수 있다"
+        },
+        {
+          "passageRef": "p9",
+          "role": "condition_qualification",
+          "passageQuote": "d-1을 2로 나눈 몫만큼의 오류까지 정정할 수 있다"
+        },
+        {
+          "passageRef": "p13",
+          "role": "exception_limit",
+          "passageQuote": "최소 거리는 그 부호가 감당할 수 있는 오류의 한계를 정한다"
+        }
+      ],
+      "derivation": [
+        "p8·p9는 검출·정정 한계가 모두 d에 따라 정해짐을 보인다.",
+        "p13은 최소 거리가 오류 대응의 한계를 정함을 확인한다.",
+        "따라서 d가 커지면 검출·정정 가능한 오류 수가 늘어난다."
+      ],
+      "distractors": [
+        {
+          "index": 1,
+          "recipe": "condition_confusion",
+          "whyFalse": "검출 한계는 최소 거리 d로 정해진다.",
+          "whyFalseRef": "p8",
+          "whyFalseQuote": "d-1개까지 비트가 바뀐 오류를 검출할 수 있다"
+        },
+        {
+          "index": 2,
+          "recipe": "contradiction",
+          "whyFalse": "최소 거리가 클수록 대응 능력이 커진다.",
+          "whyFalseRef": "p13",
+          "whyFalseQuote": "최소 거리는 그 부호가 감당할 수 있는 오류의 한계를 정한다"
+        },
+        {
+          "index": 3,
+          "recipe": "scope_shift",
+          "whyFalse": "최소 거리는 오류 한계를 정한다.",
+          "whyFalseRef": "p13",
+          "whyFalseQuote": "오류의 한계를 정한다"
+        },
+        {
+          "index": 4,
+          "recipe": "condition_confusion",
+          "whyFalse": "검출 한계는 d-1로 d에 따라 달라진다.",
+          "whyFalseRef": "p8",
+          "whyFalseQuote": "d-1개까지"
+        }
+      ],
+      "demand": "inference"
+    },
+    {
+      "qid": "Q3",
+      "number": 3,
+      "type": "implicit_inference",
+      "stem": "윗글을 바탕으로 추론한 내용으로 적절한 것은?",
+      "choices": [
+        "정정 한계를 넘은 오류는 언제나 검출되지 않는다.",
+        "검출 한계를 넘은 오류도 항상 정확히 정정된다.",
+        "정정 한계 이내의 오류는 검출만 되고 정정되지 않는다.",
+        "오류 수가 정정 한계는 넘지만 검출 한계는 넘지 않으면, 잘못 정정될 수는 있어도 오류의 존재는 검출된다.",
+        "오류 수와 무관하게 최근접 판정은 항상 원래 부호어를 되찾는다."
+      ],
+      "answerIndex": 3,
+      "evidenceLocations": [
+        {
+          "passageRef": "p11",
+          "role": "exception_limit",
+          "passageQuote": "다른 부호어에 더 가까워져 잘못 정정된다"
+        },
+        {
+          "passageRef": "p12",
+          "role": "exception_limit",
+          "passageQuote": "또 다른 부호어와 정확히 일치하면 오류는 검출조차 되지 않는다"
+        },
+        {
+          "passageRef": "p8",
+          "role": "condition_qualification",
+          "passageQuote": "d-1개까지 비트가 바뀐 오류를 검출할 수 있다"
+        }
+      ],
+      "derivation": [
+        "p11에 따라 정정 한계를 넘으면 최근접 판정이 다른 부호어를 골라 잘못 정정될 수 있다.",
+        "p12는 검출 한계를 넘어 다른 부호어와 정확히 일치할 때에만 검출이 실패함을 밝힌다.",
+        "따라서 검출 한계를 넘지 않으면 수신열은 유효 부호어가 아니어서 오류가 검출된다."
+      ],
+      "distractors": [
+        {
+          "index": 0,
+          "recipe": "condition_confusion",
+          "whyFalse": "검출 실패는 검출 한계를 넘어 다른 부호어와 일치할 때만 일어난다.",
+          "whyFalseRef": "p12",
+          "whyFalseQuote": "검출 한계마저 넘어"
+        },
+        {
+          "index": 1,
+          "recipe": "contradiction",
+          "whyFalse": "검출 한계를 넘으면 잘못 정정될 수 있다.",
+          "whyFalseRef": "p11",
+          "whyFalseQuote": "잘못 정정된다"
+        },
+        {
+          "index": 2,
+          "recipe": "contradiction",
+          "whyFalse": "정정 한계 이내면 정정된다.",
+          "whyFalseRef": "p9",
+          "whyFalseQuote": "정정할 수 있다"
+        },
+        {
+          "index": 4,
+          "recipe": "scope_shift",
+          "whyFalse": "오류가 한계를 넘으면 원래 부호어를 되찾지 못한다.",
+          "whyFalseRef": "p11",
+          "whyFalseQuote": "다른 부호어에 더 가까워져 잘못 정정된다"
+        }
+      ],
+      "demand": "inference"
+    },
+    {
+      "qid": "Q4",
+      "number": 4,
+      "type": "crosstext_integration",
+      "stem": "<보기>의 상황에 대한 이해로 적절한 것은?",
+      "view": {
+        "title": "",
+        "text": "어떤 부호의 최소 거리는 5이다. 이 부호의 한 부호어를 전송했는데 전송 중 3개의 비트에서 오류가 발생했다."
+      },
+      "choices": [
+        "오류 3개는 정정 한계 이내이므로 항상 올바르게 정정된다.",
+        "오류 3개는 검출 한계를 넘어 검출되지 않는다.",
+        "오류가 정정 한계는 넘지만 검출 한계는 넘지 않아, 잘못 정정될 수는 있어도 오류는 검출된다.",
+        "이 부호는 최소 거리가 5이므로 오류를 정정할 수 없다.",
+        "이 부호는 4개의 오류까지 정정할 수 있다."
+      ],
+      "answerIndex": 2,
+      "evidenceLocations": [
+        {
+          "passageRef": "p8",
+          "role": "condition_qualification",
+          "passageQuote": "d-1개까지 비트가 바뀐 오류를 검출할 수 있다"
+        },
+        {
+          "passageRef": "p9",
+          "role": "condition_qualification",
+          "passageQuote": "d-1을 2로 나눈 몫만큼의 오류까지 정정할 수 있다"
+        },
+        {
+          "passageRef": "p11",
+          "role": "exception_limit",
+          "passageQuote": "다른 부호어에 더 가까워져 잘못 정정된다"
+        }
+      ],
+      "derivation": [
+        "최소 거리 d=5이므로 p8에 따라 검출 한계는 d-1=4다.",
+        "p9에 따라 정정 한계는 (5-1)/2=2다.",
+        "오류 3개는 정정 한계 2는 넘고 검출 한계 4는 넘지 않으므로, p11처럼 잘못 정정될 수는 있으나 검출은 된다."
+      ],
+      "distractors": [
+        {
+          "index": 0,
+          "recipe": "scope_shift",
+          "whyFalse": "정정 한계는 (5-1)/2=2로 3보다 작다.",
+          "whyFalseRef": "p9",
+          "whyFalseQuote": "d-1을 2로 나눈 몫만큼의 오류까지 정정할 수 있다"
+        },
+        {
+          "index": 1,
+          "recipe": "condition_confusion",
+          "whyFalse": "검출 한계는 4이므로 오류 3개는 검출된다.",
+          "whyFalseRef": "p8",
+          "whyFalseQuote": "d-1개까지 비트가 바뀐 오류를 검출할 수 있다"
+        },
+        {
+          "index": 3,
+          "recipe": "contradiction",
+          "whyFalse": "최소 거리 5인 부호도 일정 수의 오류를 정정할 수 있다.",
+          "whyFalseRef": "p9",
+          "whyFalseQuote": "정정할 수 있다"
+        },
+        {
+          "index": 4,
+          "recipe": "scope_shift",
+          "whyFalse": "정정 한계는 2이므로 4개를 정정할 수 없다.",
+          "whyFalseRef": "p9",
+          "whyFalseQuote": "d-1을 2로 나눈 몫만큼의 오류까지 정정할 수 있다"
+        }
+      ],
+      "demand": "integration"
+    }
+  ],
+  "verificationReport": {
+    "checks": [
+      {
+        "name": "사실 근거(축자 인용) 대조",
+        "ok": true,
+        "detail": "모든 사실 문장 sourceQuote가 원자료의 실제 부분문자열"
+      },
+      {
+        "name": "문항 정답 유일성",
+        "ok": true,
+        "detail": "정답 1개, 오답 4개 반증 인용 확인"
+      },
+      {
+        "name": "난이도 인지계약(최상: 근거 3·도출 3)",
+        "ok": true,
+        "detail": "모든 문항 근거 3개·도출 3단계"
+      },
+      {
+        "name": "유형 배분",
+        "ok": true,
+        "detail": "사실·관계·추론·적용(<보기>) 4유형 중복 없음"
+      }
+    ],
+    "removedItems": [],
+    "lowConfidenceFlags": [],
+    "disclaimer": "본 시험지는 AI가 보조 생성한 것으로, 실제 출제 전 반드시 교사의 최종 검토가 필요합니다."
+  }
+}

@@ -1,0 +1,477 @@
+{
+  "meta": {
+    "title": "지도는 세계를 어떻게 재현하는가",
+    "grade": "고2",
+    "difficulty": "상",
+    "sourceMode": "B_material",
+    "subjectField": "사회",
+    "questionCount": 5,
+    "passageForm": "single",
+    "createdAt": "FIXED"
+  },
+  "sources": [
+    {
+      "sourceId": "s1",
+      "kind": "teacher_material",
+      "title": "지도의 재현 방식 정리",
+      "text": "우리는 흔히 지도가 세계의 모습을 있는 그대로 옮겨 놓은 것이라고 여긴다. 그러나 지도는 세계를 그대로 복제하지 않는다. 둥근 지구를 평면에 옮기는 순간 어떤 왜곡도 피할 수 없기 때문이다. 지도 제작자는 무엇을 남기고 무엇을 지울지, 어떤 투영법으로 면을 펼칠지를 반드시 선택한다. 투영법은 지구의 곡면을 평면에 대응시키는 규칙으로, 방향을 살리면 넓이가, 넓이를 살리면 방향이 어긋난다. 축척은 실제 거리를 일정 비율로 줄인 것이어서, 세밀함과 전체 조망은 서로 맞바꿔진다. 기호는 복잡한 대상을 몇 개의 약속된 표시로 바꾸므로, 무엇을 부각하고 무엇을 감출지가 정해진다. 이 점에서 지도는 언어와 닮았다. 언어가 사물을 그대로 담지 않고 일정한 문법과 어휘로 걸러 내듯, 지도도 제작의 규칙으로 세계를 걸러 낸다. 그래서 같은 지역이라도 목적이 다르면 전혀 다른 지도가 그려진다. 결국 지도는 세계를 그대로 비추는 거울이 아니라, 특정한 관점에서 세계를 다시 구성한 해석이다. 지도를 읽는다는 것은 그 지도가 무엇을 위해 무엇을 선택했는지를 함께 읽는 일이다."
+    }
+  ],
+  "passages": [
+    {
+      "passageId": "P1",
+      "subject": "사회",
+      "title": "지도는 세계를 어떻게 재현하는가",
+      "part": "",
+      "instruction": "[1~5] 다음 글을 읽고 물음에 답하시오.",
+      "sentences": [
+        {
+          "sid": "p1",
+          "text": "우리는 흔히 지도가 세계의 모습을 있는 그대로 옮겨 놓은 것이라고 여긴다.",
+          "factual": true,
+          "sourceId": "s1",
+          "sourceQuote": "우리는 흔히 지도가 세계의 모습을 있는 그대로 옮겨 놓은 것이라고 여긴다.",
+          "paragraphStart": true
+        },
+        {
+          "sid": "p2",
+          "text": "그러나 지도는 세계를 그대로 복제하지 않는다.",
+          "factual": true,
+          "sourceId": "s1",
+          "sourceQuote": "그러나 지도는 세계를 그대로 복제하지 않는다."
+        },
+        {
+          "sid": "p3",
+          "text": "둥근 지구를 평면에 옮기는 순간 어떤 왜곡도 피할 수 없기 때문이다.",
+          "factual": true,
+          "sourceId": "s1",
+          "sourceQuote": "둥근 지구를 평면에 옮기는 순간 어떤 왜곡도 피할 수 없기 때문이다."
+        },
+        {
+          "sid": "p4",
+          "text": "지도 제작자는 무엇을 남기고 무엇을 지울지, 어떤 투영법으로 면을 펼칠지를 반드시 선택한다.",
+          "factual": true,
+          "sourceId": "s1",
+          "sourceQuote": "지도 제작자는 무엇을 남기고 무엇을 지울지, 어떤 투영법으로 면을 펼칠지를 반드시 선택한다.",
+          "paragraphStart": true
+        },
+        {
+          "sid": "p5",
+          "text": "투영법은 지구의 곡면을 평면에 대응시키는 규칙으로, 방향을 살리면 넓이가, 넓이를 살리면 방향이 어긋난다.",
+          "factual": true,
+          "sourceId": "s1",
+          "sourceQuote": "투영법은 지구의 곡면을 평면에 대응시키는 규칙으로, 방향을 살리면 넓이가, 넓이를 살리면 방향이 어긋난다.",
+          "markers": [
+            {
+              "marker": "㉠",
+              "span": "투영법"
+            }
+          ]
+        },
+        {
+          "sid": "p6",
+          "text": "축척은 실제 거리를 일정 비율로 줄인 것이어서, 세밀함과 전체 조망은 서로 맞바꿔진다.",
+          "factual": true,
+          "sourceId": "s1",
+          "sourceQuote": "축척은 실제 거리를 일정 비율로 줄인 것이어서, 세밀함과 전체 조망은 서로 맞바꿔진다.",
+          "markers": [
+            {
+              "marker": "㉡",
+              "span": "축척"
+            }
+          ]
+        },
+        {
+          "sid": "p7",
+          "text": "기호는 복잡한 대상을 몇 개의 약속된 표시로 바꾸므로, 무엇을 부각하고 무엇을 감출지가 정해진다.",
+          "factual": true,
+          "sourceId": "s1",
+          "sourceQuote": "기호는 복잡한 대상을 몇 개의 약속된 표시로 바꾸므로, 무엇을 부각하고 무엇을 감출지가 정해진다.",
+          "markers": [
+            {
+              "marker": "㉢",
+              "span": "기호"
+            }
+          ]
+        },
+        {
+          "sid": "p8",
+          "text": "이 점에서 지도는 언어와 닮았다.",
+          "factual": true,
+          "sourceId": "s1",
+          "sourceQuote": "이 점에서 지도는 언어와 닮았다.",
+          "paragraphStart": true,
+          "markers": [
+            {
+              "marker": "㉣",
+              "span": "언어"
+            }
+          ]
+        },
+        {
+          "sid": "p9",
+          "text": "언어가 사물을 그대로 담지 않고 일정한 문법과 어휘로 걸러 내듯, 지도도 제작의 규칙으로 세계를 걸러 낸다.",
+          "factual": true,
+          "sourceId": "s1",
+          "sourceQuote": "언어가 사물을 그대로 담지 않고 일정한 문법과 어휘로 걸러 내듯, 지도도 제작의 규칙으로 세계를 걸러 낸다."
+        },
+        {
+          "sid": "p10",
+          "text": "그래서 같은 지역이라도 목적이 다르면 전혀 다른 지도가 그려진다.",
+          "factual": true,
+          "sourceId": "s1",
+          "sourceQuote": "그래서 같은 지역이라도 목적이 다르면 전혀 다른 지도가 그려진다."
+        },
+        {
+          "sid": "p11",
+          "text": "결국 지도는 세계를 그대로 비추는 거울이 아니라, 특정한 관점에서 세계를 다시 구성한 해석이다.",
+          "factual": true,
+          "sourceId": "s1",
+          "sourceQuote": "결국 지도는 세계를 그대로 비추는 거울이 아니라, 특정한 관점에서 세계를 다시 구성한 해석이다.",
+          "paragraphStart": true
+        },
+        {
+          "sid": "p12",
+          "text": "지도를 읽는다는 것은 그 지도가 무엇을 위해 무엇을 선택했는지를 함께 읽는 일이다.",
+          "factual": true,
+          "sourceId": "s1",
+          "sourceQuote": "지도를 읽는다는 것은 그 지도가 무엇을 위해 무엇을 선택했는지를 함께 읽는 일이다."
+        }
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "qid": "Q1",
+      "number": 1,
+      "type": "detail_check",
+      "stem": "윗글에서 알 수 있는 것은?",
+      "choices": [
+        "지도는 세계의 모습을 있는 그대로 옮겨 놓은 복제물이다.",
+        "투영법은 방향과 넓이를 모두 온전히 살릴 수 있다.",
+        "지도는 둥근 지구를 평면에 옮기는 과정에서 어떤 왜곡도 피할 수 없다.",
+        "축척을 키우면 세밀함과 전체 조망을 동시에 얻는다.",
+        "기호는 대상의 모든 정보를 그대로 담는다."
+      ],
+      "answerIndex": 2,
+      "evidenceLocations": [
+        {
+          "passageRef": "p3",
+          "role": "cause_effect",
+          "passageQuote": "둥근 지구를 평면에 옮기는 순간 어떤 왜곡도 피할 수 없기"
+        },
+        {
+          "passageRef": "p2",
+          "role": "definition",
+          "passageQuote": "지도는 세계를 그대로 복제하지 않는다"
+        }
+      ],
+      "derivation": [
+        "p2·p3은 평면화 과정에서 왜곡이 불가피함을 밝힌다.",
+        "선택지 3은 이 내용을 그대로 진술한다."
+      ],
+      "distractors": [
+        {
+          "index": 0,
+          "recipe": "contradiction",
+          "whyFalse": "지도는 세계를 그대로 복제하지 않는다.",
+          "whyFalseRef": "p2",
+          "whyFalseQuote": "지도는 세계를 그대로 복제하지 않는다"
+        },
+        {
+          "index": 1,
+          "recipe": "scope_shift",
+          "whyFalse": "투영법은 방향과 넓이 중 하나를 살리면 다른 하나가 어긋난다.",
+          "whyFalseRef": "p5",
+          "whyFalseQuote": "방향을 살리면 넓이가, 넓이를 살리면 방향이 어긋난다"
+        },
+        {
+          "index": 3,
+          "recipe": "scope_shift",
+          "whyFalse": "세밀함과 전체 조망은 맞바꿔진다.",
+          "whyFalseRef": "p6",
+          "whyFalseQuote": "세밀함과 전체 조망은 서로 맞바꿔진다"
+        },
+        {
+          "index": 4,
+          "recipe": "scope_shift",
+          "whyFalse": "기호는 무엇을 부각하고 감출지를 정해 일부만 담는다.",
+          "whyFalseRef": "p7",
+          "whyFalseQuote": "무엇을 부각하고 무엇을 감출지가 정해진다"
+        }
+      ],
+      "demand": "recall"
+    },
+    {
+      "qid": "Q2",
+      "number": 2,
+      "type": "structure_flow",
+      "stem": "윗글의 서술 방식으로 가장 적절한 것은?",
+      "choices": [
+        "구체적 통계를 제시하며 지도의 역사를 시대순으로 서술한다.",
+        "통념을 반박한 뒤, 지도의 구성 요소를 분석하고 언어에 빗대어 설명한다.",
+        "서로 다른 두 대상을 대등하게 나열하여 공통점만 열거한다.",
+        "권위자의 견해를 인용하여 하나의 주장을 뒷받침한다.",
+        "지도의 장점만을 열거하여 그 가치를 예찬한다."
+      ],
+      "answerIndex": 1,
+      "evidenceLocations": [
+        {
+          "passageRef": "p2",
+          "role": "comparison_contrast",
+          "passageQuote": "지도는 세계를 그대로 복제하지 않는다"
+        },
+        {
+          "passageRef": "p8",
+          "role": "definition",
+          "passageQuote": "지도는 언어와 닮았다"
+        }
+      ],
+      "derivation": [
+        "p1~p2는 통념을 세우고 반박하며, p5~p7은 투영법·축척·기호로 요소를 분석한다.",
+        "p8~p9는 언어에 빗대어 설명하므로 선택지 2가 서술 방식으로 적절하다."
+      ],
+      "distractors": [
+        {
+          "index": 0,
+          "recipe": "attribute_swap",
+          "whyFalse": "글은 통계·역사가 아니라 유추로 설명한다.",
+          "whyFalseRef": "p8",
+          "whyFalseQuote": "지도는 언어와 닮았다"
+        },
+        {
+          "index": 2,
+          "recipe": "condition_confusion",
+          "whyFalse": "글은 단순 나열이 아니라 통념을 반박한다.",
+          "whyFalseRef": "p2",
+          "whyFalseQuote": "지도는 세계를 그대로 복제하지 않는다"
+        },
+        {
+          "index": 3,
+          "recipe": "condition_confusion",
+          "whyFalse": "글은 권위자 인용이 아니라 분석·유추로 논지를 편다.",
+          "whyFalseRef": "p11",
+          "whyFalseQuote": "특정한 관점에서 세계를 다시 구성한 해석"
+        },
+        {
+          "index": 4,
+          "recipe": "contradiction",
+          "whyFalse": "글은 예찬이 아니라 통념을 비판적으로 검토한다.",
+          "whyFalseRef": "p2",
+          "whyFalseQuote": "지도는 세계를 그대로 복제하지 않는다"
+        }
+      ],
+      "demand": "inference"
+    },
+    {
+      "qid": "Q3",
+      "number": 3,
+      "type": "relation_reasoning",
+      "stem": "지도를 ㉣(언어)에 빗댄 이유로 가장 적절한 것은?",
+      "choices": [
+        "언어가 문법과 어휘로 사물을 걸러 내듯, 지도도 제작의 규칙으로 세계를 걸러 내기 때문이다.",
+        "언어와 지도가 모두 대상을 있는 그대로 복제하기 때문이다.",
+        "지도가 언어보다 더 정확하게 세계를 재현하기 때문이다.",
+        "언어에는 규칙이 없지만 지도에는 규칙이 있기 때문이다.",
+        "언어와 지도가 목적에 따라 달라지지 않기 때문이다."
+      ],
+      "answerIndex": 0,
+      "evidenceLocations": [
+        {
+          "passageRef": "p9",
+          "role": "definition",
+          "passageQuote": "일정한 문법과 어휘로 걸러 내듯, 지도도 제작의 규칙으로 세계를 걸러 낸다"
+        },
+        {
+          "passageRef": "p8",
+          "role": "definition",
+          "passageQuote": "지도는 언어와 닮았다"
+        }
+      ],
+      "derivation": [
+        "p8은 지도와 언어의 유사성을 제시한다.",
+        "p9는 둘 다 규칙으로 대상을 걸러 낸다는 공통점을 밝히므로 선택지 1이 적절하다."
+      ],
+      "distractors": [
+        {
+          "index": 1,
+          "recipe": "contradiction",
+          "whyFalse": "언어는 사물을 그대로 담지 않는다.",
+          "whyFalseRef": "p9",
+          "whyFalseQuote": "사물을 그대로 담지 않고"
+        },
+        {
+          "index": 2,
+          "recipe": "scope_shift",
+          "whyFalse": "지도는 세계를 그대로 비추는 거울이 아니다.",
+          "whyFalseRef": "p11",
+          "whyFalseQuote": "세계를 그대로 비추는 거울이 아니라"
+        },
+        {
+          "index": 3,
+          "recipe": "contradiction",
+          "whyFalse": "언어에도 문법과 어휘라는 규칙이 있다.",
+          "whyFalseRef": "p9",
+          "whyFalseQuote": "일정한 문법과 어휘로 걸러 내듯"
+        },
+        {
+          "index": 4,
+          "recipe": "contradiction",
+          "whyFalse": "지도와 언어는 목적에 따라 달라진다.",
+          "whyFalseRef": "p10",
+          "whyFalseQuote": "목적이 다르면 전혀 다른 지도가 그려진다"
+        }
+      ],
+      "demand": "inference"
+    },
+    {
+      "qid": "Q4",
+      "number": 4,
+      "type": "implicit_inference",
+      "stem": "윗글을 바탕으로 추론한 것으로 적절한 것은?",
+      "choices": [
+        "같은 지역을 그린 두 지도가 다르다면 둘 중 하나는 반드시 틀린 지도다.",
+        "지도는 목적과 무관하게 언제나 동일하게 그려진다.",
+        "지도 제작에는 어떤 선택도 개입하지 않는다.",
+        "같은 지역을 그린 두 지도가 다르다면, 둘은 서로 다른 목적으로 서로 다른 정보를 선택한 것이다.",
+        "지도를 읽을 때 그 지도가 선택한 목적은 고려할 필요가 없다."
+      ],
+      "answerIndex": 3,
+      "evidenceLocations": [
+        {
+          "passageRef": "p10",
+          "role": "cause_effect",
+          "passageQuote": "목적이 다르면 전혀 다른 지도가 그려진다"
+        },
+        {
+          "passageRef": "p4",
+          "role": "condition_qualification",
+          "passageQuote": "무엇을 남기고 무엇을 지울지, 어떤 투영법으로 면을 펼칠지를 반드시 선택한다"
+        }
+      ],
+      "derivation": [
+        "p4는 제작에 선택이 개입함을, p10은 목적에 따라 지도가 달라짐을 밝힌다.",
+        "두 진술을 연결하면 서로 다른 지도는 서로 다른 목적·선택의 결과임을 추론할 수 있다."
+      ],
+      "distractors": [
+        {
+          "index": 0,
+          "recipe": "condition_confusion",
+          "whyFalse": "다른 지도는 틀린 것이 아니라 관점이 다른 해석일 수 있다.",
+          "whyFalseRef": "p11",
+          "whyFalseQuote": "특정한 관점에서 세계를 다시 구성한 해석"
+        },
+        {
+          "index": 1,
+          "recipe": "contradiction",
+          "whyFalse": "목적이 다르면 지도가 달라진다.",
+          "whyFalseRef": "p10",
+          "whyFalseQuote": "목적이 다르면 전혀 다른 지도가 그려진다"
+        },
+        {
+          "index": 2,
+          "recipe": "contradiction",
+          "whyFalse": "지도 제작에는 선택이 반드시 개입한다.",
+          "whyFalseRef": "p4",
+          "whyFalseQuote": "반드시 선택한다"
+        },
+        {
+          "index": 4,
+          "recipe": "contradiction",
+          "whyFalse": "지도를 읽을 때 그 목적과 선택을 함께 읽어야 한다.",
+          "whyFalseRef": "p12",
+          "whyFalseQuote": "무엇을 위해 무엇을 선택했는지를 함께 읽는 일"
+        }
+      ],
+      "demand": "inference"
+    },
+    {
+      "qid": "Q5",
+      "number": 5,
+      "type": "context_vocabulary",
+      "stem": "문맥상 ‘구성한’의 의미로 가장 적절한 것은?",
+      "choices": [
+        "있는 그대로 옮겨 놓은",
+        "우연히 만들어진",
+        "일정한 관점에서 새로 짜 맞춘",
+        "아무 기준 없이 나열한",
+        "실제 거리를 그대로 잰"
+      ],
+      "answerIndex": 2,
+      "evidenceLocations": [
+        {
+          "passageRef": "p11",
+          "role": "definition",
+          "passageQuote": "특정한 관점에서 세계를 다시 구성한 해석"
+        },
+        {
+          "passageRef": "p4",
+          "role": "definition",
+          "passageQuote": "어떤 투영법으로 면을 펼칠지를 반드시 선택한다"
+        }
+      ],
+      "derivation": [
+        "p11의 ‘구성’은 특정 관점에서 세계를 다시 짜 맞춘다는 뜻이다.",
+        "p4의 ‘선택’과 이어지므로 ‘새로 짜 맞춘’이 문맥에 맞는다."
+      ],
+      "distractors": [
+        {
+          "index": 0,
+          "recipe": "contradiction",
+          "whyFalse": "구성은 그대로 옮겨 놓는 것이 아니다.",
+          "whyFalseRef": "p2",
+          "whyFalseQuote": "지도는 세계를 그대로 복제하지 않는다"
+        },
+        {
+          "index": 1,
+          "recipe": "contradiction",
+          "whyFalse": "구성은 우연이 아니라 선택의 결과다.",
+          "whyFalseRef": "p4",
+          "whyFalseQuote": "반드시 선택한다"
+        },
+        {
+          "index": 3,
+          "recipe": "condition_confusion",
+          "whyFalse": "구성은 기준 없는 나열이 아니라 규칙에 따른 선택이다.",
+          "whyFalseRef": "p4",
+          "whyFalseQuote": "어떤 투영법으로 면을 펼칠지를 반드시 선택한다"
+        },
+        {
+          "index": 4,
+          "recipe": "contradiction",
+          "whyFalse": "실제 거리를 그대로 재는 것은 축척의 정의와도 어긋난다.",
+          "whyFalseRef": "p6",
+          "whyFalseQuote": "실제 거리를 일정 비율로 줄인"
+        }
+      ],
+      "demand": "recall"
+    }
+  ],
+  "verificationReport": {
+    "checks": [
+      {
+        "name": "사실 근거(축자 인용) 대조",
+        "ok": true,
+        "detail": "모든 사실 문장 sourceQuote가 원자료의 실제 부분문자열"
+      },
+      {
+        "name": "문항 정답 유일성",
+        "ok": true,
+        "detail": "정답 1개, 오답 4개 반증 인용 확인"
+      },
+      {
+        "name": "난이도 인지계약(상: 근거 2·도출 2)",
+        "ok": true,
+        "detail": "모든 문항 근거 2·도출 2 이상"
+      },
+      {
+        "name": "전개·발문 다양화",
+        "ok": true,
+        "detail": "통념반박+분석+유추+관점 전개, 서술방식·유추·추론·어휘 발문"
+      }
+    ],
+    "removedItems": [],
+    "lowConfidenceFlags": [],
+    "disclaimer": "본 시험지는 AI가 보조 생성한 것으로, 실제 출제 전 반드시 교사의 최종 검토가 필요합니다."
+  }
+}
