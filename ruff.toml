@@ -1,13 +1,14 @@
-# ruff configuration for korean-bimunhak-exam
-# master 원본 스크립트의 사소한 스타일 경고(E702 세미콜론, F841 미사용 변수)는
-# 기능에 영향이 없고 원본 코드를 존중해 수정하지 않는다. 보안/버그 관련 규칙은 유지.
-
-# 선택적 무시: master 원본 코드의 기존 스타일
+# ruff configuration for korean-exam-writer
+#
+# 규칙셋을 명시적으로 고정한다. select를 비워 두면 ruff 버전이 올라갈 때마다 기본
+# 규칙셋이 넓어져 CI가 코드 변경 없이 깨진다(실제로 UP/BLE/S/FURB 등 77건 발생).
+# 린트는 재현 가능해야 하므로 계약을 여기에 못박고, 확장은 의도적으로 한다.
 [lint]
+select = ["E4", "E7", "E9", "F"]   # ruff의 전통적 기본셋 — 문법·논리 오류 중심
 ignore = [
     "E702",   # multiple statements on one line (semicolon) — master 원본 _paragraphs()
     "F841",   # unused local variable — master 원본 _postprocess_columns_and_box()
 ]
 
 [lint.extend-per-file-ignores]
-"scripts/security_scan.py" = ["E501"]  # 보안 패턴 문자열이 길 수 있음
+"plugins/korean-exam-writer/scripts/security_scan.py" = ["E501"]  # 보안 패턴 문자열이 길 수 있음
