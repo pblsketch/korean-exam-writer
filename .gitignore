@@ -18,3 +18,4 @@ Thumbs.db
 
 # OMC state
 .omc/
+.ruff_cache/

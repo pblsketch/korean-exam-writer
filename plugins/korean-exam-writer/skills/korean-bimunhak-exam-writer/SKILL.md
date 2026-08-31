@@ -1,14 +1,14 @@
 ---
-name: korean-bimunhak-exam
+name: korean-bimunhak-exam-writer
 description: >-
   중·고등학교 국어 교사가 수능 국어 '비문학(독서)' 지문·문항·해설을 만들 때 사용한다. 인문·사회·과학·기술·예술 등 독서 영역이
-  대상이다(운문·산문 등 문학은 별도 스킬). 교과서 지문 재구성, 교사 자료 재구성, AI 리서치 기반 지문 생성을 학년(중1~고3)·세부
+  대상이다(운문은 korean-unmun-exam-writer, 산문은 미지원). 교과서 지문 재구성, 교사 자료 재구성, AI 리서치 기반 지문 생성을 학년(중1~고3)·세부
   난이도(하/중/상/최상)에 맞춰 출제하고, 인쇄용 2단 A4 시험지(HTML→PDF)와 한글(HWPX)로 출력한다. 최우선 원칙은 환각·사실오류
   금지: 모든 사실은 근거의 축자 인용으로 기계 검증된다. 트리거: "비문학 지문 만들어", "독서 지문·문항 출제", "국어 비문학 시험지",
   "수능 독서 지문 재구성", "인문/사회/과학기술/예술 지문 출제", "모의고사 비문학".
 ---
 
-# 국어 비문학(독서) 시험지 생성기 (korean-bimunhak-exam)
+# 국어 비문학(독서) 시험지 생성기 (korean-bimunhak-exam-writer)
 
 수능 국어형 **지문 → 문항 → 해설**을 만드는 스킬. 두 가지 축으로 동작한다:
 1. **오케스트레이션(분업)** — 한 에이전트가 통짜로 하지 않고, **오케스트레이터가 지휘**하고 역할별
@@ -22,7 +22,7 @@ description: >-
 
 ## ⛔ 최우선 원칙 (P0) — 환각·오류 금지
 1. 지문·문항의 어떤 사실(수치·연도·인명·고유명사·인용·인과관계)도 **근거 밖에서 지어내지 않는다.**
-2. 모든 사실 문장은 근거의 **축자(글자 그대로) 인용**(`sourceQuote`)을 달고, `scripts/validate_exam.py`가
+2. 모든 사실 문장은 근거의 **축자(글자 그대로) 인용**(`sourceQuote`)을 달고, `../../scripts/validate_exam.py`가
    그것이 원자료의 실제 부분문자열인지 **기계로 검증**한다. → "정확하게 써주세요"가 아니라 검증 가능한 구조.
 3. 근거를 댈 수 없는 사실은 **삭제**한다. 지문이 성립 안 되면 **거부**하고 교사에게 자료를 요청한다.
 4. 완성본에는 항상 교사용 **검증 리포트 + "최종 검토 필요" 고지**를 붙인다. (`references/00-anti-hallucination.md`)
@@ -45,18 +45,42 @@ description: >-
   → 지문+검증요약 제시 → 승인/수정.
 - **CP6 · 문항 검토** ⏸(생략 불가) — 유형×인지요구 배분(`01`·`02`)으로 슬롯을 나눠 **문항을 병렬(팬아웃)로 동시 출제**
   (인지 계약(`02`)·근거 역할(`04`)·오답 8종 3범주(`03`), 발문 다양화, 안티-복제) → **(문항 검토관) 팬인 일괄 품질 검증**
-  → `validate_exam.py` 기계 게이트 → 문항+정답+해설+검증리포트 제시 → 승인(수정 시 해당 문항만 재생성·재게이트).
+  → `validate_exam.py` 기계 게이트 → **L3 유일성 프로브**(아래) → 문항+정답+해설+검증리포트 제시
+  → 승인(수정 시 해당 문항만 재생성·재게이트).
   (실행 형태·병렬 규칙은 `references/12-orchestration.md` 참조.)
 - **CP7 · 조판·출력** — (조립관) 아래 스크립트로 HTML/HWPX 생성 후 무엇을 검증·제거했는지 요약 보고.
 
 **기계 게이트는 최종 심판**: 주관적 "괜찮음"과 별개로 `validate_exam.py`가 exit 0이어야 조판한다.
 
+## 정답 유일성 프로브 (L3) — CP6 통과 후, 조판 전 필수
+
+`validate_exam.py`의 H5(`whyFalseQuote`)는 "각 오답이 지문으로 **반증 가능한가**"를 검사한다.
+강력하지만 그 반증 인용을 **출제자 자신이 써낸다.** 오답이 사실은 참인 경우(복수정답)를 출제자가
+못 알아보면, H5는 그 오답에 그럴듯한 반증 인용을 붙인 채 통과한다. `08-verification-checklist.md`가
+"모순/복수정답 없음"을 **(의미)** 항목으로 남겨 둔 것이 바로 이 사각지대다.
+
+L3는 그것을 기계 절차로 바꾼다 — **정답 선지를 제거한** 4선지만 주고 "이 중 정답이 있는가?"를 묻는다.
+
+```bash
+python ../../scripts/probe_uniqueness.py exam.json --emit > probes.json
+# 각 프롬프트를 콜드 서브에이전트에 전달 → 응답을 results.json으로 정리
+python ../../scripts/probe_uniqueness.py exam.json --ingest results.json --write
+```
+
+1. 프로브는 반드시 **콜드 서브에이전트**(`Agent(subagent_type: "general-purpose")`)에 넘긴다.
+   같은 세션에서 역할만 바꾸면 정답이 이미 컨텍스트에 있어 검증이 원천 무효다.
+2. `verdict: picked`가 하나라도 나오면 **그 문항만** 재출제하고 재실행한다.
+3. 미응답 문항은 통과로 취급하지 않는다(exit 1).
+
+> **PASS의 의미**: 유일성의 증명이 아니라 **반증 실패**다. 검증자와 출제자가 같은 오독을 공유하면
+> 통과한다. 교사 검토를 대체하지 않는다 — 이 한계를 교사에게 숨기지 마라.
+
 ## 조판·변환 (CP7)
-- exam JSON을 `scripts/exam.schema.json` 형식으로 작성.
-- `python scripts/validate_exam.py exam.json` → **exit 0 아니면 렌더링 금지.** 오류 리포트대로 고쳐 재검증.
-- `python scripts/render_html.py exam.json -o exam.html` → 2단 A4 HTML(교사가 Chrome에서 PDF 인쇄).
-- (요청 시) `python scripts/exam_to_hwpx.py exam.json -o exam.hwpx` → python-hwpx로 2단 HWPX 조판
-  (지문=흐르는 문단 4면 연결 테두리, `<보기>`=표 박스, `hard_gates` 모두 pass). 설치: `pip install -U python-hwpx lxml`.
+- exam JSON을 `../../scripts/exam.schema.json` 형식으로 작성.
+- `python ../../scripts/validate_exam.py exam.json` → **exit 0 아니면 렌더링 금지.** 오류 리포트대로 고쳐 재검증.
+- `python ../../scripts/render_html.py exam.json -o exam.html` → 2단 A4 HTML(교사가 Chrome에서 PDF 인쇄).
+- (요청 시) `python ../../scripts/exam_to_hwpx.py exam.json -o exam.hwpx` → python-hwpx로 2단 HWPX 조판
+  (지문=흐르는 문단 4면 연결 테두리, `<보기>`=표 박스, `hard_gates` 모두 pass). 설치: `pip install -U 'python-hwpx>=3.2.0,<5' lxml`.
   (`references/10-hwpx-mapping.md`)
 
 ## 실행 계층
@@ -68,6 +92,6 @@ description: >-
 교사가 "빠르게/알아서"를 원하면 CP1·2·4를 기본값으로 묶어 통과하되, **CP3·5·6(출처·지문·문항 검토)은 유지**한다.
 
 ## 산출물 규격
-exam JSON 스키마는 `scripts/exam.schema.json`이 단일 진실 원천이다. 각 문항은 반드시
+exam JSON 스키마는 `../../scripts/exam.schema.json`이 단일 진실 원천이다. 각 문항은 반드시
 `evidenceLocations[]`(축자 인용 포함), `derivation[]`, `distractors[]`(recipe+whyFalse+축자 인용)를 갖는다.
-샘플: `examples/sample_exam.json`(유효), `examples/sample_exam_bad.json`(게이트 거부 예시).
+샘플: `../../../examples/bimunhak/sample_exam.json`(유효), `../../../examples/bimunhak/sample_exam_bad.json`(게이트 거부 예시).

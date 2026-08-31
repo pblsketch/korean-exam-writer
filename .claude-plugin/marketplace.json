@@ -1,0 +1,26 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "korean-exam-writer",
+  "description": "Single-plugin marketplace shipping korean-exam-writer — 수능 국어 시험지 생성 스킬 패밀리(비문학·운문).",
+  "owner": {
+    "name": "pblsketch",
+    "url": "https://github.com/pblsketch"
+  },
+  "plugins": [
+    {
+      "name": "korean-exam-writer",
+      "description": "중·고등학교 국어 교사가 자신의 Claude로 수능 국어 지문·문항·해설을 만드는 스킬 패밀리. 비문학(독서)과 운문(현대시·고전시가·갈래복합) 두 스킬이 스키마·검증기·조판기를 공유한다. 모든 사실은 축자 인용으로 기계 검증되고, 정답 유일성은 콜드 서브에이전트 반증 프로브로 확인한다. 서버·DB·API 키 없음.",
+      "author": {
+        "name": "pblsketch"
+      },
+      "category": "education",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/pblsketch/korean-exam-writer.git",
+        "path": "plugins/korean-exam-writer",
+        "ref": "master"
+      },
+      "homepage": "https://github.com/pblsketch/korean-exam-writer"
+    }
+  ]
+}

@@ -36,11 +36,17 @@ logging.disable(logging.WARNING)
 CIRCLED = ["①", "②", "③", "④", "⑤"]
 
 
+def _is_verse(sentences):
+    """Verse passages carry stanzaStart. A line break in verse is meaning, not layout."""
+    return any(s.get("stanzaStart") for s in sentences)
+
+
 def _paragraphs(sentences):
-    """Group passage sentences into paragraphs by paragraphStart."""
+    """Group passage sentences into blocks: by paragraphStart (prose) or stanzaStart (verse)."""
+    key = "stanzaStart" if _is_verse(sentences) else "paragraphStart"
     para, out = [], []
     for s in sentences:
-        if s.get("paragraphStart") and para:
+        if s.get(key) and para:
             out.append(para); para = []
         para.append(s)
     if para:
@@ -112,7 +118,21 @@ def build_hwpx(exam, out_path, columns=2):
     for p in exam.get("passages", []):
         if p.get("instruction"):
             kids.append(Paragraph(children=[Run(p["instruction"], bold=True, size=BODY)]))
-        for group in _paragraphs(p.get("sentences", [])):
+        verse = _is_verse(p.get("sentences", []))
+        for gi, group in enumerate(_paragraphs(p.get("sentences", []))):
+            if verse:
+                # one paragraph per 시행 — the line break carries meaning
+                if gi:
+                    kids.append(Paragraph(text=""))      # 연 사이 빈 줄
+                for s in group:
+                    runs, plain = [], []
+                    for txt, b, u in _sentence_segments(s):
+                        if txt:
+                            runs.append(Run(txt, bold=b, underline=u, size=BODY))
+                            plain.append(txt)
+                    kids.append(Paragraph(children=runs))
+                    passage_texts.add("".join(plain).strip())
+                continue
             runs, plain = [], []
             for s in group:
                 for txt, b, u in _sentence_segments(s):
@@ -425,8 +445,15 @@ def to_markdown(exam):
             L.append("**%s**" % p["instruction"])
         if p.get("title"):
             L.append("### %s%s" % (("(%s) " % p["part"]) if p.get("part") else "", p["title"]))
-        for group in _paragraphs(p.get("sentences", [])):
-            L.append("> " + " ".join(_sentence_text(s) for s in group))
+        verse = _is_verse(p.get("sentences", []))
+        for gi, group in enumerate(_paragraphs(p.get("sentences", []))):
+            if verse:
+                if gi:
+                    L.append(">")                      # 연 사이 빈 줄
+                for s in group:
+                    L.append("> " + _sentence_text(s))  # 시행 1줄 = 마크다운 1줄
+            else:
+                L.append("> " + " ".join(_sentence_text(s) for s in group))
         L.append("")
     for q in exam.get("questions", []):
         L.append("**%d.** %s" % (q.get("number", 0), q.get("stem", "")))

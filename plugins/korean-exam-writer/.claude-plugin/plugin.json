@@ -1,0 +1,12 @@
+{
+  "name": "korean-exam-writer",
+  "description": "수능 국어 시험지 생성 스킬 패밀리 — 비문학(독서) · 운문(현대시·고전시가·갈래복합). 지문·문항·해설을 만들고 2단 A4 HTML(→PDF)과 한글(HWPX)로 조판한다. 환각 방지는 축자 인용 기계 검증(H1/H5), 운문은 해석 분리(H6)와 저작권 근거(H7)가 추가 게이트로 걸린다. 정답 유일성은 콜드 서브에이전트 leave-one-out 프로브(L3)로 반증 시도한다.",
+  "author": {
+    "name": "pblsketch",
+    "url": "https://github.com/pblsketch"
+  },
+  "homepage": "https://github.com/pblsketch/korean-exam-writer",
+  "repository": "https://github.com/pblsketch/korean-exam-writer.git",
+  "license": "PolyForm-Noncommercial-1.0.0",
+  "version": "2.0.0"
+}

@@ -1,0 +1,364 @@
+{
+  "meta": {
+    "title": "[게이트 거부 예시] 운문 H6·H7·역할·오인용 위반",
+    "grade": "고2",
+    "difficulty": "중",
+    "sourceMode": "B_material",
+    "subjectField": "현대시",
+    "questionCount": 3,
+    "domain": "운문",
+    "passageForm": "single"
+  },
+  "sources": [
+    {
+      "sourceId": "s1",
+      "kind": "public_domain_work",
+      "title": "윤동주, 「자화상(自畵像)」",
+      "copyright": {
+        "status": "public_domain"
+      },
+      "text": "산모퉁이를 돌아 논가 외딴 우물을 홀로 찾아가선 가만히 들여다봅니다.\n\n우물 속에는 달이 밝고 구름이 흐르고 하늘이 펼치고 파아란 바람이 불고 가을이 있습니다.\n\n그리고 한 사나이가 있습니다.\n어쩐지 그 사나이가 미워져 돌아갑니다.\n\n돌아가다 생각하니 그 사나이가 가엾어집니다.\n도로 가 들여다보니 사나이는 그대로 있습니다.\n\n다시 그 사나이가 미워져 돌아갑니다.\n돌아가다 생각하니 그 사나이가 그리워집니다.\n\n우물 속에는 달이 밝고 구름이 흐르고 하늘이 펼치고 파아란 바람이 불고 가을이 있고 추억처럼 사나이가 있습니다."
+    },
+    {
+      "sourceId": "s2",
+      "kind": "teacher_material",
+      "title": "교사 작성 감상 관점 (외적 준거)",
+      "text": "이 시의 '사나이'는 우물에 비친 화자 자신의 모습이다. 시인은 자신을 대상처럼 떼어 놓고 바라봄으로써 미움과 연민과 그리움이 교차하는 자기 인식의 과정을 드러낸다. 우물은 그 인식이 이루어지는 매개인 동시에, 자연을 함께 담아 내면을 비추는 거울로 기능한다."
+    }
+  ],
+  "passages": [
+    {
+      "passageId": "P1",
+      "title": "자화상(自畵像)",
+      "subject": "현대시",
+      "part": "",
+      "instruction": "다음 글을 읽고 물음에 답하시오.",
+      "sentences": [
+        {
+          "sid": "p1",
+          "text": "산모퉁이를 돌아 논가 외딴 우물을 홀로 찾아가선 가만히 들여다봅니다.",
+          "stanzaStart": true,
+          "factual": true,
+          "sourceQuote": "산모퉁이를 돌아 논가 외딴 우물을 홀로 찾아가선 가만히 들여다봅니다.",
+          "sourceId": "s1"
+        },
+        {
+          "sid": "p2",
+          "text": "우물 속에는 달이 밝고 구름이 흐르고 하늘이 펼치고 파아란 바람이 불고 가을이 있습니다.",
+          "stanzaStart": true,
+          "factual": true,
+          "sourceQuote": "우물 속에는 달이 밝고 구름이 흐르고 하늘이 펼치고 파아란 바람이 불고 가을이 있습니다.",
+          "sourceId": "s1"
+        },
+        {
+          "sid": "p3",
+          "text": "그리고 한 사나이가 있습니다.",
+          "stanzaStart": true,
+          "factual": true,
+          "sourceQuote": "그리고 두 사나이가 있습니다",
+          "sourceId": "s1"
+        },
+        {
+          "sid": "p4",
+          "text": "어쩐지 그 사나이가 미워져 돌아갑니다.",
+          "stanzaStart": false,
+          "factual": true,
+          "sourceQuote": "어쩐지 그 사나이가 미워져 돌아갑니다.",
+          "sourceId": "s1",
+          "markers": [
+            {
+              "marker": "㉠",
+              "span": "어쩐지 그 사나이가 미워져 돌아갑니다."
+            }
+          ]
+        },
+        {
+          "sid": "p5",
+          "text": "돌아가다 생각하니 그 사나이가 가엾어집니다.",
+          "stanzaStart": true,
+          "factual": true,
+          "sourceQuote": "돌아가다 생각하니 그 사나이가 가엾어집니다.",
+          "sourceId": "s1",
+          "markers": [
+            {
+              "marker": "㉡",
+              "span": "돌아가다 생각하니 그 사나이가 가엾어집니다."
+            }
+          ]
+        },
+        {
+          "sid": "p6",
+          "text": "도로 가 들여다보니 사나이는 그대로 있습니다.",
+          "stanzaStart": false,
+          "factual": true,
+          "sourceQuote": "도로 가 들여다보니 사나이는 그대로 있습니다.",
+          "sourceId": "s1"
+        },
+        {
+          "sid": "p7",
+          "text": "다시 그 사나이가 미워져 돌아갑니다.",
+          "stanzaStart": true,
+          "factual": true,
+          "sourceQuote": "다시 그 사나이가 미워져 돌아갑니다.",
+          "sourceId": "s1"
+        },
+        {
+          "sid": "p8",
+          "text": "돌아가다 생각하니 그 사나이가 그리워집니다.",
+          "stanzaStart": false,
+          "factual": true,
+          "sourceQuote": "돌아가다 생각하니 그 사나이가 그리워집니다.",
+          "sourceId": "s1",
+          "markers": [
+            {
+              "marker": "㉢",
+              "span": "돌아가다 생각하니 그 사나이가 그리워집니다."
+            }
+          ]
+        },
+        {
+          "sid": "p9",
+          "text": "우물 속에는 달이 밝고 구름이 흐르고 하늘이 펼치고 파아란 바람이 불고 가을이 있고 추억처럼 사나이가 있습니다.",
+          "stanzaStart": true,
+          "factual": true,
+          "sourceQuote": "우물 속에는 달이 밝고 구름이 흐르고 하늘이 펼치고 파아란 바람이 불고 가을이 있고 추억처럼 사나이가 있습니다.",
+          "sourceId": "s1"
+        }
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "qid": "Q1",
+      "number": 1,
+      "type": "detail_check",
+      "demand": "inference",
+      "stem": "윗글의 표현상 특징으로 가장 적절한 것은?",
+      "choices": [
+        "화자가 우물을 떠난 뒤에야 사나이가 나타나 긴장감을 높인다.",
+        "경어체의 종결 어미를 반복하여 고백적이고 차분한 어조를 형성한다.",
+        "청자에게 직접 말을 건네는 방식으로 대상과의 거리를 좁힌다.",
+        "둘 이상의 색채어를 대비하여 화자와 대상의 갈등을 부각한다.",
+        "시간의 흐름을 역전시켜 과거의 사건을 현재의 일처럼 제시한다."
+      ],
+      "answerIndex": 2,
+      "evidenceLocations": [
+        {
+          "passageRef": "p1",
+          "role": "tone_diction",
+          "passageQuote": "가만히 들여다봅니다"
+        },
+        {
+          "passageRef": "p3",
+          "role": "tone_diction",
+          "passageQuote": "그리고 한 사나이가 있습니다",
+          "interpretation": "같은 종결이 전 행에 걸쳐 반복되면서, 격앙되지 않고 담담하게 자기를 고백하는 어조가 만들어진다."
+        }
+      ],
+      "derivation": [
+        "모든 행이 '-ㅂ니다' 경어체로 종결된다.",
+        "종결 어미의 반복은 진술의 높낮이를 고르게 만들어 고백적·차분한 어조를 형성한다."
+      ],
+      "distractors": [
+        {
+          "index": 0,
+          "recipe": "causal_error",
+          "whyFalse": "사나이는 화자가 우물을 들여다보는 동안 이미 그 안에 있다. 등장과 이탈의 순서를 뒤집었다.",
+          "whyFalseRef": "p3",
+          "whyFalseQuote": "그리고 한 사나이가 있습니다"
+        },
+        {
+          "index": 3,
+          "recipe": "overgeneralization",
+          "whyFalse": "색채어는 '파아란' 하나뿐이며 대비될 두 번째 색채어가 없다. 단일 시어를 대비 구조로 확대했다.",
+          "whyFalseRef": "p2",
+          "whyFalseQuote": "파아란 바람이 불고"
+        },
+        {
+          "index": 4,
+          "recipe": "contradiction",
+          "whyFalse": "찾아감·돌아감·되돌아옴이 순차적으로 전개되며 시간의 역전은 나타나지 않는다.",
+          "whyFalseRef": "p6",
+          "whyFalseQuote": "도로 가 들여다보니 사나이는 그대로 있습니다"
+        },
+        {
+          "index": 1,
+          "recipe": "not_stated",
+          "whyFalse": "채움",
+          "whyFalseRef": "p1",
+          "whyFalseQuote": "홀로 찾아가선"
+        }
+      ],
+      "explanation": "전 행이 경어체 '-ㅂ니다'로 종결되어 고백적이고 차분한 어조를 이룬다."
+    },
+    {
+      "qid": "Q2",
+      "number": 2,
+      "type": "implicit_inference",
+      "demand": "inference",
+      "stem": "㉠~㉢을 바탕으로 화자의 태도를 이해한 내용으로 가장 적절한 것은?",
+      "choices": [
+        "㉠~㉢을 거치며 화자가 모든 타인에 대해 동일한 태도를 갖게 되었음이 드러난다.",
+        "㉡의 연민이 앞서 생겨났기에 그 반작용으로 ㉠의 미움이 일어난 것이다.",
+        "㉢의 그리움은 사나이가 화자에게 먼저 다가온 데서 비롯된 것이다.",
+        "㉠에서 ㉡으로 옮겨 가면서 대상에 대한 거부감이 연민으로 누그러진다.",
+        "㉢에 이르러 화자는 대상과의 대면을 그만두기로 결심한다."
+      ],
+      "answerIndex": 2,
+      "evidenceLocations": [
+        {
+          "passageRef": "p4",
+          "role": "cause_effect",
+          "passageQuote": "어쩐지 그 사나이가 미워져 돌아갑니다",
+          "interpretation": "㉠은 대상을 밀어내는 거부의 지점이다. '어쩐지'가 그 미움이 설명되지 않는 것임을 드러낸다."
+        },
+        {
+          "passageRef": "p5",
+          "role": "speaker_attitude",
+          "passageQuote": "돌아가다 생각하니 그 사나이가 가엾어집니다",
+          "interpretation": "㉡에서 거부는 연민으로 바뀐다. '돌아가다 생각하니'가 전환의 계기이며, 미움이 거둬지는 방향으로 감정이 누그러진다."
+        }
+      ],
+      "derivation": [
+        "㉠은 미움, ㉡은 가엾음으로 시행 순서상 ㉠이 먼저다.",
+        "두 시행 사이에서 감정의 방향이 거부에서 연민으로 이동한다."
+      ],
+      "distractors": [
+        {
+          "index": 0,
+          "recipe": "overgeneralization",
+          "whyFalse": "시가 다루는 대상은 우물에 비친 한 사나이뿐이며, 타인 일반으로 확대할 근거가 없다.",
+          "whyFalseRef": "p3",
+          "whyFalseQuote": "그리고 한 사나이가 있습니다"
+        },
+        {
+          "index": 1,
+          "recipe": "causal_error",
+          "whyFalse": "시행 순서상 ㉠의 미움이 먼저이고 ㉡의 연민이 뒤따른다. 선후를 뒤집어 인과를 만들었다.",
+          "whyFalseRef": "p4",
+          "whyFalseQuote": "어쩐지 그 사나이가 미워져 돌아갑니다"
+        },
+        {
+          "index": 4,
+          "recipe": "contradiction",
+          "whyFalse": "마지막 연에서 사나이는 '추억처럼' 남는다. 대면의 단절이 아니라 지속을 향한다.",
+          "whyFalseRef": "p9",
+          "whyFalseQuote": "추억처럼 사나이가 있습니다"
+        },
+        {
+          "index": 3,
+          "recipe": "not_stated",
+          "whyFalse": "채움",
+          "whyFalseRef": "p1",
+          "whyFalseQuote": "홀로 찾아가선"
+        }
+      ],
+      "explanation": "㉠의 미움이 ㉡의 연민으로 옮겨 가는 흐름이 시행 순서 그대로 드러난다."
+    },
+    {
+      "qid": "Q3",
+      "number": 3,
+      "type": "crosstext_integration",
+      "demand": "integration",
+      "stem": "<보 기>를 참고하여 윗글을 감상한 내용으로 가장 적절한 것은? [3점]",
+      "view": {
+        "title": "보 기",
+        "text": "이 시의 '사나이'는 우물에 비친 화자 자신의 모습이다. 시인은 자신을 대상처럼 떼어 놓고 바라봄으로써 미움과 연민과 그리움이 교차하는 자기 인식의 과정을 드러낸다. 우물은 그 인식이 이루어지는 매개인 동시에, 자연을 함께 담아 내면을 비추는 거울로 기능한다.",
+        "sourceId": "s2",
+        "sourceQuote": "존재하지 않는 평론가의 문장"
+      },
+      "choices": [
+        "우물을 들여다보는 주체는 사나이이며, 화자는 그에게 관찰당하는 대상이다.",
+        "사나이가 우물에 나타났기 때문에 화자가 비로소 자신을 대상화하게 되었다.",
+        "우물 속에 자연물과 사나이가 나란히 놓인 것은, 화자의 내면이 자연을 배경으로 비추어짐을 보여 준다.",
+        "자기 인식이 그리움으로 완결되었으므로 화자에게 더 이상 갈등의 여지는 남지 않는다.",
+        "화자는 우물에 빠진 다른 사람을 목격하고 그를 가엾게 여긴다."
+      ],
+      "answerIndex": 2,
+      "evidenceLocations": [
+        {
+          "passageRef": "v0",
+          "role": "external_criterion",
+          "passageQuote": "자연을 함께 담아 내면을 비추는 거울로 기능한다",
+          "interpretation": "<보기>는 우물을 단순한 사물이 아니라 자연과 내면을 함께 담는 거울로 규정한다."
+        },
+        {
+          "passageRef": "p9",
+          "role": "imagery_sensory",
+          "passageQuote": "달이 밝고 구름이 흐르고 하늘이 펼치고 파아란 바람이 불고 가을이 있고 추억처럼 사나이가 있습니다",
+          "interpretation": "자연물을 길게 나열한 끝에 사나이를 같은 문장 안에 놓는 배치가, <보기>의 거울 기능을 시행 차원에서 구현한다."
+        }
+      ],
+      "derivation": [
+        "<보기>는 우물을 자연과 내면을 함께 비추는 거울로 규정한다.",
+        "마지막 연은 자연물 나열 끝에 사나이를 한 문장에 나란히 놓는다.",
+        "따라서 그 배치가 <보기>가 말한 거울 기능의 시적 구현이다."
+      ],
+      "distractors": [
+        {
+          "index": 0,
+          "recipe": "attribute_swap",
+          "whyFalse": "들여다보는 주체는 화자이며 사나이는 우물에 비친 상이다. 관찰의 방향을 뒤집었다.",
+          "whyFalseRef": "p1",
+          "whyFalseQuote": "홀로 찾아가선 가만히 들여다봅니다"
+        },
+        {
+          "index": 1,
+          "recipe": "causal_error",
+          "whyFalse": "<보기>에 따르면 사나이는 자기 대상화의 결과로 나타난 상이다. 결과를 원인으로 뒤집었다.",
+          "whyFalseRef": "v0",
+          "whyFalseQuote": "떼어 놓고 바라봄으로써"
+        },
+        {
+          "index": 3,
+          "recipe": "overgeneralization",
+          "whyFalse": "<보기>는 감정이 '교차하는' 과정이라고 했다. 과정을 완결된 종결로 확대했다.",
+          "whyFalseRef": "v0",
+          "whyFalseQuote": "교차하는 자기 인식의 과정"
+        },
+        {
+          "index": 4,
+          "recipe": "literal_misreading",
+          "whyFalse": "'사나이'는 우물에 비친 화자 자신이다. 비유를 물리적 사건으로 축자 독해했다.",
+          "whyFalseRef": "v0",
+          "whyFalseQuote": "우물에 비친 화자 자신의 모습이다"
+        }
+      ],
+      "explanation": "마지막 연에서 자연물과 사나이가 한 문장에 나란히 놓여 <보기>의 거울 기능이 확인된다."
+    }
+  ],
+  "verificationReport": {
+    "checks": [
+      {
+        "name": "H1 작품 축자 일치",
+        "ok": true,
+        "detail": "모든 시행이 등록된 원작 텍스트의 부분문자열로 확인됨(오인용 없음)."
+      },
+      {
+        "name": "H5 오답 반증 접지",
+        "ok": true,
+        "detail": "오답 12개 전부 시행 또는 <보기> 인용으로 반증됨."
+      },
+      {
+        "name": "H6 해석 분리",
+        "ok": true,
+        "detail": "demand≠recall 문항의 모든 근거에 interpretation 기재."
+      },
+      {
+        "name": "H7 저작권 근거",
+        "ok": true,
+        "detail": "윤동주 1945년 사망 — 사후 70년 경과."
+      },
+      {
+        "name": "L3 유일성 프로브",
+        "ok": true,
+        "detail": "콜드 서브에이전트 leave-one-out 3문항 전부 '없음'."
+      }
+    ],
+    "removedItems": [],
+    "lowConfidenceFlags": [
+      "Q3는 감상 문항으로 해석의 폭이 있다. 배포 전 교사 확인 권장."
+    ],
+    "disclaimer": "자동 생성 문항입니다. 실제 출제 전 반드시 교사의 최종 검토가 필요합니다. 수록 작품: 윤동주 「자화상」(저작권 만료, 1945년 저작자 사망)."
+  }
+}

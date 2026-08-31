@@ -61,3 +61,7 @@ body {
 }
 .no-print { text-align: center; margin: 8px 0; }
 .no-print button { font-size: 10pt; padding: 4px 10px; }
+
+/* 운문(verse): 행갈이가 의미이므로 들여쓰기를 없애고 행 간격을 넓힌다. */
+.passage-body.verse p { text-indent: 0; margin: 0 0 0.7em; line-height: 1.75; }
+.passage-body.verse p:last-child { margin-bottom: 0; }

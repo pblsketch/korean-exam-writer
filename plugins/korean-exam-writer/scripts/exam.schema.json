@@ -1,0 +1,583 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://exam-generator/exam.schema.json",
+  "title": "Korean 수능-style Exam",
+  "description": "Single source of truth for the exam object. Anti-hallucination (H1/H5) is enforced structurally: every factual claim carries a verbatim quote that validate_exam.py checks as a literal substring of its source.",
+  "type": "object",
+  "required": [
+    "meta",
+    "sources",
+    "passages",
+    "questions",
+    "verificationReport"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "meta": {
+      "type": "object",
+      "required": [
+        "title",
+        "grade",
+        "difficulty",
+        "sourceMode",
+        "subjectField",
+        "questionCount"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "title": {
+          "type": "string",
+          "minLength": 1
+        },
+        "grade": {
+          "type": "string",
+          "enum": [
+            "중1",
+            "중2",
+            "중3",
+            "고1",
+            "고2",
+            "고3"
+          ]
+        },
+        "difficulty": {
+          "type": "string",
+          "enum": [
+            "하",
+            "중",
+            "상",
+            "최상"
+          ]
+        },
+        "sourceMode": {
+          "type": "string",
+          "enum": [
+            "A_textbook",
+            "B_material",
+            "C_research"
+          ]
+        },
+        "subjectField": {
+          "type": "string",
+          "enum": [
+            "인문",
+            "사회",
+            "과학기술",
+            "예술",
+            "문학",
+            "기타",
+            "현대시",
+            "고전시가",
+            "갈래복합"
+          ]
+        },
+        "questionCount": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 10
+        },
+        "passageForm": {
+          "type": "string",
+          "enum": [
+            "single",
+            "integrated"
+          ],
+          "default": "single"
+        },
+        "createdAt": {
+          "type": "string"
+        },
+        "domain": {
+          "type": "string",
+          "enum": [
+            "독서",
+            "운문"
+          ],
+          "default": "독서",
+          "description": "Skill domain. 독서 = korean-bimunhak-exam-writer (nonfiction reading). 운문 = korean-unmun-exam-writer (verse). Drives domain-specific gates in validate_exam.py."
+        }
+      }
+    },
+    "sources": {
+      "description": "For modes B/C: the ground-truth material. sourceQuote in passages must be a verbatim substring of one entry's text/snippet. Mode A uses the teacher original stored here too.",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "sourceId",
+          "kind",
+          "text"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "sourceId": {
+            "type": "string",
+            "pattern": "^s[0-9]+$"
+          },
+          "kind": {
+            "type": "string",
+            "enum": [
+              "teacher_original",
+              "teacher_material",
+              "web",
+              "public_domain_work"
+            ]
+          },
+          "title": {
+            "type": "string"
+          },
+          "url": {
+            "type": "string"
+          },
+          "retrievedAt": {
+            "type": "string"
+          },
+          "text": {
+            "type": "string",
+            "minLength": 1
+          },
+          "copyright": {
+            "type": "object",
+            "description": "REQUIRED when kind == public_domain_work (운문). Machine-gated: basis must be non-empty.",
+            "required": [
+              "status",
+              "basis"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "status": {
+                "type": "string",
+                "enum": [
+                  "public_domain",
+                  "teacher_provided",
+                  "licensed"
+                ]
+              },
+              "basis": {
+                "type": "string",
+                "minLength": 1,
+                "description": "e.g. '저자 윤동주 1945년 사망 — 사후 70년 경과(2016년 만료)'"
+              }
+            }
+          }
+        }
+      }
+    },
+    "passages": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "passageId",
+          "instruction",
+          "sentences"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "passageId": {
+            "type": "string",
+            "pattern": "^P[0-9]+$"
+          },
+          "subject": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "part": {
+            "type": "string",
+            "enum": [
+              "",
+              "가",
+              "나"
+            ],
+            "default": ""
+          },
+          "instruction": {
+            "type": "string"
+          },
+          "sentences": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "object",
+              "required": [
+                "sid",
+                "text",
+                "factual"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "sid": {
+                  "type": "string",
+                  "pattern": "^p[0-9]+$"
+                },
+                "text": {
+                  "type": "string",
+                  "minLength": 1,
+                  "description": "독서: one sentence. 운문: one 시행(verse line) — line breaks are semantic, never re-flow."
+                },
+                "paragraphStart": {
+                  "type": "boolean",
+                  "default": false
+                },
+                "factual": {
+                  "type": "boolean",
+                  "description": "True if the sentence asserts a number/date/name/stat/quote/causal claim. If true AND mode is B/C, sourceQuote is REQUIRED."
+                },
+                "sourceQuote": {
+                  "type": "string",
+                  "description": "H1: a VERBATIM substring of the cited source's text, proving grounding. Machine-checked."
+                },
+                "sourceId": {
+                  "type": "string",
+                  "pattern": "^s[0-9]+$"
+                },
+                "markers": {
+                  "type": "array",
+                  "description": "Underline markers ㉠~㉤ present in this sentence, with the exact underlined span.",
+                  "items": {
+                    "type": "object",
+                    "required": [
+                      "marker",
+                      "span"
+                    ],
+                    "additionalProperties": false,
+                    "properties": {
+                      "marker": {
+                        "type": "string",
+                        "enum": [
+                          "㉠",
+                          "㉡",
+                          "㉢",
+                          "㉣",
+                          "㉤"
+                        ]
+                      },
+                      "span": {
+                        "type": "string",
+                        "minLength": 1
+                      }
+                    }
+                  }
+                },
+                "stanzaStart": {
+                  "type": "boolean",
+                  "default": false,
+                  "description": "운문: this line begins a new 연(stanza). Renderer inserts a stanza break."
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "questions": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "qid",
+          "number",
+          "type",
+          "demand",
+          "stem",
+          "choices",
+          "answerIndex",
+          "evidenceLocations",
+          "derivation",
+          "distractors"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "qid": {
+            "type": "string",
+            "pattern": "^Q[0-9]+$"
+          },
+          "number": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "type": {
+            "type": "string",
+            "description": "Content focus of the item (single axis). Cognitive level is carried separately by `demand`. See references/01-question-taxonomy.md.",
+            "enum": [
+              "detail_check",
+              "structure_flow",
+              "relation_reasoning",
+              "implicit_inference",
+              "crosstext_integration",
+              "critical_evaluation",
+              "context_vocabulary"
+            ]
+          },
+          "demand": {
+            "type": "string",
+            "description": "Cognitive demand level (ordered ladder, ascending). Drives the construct-relevant difficulty model. See references/02-cognitive-contract.md.",
+            "enum": [
+              "recall",
+              "inference",
+              "integration",
+              "critique"
+            ]
+          },
+          "stem": {
+            "type": "string",
+            "minLength": 1
+          },
+          "view": {
+            "type": "object",
+            "description": "Optional <보기> box. Use only when the question needs an external case/condition not in the passage.",
+            "required": [
+              "title",
+              "text"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "title": {
+                "type": "string"
+              },
+              "text": {
+                "type": "string"
+              },
+              "sourceId": {
+                "type": "string",
+                "pattern": "^s[0-9]+$",
+                "description": "운문 외적 준거(비평문·창작 배경): the source this 보기 is grounded in."
+              },
+              "sourceQuote": {
+                "type": "string",
+                "description": "H1-view: verbatim substring of that source. Machine-checked when sourceId is present."
+              }
+            }
+          },
+          "choices": {
+            "type": "array",
+            "minItems": 5,
+            "maxItems": 5,
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "answerIndex": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 4
+          },
+          "evidenceLocations": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "object",
+              "required": [
+                "passageRef",
+                "role",
+                "passageQuote"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "passageRef": {
+                  "type": "string",
+                  "pattern": "^[pv][0-9]+$",
+                  "description": "p<N> = passage sentence/line. v0 = this question's own <보기> box (운문 외적 준거 감상)."
+                },
+                "role": {
+                  "type": "string",
+                  "description": "독서: Meyer text-structure roles (first 8). 운문: poetic roles (last 8). validate_exam.py rejects cross-domain role use. See 04-evidence-roles.md / 21-evidence-interpretation.md.",
+                  "enum": [
+                    "definition",
+                    "claim",
+                    "evidence_support",
+                    "cause_effect",
+                    "comparison_contrast",
+                    "condition_qualification",
+                    "exception_limit",
+                    "process_sequence",
+                    "speaker_attitude",
+                    "imagery_sensory",
+                    "figurative_symbol",
+                    "tone_diction",
+                    "structure_repetition",
+                    "situation_setting",
+                    "theme_statement",
+                    "external_criterion"
+                  ]
+                },
+                "passageQuote": {
+                  "type": "string",
+                  "description": "H1: a VERBATIM substring of the referenced passage sentence. Machine-checked.",
+                  "minLength": 1
+                },
+                "interpretation": {
+                  "type": "string",
+                  "minLength": 1,
+                  "description": "운문 H6: the reading that connects the verbatim span to the claim. In verse the quote alone does not ground an inference — the span is machine-checked, the interpretation is teacher-checked. REQUIRED when domain==운문 and demand != recall."
+                }
+              }
+            }
+          },
+          "derivation": {
+            "type": "array",
+            "description": "Reasoning steps from evidence to the correct answer.",
+            "minItems": 1,
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "distractors": {
+            "type": "array",
+            "minItems": 4,
+            "maxItems": 4,
+            "items": {
+              "type": "object",
+              "required": [
+                "index",
+                "recipe",
+                "whyFalse",
+                "whyFalseQuote",
+                "whyFalseRef"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "index": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 4
+                },
+                "recipe": {
+                  "type": "string",
+                  "description": "Distractor construction error, grouped by category (text-distortion / reasoning-error / out-of-text). Each represents a real reader misconception (Haladyna basis). See references/03-distractor-recipes.md.",
+                  "enum": [
+                    "contradiction",
+                    "scope_shift",
+                    "numeric_distortion",
+                    "attribute_swap",
+                    "causal_error",
+                    "condition_confusion",
+                    "overgeneralization",
+                    "not_stated",
+                    "literal_misreading"
+                  ]
+                },
+                "misconception": {
+                  "type": "string",
+                  "description": "Optional formative tag: the specific reader misconception this distractor represents, for teacher feedback."
+                },
+                "whyFalse": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "whyFalseRef": {
+                  "type": "string",
+                  "pattern": "^[pv][0-9]+$",
+                  "description": "p<N> = passage sentence/line. v0 = this question's own <보기> box."
+                },
+                "whyFalseQuote": {
+                  "type": "string",
+                  "description": "H5: verbatim substring of the passage sentence that contradicts this distractor.",
+                  "minLength": 1
+                }
+              }
+            }
+          },
+          "explanation": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "verificationReport": {
+      "description": "H4: teacher-facing. Rendered in the teacher-only block, never on the student sheet.",
+      "type": "object",
+      "required": [
+        "checks",
+        "removedItems",
+        "disclaimer"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "checks": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "name",
+              "ok"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "ok": {
+                "type": "boolean"
+              },
+              "detail": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "removedItems": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "lowConfidenceFlags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "disclaimer": {
+          "type": "string",
+          "minLength": 1
+        },
+        "uniquenessProbe": {
+          "type": "object",
+          "description": "L3 leave-one-out result from scripts/probe_uniqueness.py. PASS is a failed refutation, NOT proof of uniqueness.",
+          "additionalProperties": false,
+          "properties": {
+            "ran": {
+              "type": "boolean"
+            },
+            "results": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "qid",
+                  "verdict"
+                ],
+                "properties": {
+                  "qid": {
+                    "type": "string"
+                  },
+                  "verdict": {
+                    "type": "string",
+                    "enum": [
+                      "none",
+                      "picked"
+                    ]
+                  },
+                  "pickedIndex": {
+                    "type": "integer"
+                  },
+                  "note": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
