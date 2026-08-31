@@ -98,7 +98,7 @@ description: >-
   (이 값이 H6·H7·역할 도메인 게이트를 켠다).
 - `python ../../scripts/render_html.py exam.json -o exam.html` → 2단 A4 HTML(Chrome에서 PDF 인쇄).
 - `python ../../scripts/exam_to_hwpx.py exam.json -o exam.hwpx` → HWPX 조판.
-  설치: `pip install -U python-hwpx lxml`.
+  설치: `pip install -U 'python-hwpx>=3.2.0,<5' lxml`.
 - 시험지 말머리 배너에 **작품 출처 고지**를 한 줄 덧붙인다(`25` 산출물 고지).
 
 ## 참조 파일

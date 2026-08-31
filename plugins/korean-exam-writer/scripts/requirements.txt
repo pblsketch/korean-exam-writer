@@ -4,11 +4,12 @@
 
 # HWPX output (exam_to_hwpx.py) uses the python-hwpx / hwpx-plugins stack
 # (https://github.com/airmang/hwpx-plugins). Install:
-python-hwpx>=3.2.0
+# exam_to_hwpx.py는 hwpx.builder API를 쓴다. 이 모듈은 5.0.0에서 제거됐으므로 상한을 고정한다.
+python-hwpx>=3.2.0,<5
 lxml
 
 # Optional — enables full JSON Schema structural validation in validate_exam.py:
 jsonschema>=4.0
 
 # Install everything:
-#   python -m pip install -U python-hwpx lxml jsonschema
+#   python -m pip install -U 'python-hwpx>=3.2.0,<5' lxml jsonschema

@@ -1,14 +1,14 @@
 ---
-name: korean-bimunhak-exam
+name: korean-bimunhak-exam-writer
 description: >-
   중·고등학교 국어 교사가 수능 국어 '비문학(독서)' 지문·문항·해설을 만들 때 사용한다. 인문·사회·과학·기술·예술 등 독서 영역이
-  대상이다(운문·산문 등 문학은 별도 스킬). 교과서 지문 재구성, 교사 자료 재구성, AI 리서치 기반 지문 생성을 학년(중1~고3)·세부
+  대상이다(운문은 korean-unmun-exam-writer, 산문은 미지원). 교과서 지문 재구성, 교사 자료 재구성, AI 리서치 기반 지문 생성을 학년(중1~고3)·세부
   난이도(하/중/상/최상)에 맞춰 출제하고, 인쇄용 2단 A4 시험지(HTML→PDF)와 한글(HWPX)로 출력한다. 최우선 원칙은 환각·사실오류
   금지: 모든 사실은 근거의 축자 인용으로 기계 검증된다. 트리거: "비문학 지문 만들어", "독서 지문·문항 출제", "국어 비문학 시험지",
   "수능 독서 지문 재구성", "인문/사회/과학기술/예술 지문 출제", "모의고사 비문학".
 ---
 
-# 국어 비문학(독서) 시험지 생성기 (korean-bimunhak-exam)
+# 국어 비문학(독서) 시험지 생성기 (korean-bimunhak-exam-writer)
 
 수능 국어형 **지문 → 문항 → 해설**을 만드는 스킬. 두 가지 축으로 동작한다:
 1. **오케스트레이션(분업)** — 한 에이전트가 통짜로 하지 않고, **오케스트레이터가 지휘**하고 역할별
@@ -80,7 +80,7 @@ python ../../scripts/probe_uniqueness.py exam.json --ingest results.json --write
 - `python ../../scripts/validate_exam.py exam.json` → **exit 0 아니면 렌더링 금지.** 오류 리포트대로 고쳐 재검증.
 - `python ../../scripts/render_html.py exam.json -o exam.html` → 2단 A4 HTML(교사가 Chrome에서 PDF 인쇄).
 - (요청 시) `python ../../scripts/exam_to_hwpx.py exam.json -o exam.hwpx` → python-hwpx로 2단 HWPX 조판
-  (지문=흐르는 문단 4면 연결 테두리, `<보기>`=표 박스, `hard_gates` 모두 pass). 설치: `pip install -U python-hwpx lxml`.
+  (지문=흐르는 문단 4면 연결 테두리, `<보기>`=표 박스, `hard_gates` 모두 pass). 설치: `pip install -U 'python-hwpx>=3.2.0,<5' lxml`.
   (`references/10-hwpx-mapping.md`)
 
 ## 실행 계층
@@ -94,4 +94,4 @@ python ../../scripts/probe_uniqueness.py exam.json --ingest results.json --write
 ## 산출물 규격
 exam JSON 스키마는 `../../scripts/exam.schema.json`이 단일 진실 원천이다. 각 문항은 반드시
 `evidenceLocations[]`(축자 인용 포함), `derivation[]`, `distractors[]`(recipe+whyFalse+축자 인용)를 갖는다.
-샘플: `examples/sample_exam.json`(유효), `examples/sample_exam_bad.json`(게이트 거부 예시).
+샘플: `../../../examples/bimunhak/sample_exam.json`(유효), `../../../examples/bimunhak/sample_exam_bad.json`(게이트 거부 예시).

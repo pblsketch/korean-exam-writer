@@ -17,7 +17,7 @@ jobs:
         with:
           python-version: "3.11"
       - name: Install deps
-        run: pip install -U jsonschema python-hwpx lxml ruff
+        run: pip install -U jsonschema 'python-hwpx>=3.2.0,<5' lxml ruff
 
       - name: Hygiene scan
         run: python $S/security_scan.py

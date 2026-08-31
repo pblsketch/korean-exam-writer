@@ -111,7 +111,7 @@ claude plugin install korean-exam-writer@korean-exam-writer
 `~/.claude/skills/`로 복사한다. (스크립트 경로가 `../../scripts/`이므로 `scripts/`도 같은
 상대 위치에 두어야 한다.)
 
-**HWPX 출력** — `python -m pip install -U python-hwpx lxml`
+**HWPX 출력** — `python -m pip install -U 'python-hwpx>=3.2.0,<5' lxml`
 ([hwpx-plugins](https://github.com/airmang/hwpx-plugins) 스택)
 
 **ChatGPT** — `gpt/GPT_INSTRUCTIONS.md`를 맞춤형 GPT Instructions에 붙여넣기(비문학, 라이트 계층).
