@@ -94,4 +94,4 @@ python ../../scripts/probe_uniqueness.py exam.json --ingest results.json --write
 ## 산출물 규격
 exam JSON 스키마는 `../../scripts/exam.schema.json`이 단일 진실 원천이다. 각 문항은 반드시
 `evidenceLocations[]`(축자 인용 포함), `derivation[]`, `distractors[]`(recipe+whyFalse+축자 인용)를 갖는다.
-샘플: `../../../examples/bimunhak/sample_exam.json`(유효), `../../../examples/bimunhak/sample_exam_bad.json`(게이트 거부 예시).
+샘플: `../../examples/bimunhak/sample_exam.json`(유효), `../../examples/bimunhak/sample_exam_bad.json`(게이트 거부 예시).

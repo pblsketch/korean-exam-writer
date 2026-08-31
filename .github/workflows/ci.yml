@@ -7,6 +7,7 @@ on:
 
 env:
   S: plugins/korean-exam-writer/scripts
+  X: plugins/korean-exam-writer/examples
 
 jobs:
   verify:
@@ -29,14 +30,14 @@ jobs:
                    bimunhak/philosophy_exam bimunhak/sample_exam bimunhak/tech_exam \
                    unmun/jahwasang_exam; do
             echo "== validate $f =="
-            python $S/validate_exam.py "examples/$f.json"
+            python $S/validate_exam.py "$X/$f.json"
           done
 
       - name: Bad examples must be rejected
         run: |
           set -e
           for f in bimunhak/sample_exam_bad unmun/jahwasang_exam_bad; do
-            if python $S/validate_exam.py "examples/$f.json"; then
+            if python $S/validate_exam.py "$X/$f.json"; then
               echo "ERROR: $f was accepted"; exit 1
             else
               echo "OK: $f correctly rejected"
@@ -46,7 +47,7 @@ jobs:
       - name: Verse gates must fire (H6, H7, role-domain, misquote)
         run: |
           set -e
-          python $S/validate_exam.py examples/unmun/jahwasang_exam_bad.json > /tmp/bad.json || true
+          python $S/validate_exam.py $X/unmun/jahwasang_exam_bad.json > /tmp/bad.json || true
           python - <<'PY'
           import json
           rules = {e["rule"] for e in json.load(open("/tmp/bad.json"))["errors"]}
@@ -61,7 +62,7 @@ jobs:
       - name: Uniqueness probe emits and scores
         run: |
           set -e
-          python $S/probe_uniqueness.py examples/unmun/jahwasang_exam.json --emit > /tmp/probes.json
+          python $S/probe_uniqueness.py $X/unmun/jahwasang_exam.json --emit > /tmp/probes.json
           python - <<'PY'
           import json
           p = json.load(open("/tmp/probes.json"))["probes"]
@@ -72,8 +73,8 @@ jobs:
           json.dump([{"qid": p[0]["qid"], "verdict": "picked", "pickedIndex": 1}], open("/tmp/ng.json", "w"))
           print("OK: emitted", len(p), "probes")
           PY
-          python $S/probe_uniqueness.py examples/unmun/jahwasang_exam.json --ingest /tmp/ok.json
-          if python $S/probe_uniqueness.py examples/unmun/jahwasang_exam.json --ingest /tmp/ng.json; then
+          python $S/probe_uniqueness.py $X/unmun/jahwasang_exam.json --ingest /tmp/ok.json
+          if python $S/probe_uniqueness.py $X/unmun/jahwasang_exam.json --ingest /tmp/ng.json; then
             echo "ERROR: picked verdict was accepted"; exit 1
           else
             echo "OK: picked verdict correctly rejected"
@@ -85,7 +86,7 @@ jobs:
           for f in bimunhak/game_exam bimunhak/game_full_exam bimunhak/map_exam \
                    bimunhak/philosophy_exam bimunhak/sample_exam bimunhak/tech_exam \
                    unmun/jahwasang_exam; do
-            python $S/render_html.py "examples/$f.json" -o "/tmp/$(basename $f).html"
+            python $S/render_html.py "$X/$f.json" -o "/tmp/$(basename $f).html"
           done
 
       - name: Verse keeps its line breaks
@@ -107,7 +108,7 @@ jobs:
           for f in bimunhak/game_exam bimunhak/game_full_exam bimunhak/map_exam \
                    bimunhak/philosophy_exam bimunhak/sample_exam bimunhak/tech_exam \
                    unmun/jahwasang_exam; do
-            python $S/exam_to_hwpx.py "examples/$f.json" -o "/tmp/$(basename $f).hwpx"
+            python $S/exam_to_hwpx.py "$X/$f.json" -o "/tmp/$(basename $f).hwpx"
           done
 
       - name: Lint
