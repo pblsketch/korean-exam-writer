@@ -26,7 +26,21 @@ python scripts/exam_to_hwpx.py exam.json -o exam.hwpx            # 2단(기본)
 python scripts/exam_to_hwpx.py exam.json -o exam.hwpx --columns 1
 python scripts/exam_to_hwpx.py exam.json --md exam.md            # 마크다운만(대체)
 ```
-설치: `python -m pip install -U python-hwpx lxml` (미설치 시 자동으로 .md 대체 저장).
+설치: `python -m pip install -U 'python-hwpx>=3.2.0,<5' lxml`.
+
+## 엔진 폴백 (`--engine auto`, 기본값)
+
+| 순위 | 엔진 | 조건 | 품질 |
+|---|---|---|---|
+| 1 | **python-hwpx** | `hwpx.builder` import 가능 | 최상 — 2단 + **지문 흐르는 4면 연결 테두리** + `hard_gates` |
+| 2 | **claw-hwp** | 플러그인 설치됨(pip 불필요, rhwp WASM vendored) | 2단·표 `<보기>`·조판 기호·굵게·밑줄 동일. **지문 테두리만 없음** |
+| 3 | 마크다운 | 둘 다 없음 | `.md` 대체 저장 후 exit 2 |
+
+**왜 claw-hwp가 지문 테두리를 못 만드는가** — `apply_paragraph_style`의 파라미터가 `align`·`indent`·`line_spacing`·`margin`·`spacing`·`background_color`·`page_break_before`·`keep_with_next`뿐이고 테두리 파라미터가 없다. 1×1 표로 대체하면 단·페이지 경계에서 잘리므로 쓰지 않는다(흐르는 문단 테두리를 택한 이유가 바로 그것이다). 폴백에서는 지문을 평문단으로 두고 `gates.passage_box = "unsupported"`로 보고한다.
+
+**claw-hwp 경로의 2단은 2단계다** — `set_columns`는 `create.js`가 아니라 `hwpx-edit.js`의 편집 op이고, 편집기는 항상 `<stem>_edited.hwpx`로 쓴다. 래퍼가 임시 디렉터리에서 생성→편집→이동을 처리한다.
+
+탐색 순서: `CLAW_HWP_SCRIPTS` 환경변수 → `~/.claude/plugins/cache/claw-hwp/.../scripts` → `~/.claude/plugins/marketplaces/claw-hwp/.../scripts`. `--engine`으로 강제 지정할 수 있다.
 
 ## 매핑
 | exam 요소 | HWPX 결과 |

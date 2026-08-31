@@ -89,7 +89,7 @@ plugins/korean-exam-writer/
 │   ├── validate_exam.py              H1·H5·H6·H7·역할·세트 구조
 │   ├── probe_uniqueness.py           L3 정답 유일성 반증
 │   ├── render_html.py                2단 A4 HTML
-│   ├── exam_to_hwpx.py               HWPX 조판
+│   ├── exam_to_hwpx.py               HWPX 조판 (python-hwpx → claw-hwp → .md 폴백)
 │   └── security_scan.py
 ├── assets/templates/exam.css
 ├── examples/bimunhak/ · unmun/       고정 샘플 + 골든 스냅샷(LLM 없이 결정론적 테스트)
@@ -113,6 +113,8 @@ claude plugin install korean-exam-writer@korean-exam-writer
 
 **HWPX 출력** — `python -m pip install -U 'python-hwpx>=3.2.0,<5' lxml`
 ([hwpx-plugins](https://github.com/airmang/hwpx-plugins) 스택)
+
+설치가 어려우면 **[claw-hwp](https://github.com/DoHyun468/claw-hwp)만 있어도 된다** — `--engine auto`가 자동으로 폴백해 마크다운 대신 진짜 `.hwpx`를 낸다(pip 불필요, rhwp WASM vendored). 지문의 흐르는 4면 테두리만 빠지고 2단·`<보기>` 표·조판 기호는 동일하다.
 
 **ChatGPT** — `gpt/GPT_INSTRUCTIONS.md`를 맞춤형 GPT Instructions에 붙여넣기(비문학, 라이트 계층).
 

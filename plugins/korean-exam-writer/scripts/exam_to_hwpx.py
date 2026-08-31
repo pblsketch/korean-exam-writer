@@ -54,6 +54,155 @@ def _paragraphs(sentences):
     return out
 
 
+# ---------------------------------------------------------------------------
+# claw-hwp fallback engine
+#
+# python-hwpx가 없거나 그 API가 깨졌을 때(5.0.0에서 hwpx.builder가 제거된 전례)
+# 마크다운으로 떨어지는 대신 진짜 .hwpx를 낸다. claw-hwp는 rhwp WASM을 vendoring해
+# pip 설치가 필요 없으므로, 교사 배포에서 설치 장벽이 사라진다.
+#
+# 품질 차이 — 딱 하나다: **지문의 흐르는 4면 연결 테두리를 만들 수 없다.**
+# claw-hwp의 apply_paragraph_style에는 테두리 파라미터가 없고(align/indent/
+# line_spacing/margin/spacing/background_color/page_break/keep_with_next 뿐),
+# 1×1 표로 대체하면 단·페이지 경계에서 잘린다. 그래서 폴백에서는 지문을 평문단으로
+# 두고, 그 사실을 호출자에게 gates로 보고한다. 2단·표·조판 기호·굵게·밑줄은 동일하다.
+# ---------------------------------------------------------------------------
+
+def find_claw_hwp():
+    """Locate claw-hwp's scripts dir. Returns None if unavailable."""
+    env = os.environ.get("CLAW_HWP_SCRIPTS")
+    if env and os.path.isfile(os.path.join(env, "create.js")):
+        return env
+    import glob
+    home = os.path.expanduser("~")
+    pats = [
+        os.path.join(home, ".claude", "plugins", "cache", "claw-hwp", "claw-hwp",
+                     "*", "skills", "hwp", "scripts"),
+        os.path.join(home, ".claude", "plugins", "marketplaces", "claw-hwp", "plugins",
+                     "claw-hwp", "skills", "hwp", "scripts"),
+    ]
+    cands = []
+    for p in pats:
+        cands += [d for d in glob.glob(p) if os.path.isfile(os.path.join(d, "create.js"))]
+    if not cands:
+        return None
+    return sorted(cands)[-1]          # highest version dir
+
+
+def _p(text, bold=False, underline=False):
+    return {"text": text, "bold": bold, "underline": underline}
+
+
+def _claw_ops(exam, columns=2):
+    """exam JSON -> claw-hwp create.js operations."""
+    m = exam.get("meta", {})
+    ops = [{"type": "setup_document", "page_size": "a4", "margin_mm": 18}]
+
+    def para(runs):
+        ops.append({"type": "append_paragraph", "runs": runs})
+
+    def line(t, bold=False):
+        para([_p(t, bold=bold)])
+
+    ops.append({"type": "append_heading", "level": 1, "text": m.get("title", "국어 시험지")})
+    line(" · ".join(filter(None, [m.get("grade"), "난이도 " + (m.get("difficulty") or ""),
+                                  m.get("subjectField"),
+                                  "%d문항" % (m.get("questionCount") or 0)])))
+    for p in exam.get("passages", []):
+        if p.get("instruction"):
+            line(p["instruction"], bold=True)
+        if p.get("title"):
+            line(("(%s) " % p["part"] if p.get("part") else "") + p["title"], bold=True)
+        verse = _is_verse(p.get("sentences", []))
+        for gi, group in enumerate(_paragraphs(p.get("sentences", []))):
+            if verse:
+                if gi:
+                    line("")
+                for s in group:
+                    para([_p(t, bold=b, underline=u) for t, b, u in _sentence_segments(s) if t])
+            else:
+                runs = [_p(t, bold=b, underline=u)
+                        for s in group for t, b, u in _sentence_segments(s) if t]
+                para(runs)
+        line("")
+
+    for q in exam.get("questions", []):
+        line("%d. %s" % (q.get("number", 0), q.get("stem", "")), bold=True)
+        v = q.get("view") or {}
+        if v.get("text"):
+            # <보기>는 짧아 단을 넘지 않으므로 표 박스로 안전하게 낼 수 있다.
+            ops.append({"type": "append_table",
+                        "headers": ["<%s>" % (v.get("title") or "보 기")],
+                        "rows": [[v["text"]]]})
+        for i, c in enumerate(q.get("choices", [])):
+            line("%s %s" % (CIRCLED[i] if i < len(CIRCLED) else str(i + 1), c))
+        line("")
+
+    line("── 교사용 ──", bold=True)
+    line("정답: " + "   ".join("%d번 %s" % (q.get("number", 0),
+                                          CIRCLED[q.get("answerIndex", 0)])
+                              for q in exam.get("questions", [])))
+    dis = (exam.get("verificationReport") or {}).get("disclaimer")
+    if dis:
+        line(dis)
+    return ops
+
+
+def build_hwpx_clawhwp(exam, out_path, columns=2, scripts=None):
+    """Render via claw-hwp. Returns a gates-like dict; raises RuntimeError on failure."""
+    import subprocess
+    import tempfile
+    scripts = scripts or find_claw_hwp()
+    if not scripts:
+        raise RuntimeError("claw-hwp를 찾을 수 없음 (CLAW_HWP_SCRIPTS 환경변수로 지정 가능)")
+
+    out_path = os.path.abspath(out_path)
+    tmpdir = tempfile.mkdtemp(prefix="clawhwp_")
+    stem = os.path.join(tmpdir, "exam")
+    made = stem + ".hwpx"
+    try:
+        payload = {"path": made, "theme": "government", "operations": _claw_ops(exam, columns)}
+        r = subprocess.run(["node", os.path.join(scripts, "create.js")],
+                           input=json.dumps(payload, ensure_ascii=False),
+                           capture_output=True, text=True, encoding="utf-8")
+        res = json.loads((r.stdout or "").strip().splitlines()[-1])
+        # exit code 0 even on op-level failure — the JSON status is the truth.
+        if res.get("status") != "success":
+            raise RuntimeError("claw-hwp create 실패: %s (op %s)"
+                               % (res.get("message"), res.get("op_index")))
+
+        gates = {"engine": "claw-hwp", "create": "pass",
+                 "ops_applied": res.get("ops_applied"),
+                 "passage_box": "unsupported"}
+
+        if columns and columns >= 2:
+            # 다단은 create가 아니라 edit op다. 편집기는 항상 <stem>_edited.hwpx 로 쓴다.
+            r2 = subprocess.run(["node", os.path.join(scripts, "hwpx-edit.js")],
+                                input=json.dumps({"path": made, "operations": [
+                                    {"type": "set_columns", "count": columns, "spacing_mm": 8}]},
+                                    ensure_ascii=False),
+                                capture_output=True, text=True, encoding="utf-8")
+            e = json.loads((r2.stdout or "").strip())
+            if not e.get("ok"):
+                raise RuntimeError("claw-hwp set_columns 실패: %s" % e.get("error"))
+            edited = e.get("output")
+            if not os.path.isabs(edited):
+                edited = os.path.join(tmpdir, os.path.basename(edited))
+            made = edited
+            gates["columns"] = "pass"
+
+        import shutil
+        # os.replace는 드라이브가 다르면 Windows에서 실패한다(temp=C:, 산출물=E: 등).
+        d = os.path.dirname(out_path)
+        if d:
+            os.makedirs(d, exist_ok=True)
+        shutil.move(made, out_path)
+        return gates
+    finally:
+        import shutil
+        shutil.rmtree(tmpdir, ignore_errors=True)
+
+
 def _sentence_text(s):
     t = s.get("text", "")
     for m in s.get("markers", []):
@@ -473,6 +622,9 @@ def main():
     ap.add_argument("-o", "--out", help="output .hwpx path")
     ap.add_argument("--md", help="also/instead write markdown to this path")
     ap.add_argument("--columns", type=int, default=2, choices=[1, 2, 3])
+    ap.add_argument("--engine", default="auto",
+                    choices=["auto", "python-hwpx", "claw-hwp"],
+                    help="auto: python-hwpx 우선, 없으면 claw-hwp, 둘 다 없으면 마크다운")
     args = ap.parse_args()
 
     with open(args.exam, encoding="utf-8") as f:
@@ -484,18 +636,47 @@ def main():
         print("wrote %s" % args.md)
 
     if args.out:
-        try:
-            import hwpx  # noqa
-        except Exception:
+        # 엔진 선택. auto = python-hwpx(최상: 흐르는 지문 테두리 + hard_gates)
+        #            → claw-hwp(pip 불필요, 지문 테두리만 없음) → 마크다운.
+        def _py_ok():
+            try:
+                import hwpx  # noqa
+                from hwpx.builder import Paragraph  # noqa — 5.0.0에서 제거된 모듈
+                return True
+            except Exception:
+                return False
+
+        engine = args.engine
+        if engine == "auto":
+            engine = "python-hwpx" if _py_ok() else (
+                "claw-hwp" if find_claw_hwp() else "md")
+
+        if engine == "python-hwpx":
+            gates = build_hwpx(exam, args.out, columns=args.columns)
+            print("wrote %s (%d bytes, %d단, engine=python-hwpx)"
+                  % (args.out, os.path.getsize(args.out), args.columns))
+            print("hard_gates: %s" % {k: v for k, v in gates.items()})
+        elif engine == "claw-hwp":
+            try:
+                gates = build_hwpx_clawhwp(exam, args.out, columns=args.columns)
+            except RuntimeError as e:
+                print("claw-hwp 엔진 실패: %s" % e, file=sys.stderr)
+                print("설치: claude plugin marketplace add "
+                      "https://github.com/DoHyun468/claw-hwp", file=sys.stderr)
+                sys.exit(2)
+            print("wrote %s (%d bytes, %d단, engine=claw-hwp)"
+                  % (args.out, os.path.getsize(args.out), args.columns))
+            print("gates: %s" % gates)
+            print("주의: claw-hwp 경로에는 지문의 흐르는 4면 테두리가 없다 "
+                  "(문단 테두리 op 부재). 나머지 조판은 동일하다.")
+        else:
             fallback = os.path.splitext(args.out)[0] + ".md"
             with open(fallback, "w", encoding="utf-8", newline="\n") as f:
                 f.write(to_markdown(exam))
-            print("python-hwpx 미설치 → 마크다운으로 대체 저장: %s" % fallback)
-            print("설치: python -m pip install -U python-hwpx lxml")
+            print("python-hwpx·claw-hwp 모두 없음 → 마크다운으로 대체 저장: %s" % fallback)
+            print("설치: python -m pip install -U 'python-hwpx>=3.2.0,<5' lxml")
+            print("또는: claude plugin marketplace add https://github.com/DoHyun468/claw-hwp")
             sys.exit(2)
-        gates = build_hwpx(exam, args.out, columns=args.columns)
-        print("wrote %s (%d bytes, %d단)" % (args.out, os.path.getsize(args.out), args.columns))
-        print("hard_gates: %s" % {k: v for k, v in gates.items()})
 
     if not args.out and not args.md:
         ap.error("Provide -o (hwpx) and/or --md")

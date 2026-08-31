@@ -13,3 +13,6 @@ jsonschema>=4.0
 
 # Install everything:
 #   python -m pip install -U 'python-hwpx>=3.2.0,<5' lxml jsonschema
+
+# 대안: python-hwpx 대신 claw-hwp 플러그인이 설치돼 있으면 --engine auto 가 그쪽으로
+# 폴백한다(pip 불필요). https://github.com/DoHyun468/claw-hwp
