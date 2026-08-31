@@ -57,19 +57,25 @@ def render_passage(p):
         part = p.get("part") or ""
         prefix = ("(%s) " % part) if part else ""
         out.append('<div class="passage-title">%s%s</div>' % (esc(prefix), esc(p["title"])))
-    out.append('<div class="passage-body">')
-    # group sentences into paragraphs by paragraphStart
+    # Verse: a line break is meaning, not layout. Any stanzaStart in the passage switches
+    # the whole block to verse mode — lines are kept, never re-flowed into a paragraph.
+    sentences = p.get("sentences", [])
+    verse = any(s.get("stanzaStart") for s in sentences)
+    out.append('<div class="passage-body%s">' % (" verse" if verse else ""))
+    # group sentences into paragraphs by paragraphStart (prose) / stanzaStart (verse)
+    key = "stanzaStart" if verse else "paragraphStart"
     para = []
     paras = []
-    for s in p.get("sentences", []):
-        if s.get("paragraphStart") and para:
+    for s in sentences:
+        if s.get(key) and para:
             paras.append(para)
             para = []
         para.append(s)
     if para:
         paras.append(para)
+    joiner = "<br />" if verse else " "
     for group in paras:
-        out.append("<p>" + " ".join(render_sentence(s) for s in group) + "</p>")
+        out.append("<p>" + joiner.join(render_sentence(s) for s in group) + "</p>")
     out.append("</div></div>")
     return "".join(out)
 

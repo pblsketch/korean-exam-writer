@@ -37,6 +37,17 @@ CONTRACT = {
     "최상": {"minEvidence": 3, "minDerivation": 3, "forbidSingleSentence": True},
 }
 
+# domain -> allowed evidence roles. Cross-domain use is a design error, not a preference:
+# Meyer text-structure roles describe expository prose; poetic roles describe verse.
+ROLES = {
+    "독서": {"definition", "claim", "evidence_support", "cause_effect",
+             "comparison_contrast", "condition_qualification", "exception_limit",
+             "process_sequence"},
+    "운문": {"speaker_attitude", "imagery_sensory", "figurative_symbol", "tone_diction",
+             "structure_repetition", "situation_setting", "theme_statement",
+             "external_criterion"},
+}
+
 
 def norm(s):
     """Whitespace-insensitive normalization for robust substring checks."""
@@ -92,10 +103,23 @@ def validate(exam, schema_path):
     meta = exam.get("meta", {})
     difficulty = meta.get("difficulty", "중")
     mode = meta.get("sourceMode", "B_material")
+    domain = meta.get("domain", "독서")
     contract = CONTRACT.get(difficulty, CONTRACT["중"])
 
     # index sources
     sources = {s["sourceId"]: s for s in exam.get("sources", [])}
+
+    # ---- H7 (운문): a real literary work must carry an explicit copyright basis ----
+    # 운문 quotes actual poems. Without a stated basis the skill cannot show the work is
+    # safe to reproduce, so this is a hard gate rather than a note.
+    for s in exam.get("sources", []):
+        if s.get("kind") != "public_domain_work":
+            continue
+        cr = s.get("copyright") or {}
+        if not cr.get("basis"):
+            rep.err(s.get("sourceId", "?"), "H7-no-copyright-basis",
+                    "public_domain_work 소스에 copyright.basis(저작권 만료 근거)가 없음. "
+                    "예: '저자 1945년 사망 — 사후 70년 경과'.")
 
     # index passage sentences
     sent = {}          # sid -> text
@@ -159,15 +183,50 @@ def validate(exam, schema_path):
             rep.warn(qid, "single-sentence-shortcut",
                      "근거가 한 문장에 몰려 있음(단일 문장 조회 지름길 우려).")
 
-        # evidence quotes resolve (H1 chain: evidence.quote ⊆ passage sentence)
+        # ---- H1-view (운문): the <보기> external criterion must itself be grounded ----
+        view = q.get("view") or {}
+        if view.get("sourceId"):
+            vsrc = sources.get(view["sourceId"])
+            if not vsrc:
+                rep.err(qid, "H1-view-bad-sourceId",
+                        f"view.sourceId '{view['sourceId']}' 가 sources에 없음.")
+            elif view.get("sourceQuote") and not is_sub(view["sourceQuote"], vsrc.get("text", "")):
+                rep.err(qid, "H1-view-quote-not-substring",
+                        "view.sourceQuote가 원자료의 실제 부분문자열이 아님 → 외적 준거를 지어냄.")
+
+        # evidence quotes resolve (H1 chain: evidence.quote ⊆ passage sentence, or ⊆ this
+        # question's own <보기> box when passageRef is v0)
         for i, e in enumerate(ev):
             ref = e.get("passageRef")
-            if ref not in sent:
+            if ref == "v0":
+                if not view.get("text"):
+                    rep.err(qid, "evidence-ref-unresolved",
+                            f"evidenceLocations[{i}]가 v0(<보기>)를 참조하지만 이 문항에 view가 없음.")
+                elif not is_sub(e.get("passageQuote", ""), view["text"]):
+                    rep.err(qid, "evidence-quote-not-substring",
+                            f"evidenceLocations[{i}].passageQuote가 <보기> 본문의 부분문자열이 아님.")
+            elif ref not in sent:
                 rep.err(qid, "evidence-ref-unresolved",
                         f"evidenceLocations[{i}].passageRef '{ref}' 가 지문에 없음.")
             elif not is_sub(e.get("passageQuote", ""), sent[ref]):
                 rep.err(qid, "evidence-quote-not-substring",
                         f"evidenceLocations[{i}].passageQuote가 {ref} 문장의 부분문자열이 아님.")
+
+            # role must belong to this domain's vocabulary
+            role = e.get("role")
+            if role and role not in ROLES.get(domain, set()):
+                other = [d for d, rs in ROLES.items() if role in rs]
+                rep.err(qid, "role-domain-mismatch",
+                        f"evidenceLocations[{i}].role '{role}' 은 domain '{domain}' 의 역할이 아님"
+                        + (f" ({other[0]} 전용)." if other else "."))
+
+            # ---- H6 (운문): a verbatim span alone cannot ground an inference in verse ----
+            # In prose the quote IS the evidence; in verse the quote is only the anchor and
+            # the reading must be stated so a teacher can check it.
+            if domain == "운문" and q.get("demand") != "recall" and not (e.get("interpretation") or "").strip():
+                rep.err(qid, "H6-missing-interpretation",
+                        f"evidenceLocations[{i}]에 interpretation이 없음. 운문에서 demand가 recall이 "
+                        "아니면 인용 스팬만으로 근거가 성립하지 않는다(인용=기계 검증, 해석=교사 검증).")
 
         # choices / answer / distractor coverage
         choices = q.get("choices", [])
@@ -189,18 +248,30 @@ def validate(exam, schema_path):
             di = d.get("index")
             ref = d.get("whyFalseRef")
             wq = d.get("whyFalseQuote", "")
-            if ref not in sent or not is_sub(wq, sent.get(ref, "")):
+            haystack = view.get("text", "") if ref == "v0" else sent.get(ref, "")
+            if (ref != "v0" and ref not in sent) or not is_sub(wq, haystack):
                 weak.append(di)
                 rep.err(qid, "H5-whyFalse-unresolved",
                         f"오답 {di}의 반증 인용(whyFalseQuote)이 {ref} 문장에서 확인되지 않음 → 약한 오답.")
+        # a set repeating one recipe teaches one misreading only (03 §5)
+        recipes = [d.get("recipe") for d in dists]
+        if len(set(recipes)) == 1 and len(recipes) == 4:
+            rep.warn(qid, "recipe-monotone",
+                     f"오답 4개가 모두 '{recipes[0]}' — 서로 다른 오독을 겨냥하도록 분산 권장.")
         if len(weak) >= 2:
             rep.err(qid, "weak-distractors",
                     f"약한 오답 {len(weak)}개(≥2) — 문항 재생성 필요. indexes={weak}")
 
-    # answer spread (soft)
+    # answer spread. A set whose answers all sit on one index is solvable without the
+    # passage, so this is a hard gate; a merely lopsided spread is a warning.
     if answer_indexes and len(set(answer_indexes)) == 1 and len(answer_indexes) >= 3:
-        rep.warn("_set", "answer-monotone",
-                 f"모든 정답이 {answer_indexes[0]}번으로 동일 — 정답 분산 권장.")
+        rep.err("_set", "answer-monotone",
+                f"모든 정답이 {answer_indexes[0]}번으로 동일 — 지문 없이 풀리는 세트. 정답 위치를 분산할 것.")
+    elif answer_indexes:
+        top = max(answer_indexes.count(a) for a in set(answer_indexes))
+        if top > len(answer_indexes) / 2:
+            rep.warn("_set", "answer-skew",
+                     f"정답 {len(answer_indexes)}개 중 {top}개가 한 번호에 몰림 — 분산 권장.")
 
     # verification report must carry a disclaimer (H4)
     vr = exam.get("verificationReport", {})

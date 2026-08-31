@@ -5,6 +5,9 @@ on:
     branches: [master]
   pull_request:
 
+env:
+  S: plugins/korean-exam-writer/scripts
+
 jobs:
   verify:
     runs-on: ubuntu-latest
@@ -17,37 +20,95 @@ jobs:
         run: pip install -U jsonschema python-hwpx lxml ruff
 
       - name: Hygiene scan
-        run: python scripts/security_scan.py
+        run: python $S/security_scan.py
 
       - name: Validate good examples (anti-hallucination gate)
         run: |
           set -e
-          for f in game_exam game_full_exam map_exam philosophy_exam sample_exam tech_exam; do
+          for f in bimunhak/game_exam bimunhak/game_full_exam bimunhak/map_exam \
+                   bimunhak/philosophy_exam bimunhak/sample_exam bimunhak/tech_exam \
+                   unmun/jahwasang_exam; do
             echo "== validate $f =="
-            python scripts/validate_exam.py "examples/$f.json"
+            python $S/validate_exam.py "examples/$f.json"
           done
 
-      - name: Bad example must be rejected
+      - name: Bad examples must be rejected
         run: |
-          if python scripts/validate_exam.py examples/sample_exam_bad.json; then
-            echo "ERROR: bad sample was accepted"; exit 1
+          set -e
+          for f in bimunhak/sample_exam_bad unmun/jahwasang_exam_bad; do
+            if python $S/validate_exam.py "examples/$f.json"; then
+              echo "ERROR: $f was accepted"; exit 1
+            else
+              echo "OK: $f correctly rejected"
+            fi
+          done
+
+      - name: Verse gates must fire (H6, H7, role-domain, misquote)
+        run: |
+          set -e
+          python $S/validate_exam.py examples/unmun/jahwasang_exam_bad.json > /tmp/bad.json || true
+          python - <<'PY'
+          import json
+          rules = {e["rule"] for e in json.load(open("/tmp/bad.json"))["errors"]}
+          need = {"H6-missing-interpretation", "H7-no-copyright-basis",
+                  "role-domain-mismatch", "H1-quote-not-substring",
+                  "H1-view-quote-not-substring", "answer-monotone"}
+          missing = need - rules
+          assert not missing, f"gates did not fire: {sorted(missing)}"
+          print("OK: all", len(need), "verse gates fired")
+          PY
+
+      - name: Uniqueness probe emits and scores
+        run: |
+          set -e
+          python $S/probe_uniqueness.py examples/unmun/jahwasang_exam.json --emit > /tmp/probes.json
+          python - <<'PY'
+          import json
+          p = json.load(open("/tmp/probes.json"))["probes"]
+          assert len(p) == 3, p
+          for x in p:
+              assert "removedIndex" in x and len(x["probeToOriginal"]) == 4
+          json.dump([{"qid": x["qid"], "verdict": "none"} for x in p], open("/tmp/ok.json", "w"))
+          json.dump([{"qid": p[0]["qid"], "verdict": "picked", "pickedIndex": 1}], open("/tmp/ng.json", "w"))
+          print("OK: emitted", len(p), "probes")
+          PY
+          python $S/probe_uniqueness.py examples/unmun/jahwasang_exam.json --ingest /tmp/ok.json
+          if python $S/probe_uniqueness.py examples/unmun/jahwasang_exam.json --ingest /tmp/ng.json; then
+            echo "ERROR: picked verdict was accepted"; exit 1
           else
-            echo "OK: bad sample correctly rejected"
+            echo "OK: picked verdict correctly rejected"
           fi
 
       - name: Render HTML (2-column A4)
         run: |
           set -e
-          for f in game_exam game_full_exam map_exam philosophy_exam sample_exam tech_exam; do
-            python scripts/render_html.py "examples/$f.json" -o "/tmp/$f.html"
+          for f in bimunhak/game_exam bimunhak/game_full_exam bimunhak/map_exam \
+                   bimunhak/philosophy_exam bimunhak/sample_exam bimunhak/tech_exam \
+                   unmun/jahwasang_exam; do
+            python $S/render_html.py "examples/$f.json" -o "/tmp/$(basename $f).html"
           done
+
+      - name: Verse keeps its line breaks
+        run: |
+          python - <<'PY'
+          import re
+          h = open("/tmp/jahwasang_exam.html", encoding="utf-8").read()
+          m = re.search(r'<div class="passage-body verse">(.*?)</div>', h, re.S)
+          assert m, "verse block was not rendered in verse mode"
+          body = m.group(1)
+          assert body.count("<p>") == 6, f"stanza count {body.count('<p>')} != 6"
+          assert "<br />" in body, "line breaks were not preserved"
+          print("OK: 6 stanzas, line breaks preserved")
+          PY
 
       - name: Render HWPX
         run: |
           set -e
-          for f in game_exam game_full_exam map_exam philosophy_exam sample_exam tech_exam; do
-            python scripts/exam_to_hwpx.py "examples/$f.json" -o "/tmp/$f.hwpx"
+          for f in bimunhak/game_exam bimunhak/game_full_exam bimunhak/map_exam \
+                   bimunhak/philosophy_exam bimunhak/sample_exam bimunhak/tech_exam \
+                   unmun/jahwasang_exam; do
+            python $S/exam_to_hwpx.py "examples/$f.json" -o "/tmp/$(basename $f).hwpx"
           done
 
       - name: Lint
-        run: ruff check scripts/
+        run: ruff check $S
