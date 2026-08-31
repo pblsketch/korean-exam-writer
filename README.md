@@ -91,8 +91,8 @@ plugins/korean-exam-writer/
 │   ├── render_html.py                2단 A4 HTML
 │   ├── exam_to_hwpx.py               HWPX 조판
 │   └── security_scan.py
-└── assets/templates/exam.css
-examples/bimunhak/ · examples/unmun/  고정 샘플 + 골든 스냅샷(LLM 없이 결정론적 테스트)
+├── assets/templates/exam.css
+├── examples/bimunhak/ · unmun/       고정 샘플 + 골든 스냅샷(LLM 없이 결정론적 테스트)
 data/                                 비재구성 실증 집계(2017~2026 수능 독서 통계)
 docs/                                 방법론·출처·비제휴·실증분석
 gpt/                                  ChatGPT 맞춤형 GPT용 지시문(코드 없는 라이트 계층)
@@ -120,20 +120,21 @@ claude plugin install korean-exam-writer@korean-exam-writer
 
 ```bash
 S=plugins/korean-exam-writer/scripts
+X=plugins/korean-exam-writer/examples
 
 # 게이트 통과 / 거부
-python $S/validate_exam.py examples/bimunhak/sample_exam.json         # exit 0
-python $S/validate_exam.py examples/bimunhak/sample_exam_bad.json     # exit 1
-python $S/validate_exam.py examples/unmun/jahwasang_exam.json         # exit 0
-python $S/validate_exam.py examples/unmun/jahwasang_exam_bad.json     # exit 1 (H6·H7·역할·오인용)
+python $S/validate_exam.py $X/bimunhak/sample_exam.json         # exit 0
+python $S/validate_exam.py $X/bimunhak/sample_exam_bad.json     # exit 1
+python $S/validate_exam.py $X/unmun/jahwasang_exam.json         # exit 0
+python $S/validate_exam.py $X/unmun/jahwasang_exam_bad.json     # exit 1 (H6·H7·역할·오인용)
 
 # 조판
-python $S/render_html.py   examples/unmun/jahwasang_exam.json -o out.html
-python $S/exam_to_hwpx.py  examples/unmun/jahwasang_exam.json -o out.hwpx
+python $S/render_html.py   $X/unmun/jahwasang_exam.json -o out.html
+python $S/exam_to_hwpx.py  $X/unmun/jahwasang_exam.json -o out.hwpx
 
 # L3 유일성 프로브 (LLM 왕복 필요)
-python $S/probe_uniqueness.py examples/unmun/jahwasang_exam.json --emit > probes.json
-python $S/probe_uniqueness.py examples/unmun/jahwasang_exam.json --ingest results.json
+python $S/probe_uniqueness.py $X/unmun/jahwasang_exam.json --emit > probes.json
+python $S/probe_uniqueness.py $X/unmun/jahwasang_exam.json --ingest results.json
 ```
 
 ## 설계 근거

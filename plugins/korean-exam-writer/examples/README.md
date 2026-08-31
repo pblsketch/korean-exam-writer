@@ -34,21 +34,22 @@ examples/
 ```bash
 export PYTHONUTF8=1        # (PowerShell: $env:PYTHONUTF8=1)
 S=plugins/korean-exam-writer/scripts
+X=plugins/korean-exam-writer/examples
 
 # T1 — 게이트: 통과 & 거부
-python $S/validate_exam.py examples/bimunhak/sample_exam.json        # exit 0, ok:true
-python $S/validate_exam.py examples/bimunhak/sample_exam_bad.json    # exit 1, ok:false + 위반 id
-python $S/validate_exam.py examples/unmun/jahwasang_exam.json        # exit 0
-python $S/validate_exam.py examples/unmun/jahwasang_exam_bad.json    # exit 1 + H6·H7·역할·오인용
+python $S/validate_exam.py $X/bimunhak/sample_exam.json        # exit 0, ok:true
+python $S/validate_exam.py $X/bimunhak/sample_exam_bad.json    # exit 1, ok:false + 위반 id
+python $S/validate_exam.py $X/unmun/jahwasang_exam.json        # exit 0
+python $S/validate_exam.py $X/unmun/jahwasang_exam_bad.json    # exit 1 + H6·H7·역할·오인용
 
 # T2 — 조판
-python $S/render_html.py  examples/unmun/jahwasang_exam.json -o out.html   # 운문은 verse 모드
-python $S/exam_to_hwpx.py examples/unmun/jahwasang_exam.json -o out.hwpx   # 시행별 개행 유지
+python $S/render_html.py  $X/unmun/jahwasang_exam.json -o out.html   # 운문은 verse 모드
+python $S/exam_to_hwpx.py $X/unmun/jahwasang_exam.json -o out.hwpx   # 시행별 개행 유지
 
 # T3 — L3 유일성 프로브 (LLM 왕복 필요)
-python $S/probe_uniqueness.py examples/unmun/jahwasang_exam.json --emit > probes.json
+python $S/probe_uniqueness.py $X/unmun/jahwasang_exam.json --emit > probes.json
 #   각 prompt를 콜드 서브에이전트에 전달 → 응답을 results.json으로 정리
-python $S/probe_uniqueness.py examples/unmun/jahwasang_exam.json --ingest results.json
+python $S/probe_uniqueness.py $X/unmun/jahwasang_exam.json --ingest results.json
 ```
 
 ## 골든 스냅샷 주의

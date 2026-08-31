@@ -123,7 +123,7 @@ description: >-
 `meta.domain: "운문"`, `meta.subjectField`는 `현대시` / `고전시가` / `갈래복합`.
 각 문항은 `evidenceLocations[]`(축자 인용 + `demand≠recall`이면 `interpretation`),
 `derivation[]`, `distractors[]`(recipe + whyFalse + 축자 인용)를 갖는다.
-샘플: `../../../examples/unmun/jahwasang_exam.json`.
+샘플: `../../examples/unmun/jahwasang_exam.json`.
 
 ## 하지 않는 것
 
