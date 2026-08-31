@@ -111,5 +111,48 @@ jobs:
             python $S/exam_to_hwpx.py "$X/$f.json" -o "/tmp/$(basename $f).hwpx"
           done
 
+      - name: claw-hwp fallback engine (runner has no claw-hwp — absence path + ops builder)
+        run: |
+          set -e
+          python - <<'PY'
+          import sys, json
+          sys.path.insert(0, "plugins/korean-exam-writer/scripts")
+          import exam_to_hwpx as m
+
+          # 1) 러너에 claw-hwp가 없으므로 탐색은 None이어야 한다(예외 아님).
+          assert m.find_claw_hwp() is None, "unexpected claw-hwp on runner"
+
+          # 2) ops 빌더는 node 없이 순수하게 동작해야 한다 — 두 도메인 모두.
+          for f, dom in [("bimunhak/sample_exam", "prose"), ("unmun/jahwasang_exam", "verse")]:
+              exam = json.load(open("plugins/korean-exam-writer/examples/%s.json" % f,
+                                    encoding="utf-8"))
+              ops = m._claw_ops(exam)
+              assert ops[0]["type"] == "setup_document", ops[0]
+              types = {o["type"] for o in ops}
+              assert {"append_heading", "append_paragraph"} <= types, types
+              # 모든 문단은 runs 배열로 나가야 한다(마크다운 파서 우회 = * 이스케이프).
+              for o in ops:
+                  if o["type"] == "append_paragraph":
+                      assert "runs" in o and "text" not in o, o
+              # <보기>가 있는 문항은 표로 나간다.
+              if any((q.get("view") or {}).get("text") for q in exam["questions"]):
+                  assert "append_table" in types, types
+              json.dumps({"path": "x.hwpx", "operations": ops}, ensure_ascii=False)
+              print("OK: %s ops=%d" % (dom, len(ops)))
+          PY
+
+      - name: Engine absence degrades cleanly (no traceback)
+        run: |
+          set -e
+          if python $S/exam_to_hwpx.py "$X/bimunhak/sample_exam.json" \
+               -o /tmp/never.hwpx --engine claw-hwp 2>/tmp/err.txt; then
+            echo "ERROR: claw-hwp engine succeeded without claw-hwp"; exit 1
+          fi
+          if grep -q "Traceback" /tmp/err.txt; then
+            echo "ERROR: raw traceback leaked"; cat /tmp/err.txt; exit 1
+          fi
+          grep -q "claw-hwp" /tmp/err.txt || { echo "ERROR: no actionable message"; exit 1; }
+          echo "OK: clean failure with install hint"
+
       - name: Lint
         run: ruff check $S

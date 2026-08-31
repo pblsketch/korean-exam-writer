@@ -81,6 +81,7 @@ python ../../scripts/probe_uniqueness.py exam.json --ingest results.json --write
 - `python ../../scripts/render_html.py exam.json -o exam.html` → 2단 A4 HTML(교사가 Chrome에서 PDF 인쇄).
 - (요청 시) `python ../../scripts/exam_to_hwpx.py exam.json -o exam.hwpx` → python-hwpx로 2단 HWPX 조판
   (지문=흐르는 문단 4면 연결 테두리, `<보기>`=표 박스, `hard_gates` 모두 pass). 설치: `pip install -U 'python-hwpx>=3.2.0,<5' lxml`.
+  **python-hwpx가 없으면 `--engine auto`가 claw-hwp로 폴백**해 마크다운 대신 진짜 `.hwpx`를 낸다(pip 불필요). 이때 지문의 흐르는 테두리만 빠지고 2단·표·조판 기호는 동일하다 → `10-hwpx-mapping.md`.
   (`references/10-hwpx-mapping.md`)
 
 ## 실행 계층
