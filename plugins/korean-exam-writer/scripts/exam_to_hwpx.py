@@ -46,6 +46,21 @@ def _norm_label(s):
     return re.sub(r"\s+", "", s or "")
 
 
+def _label_text(xml_fragment):
+    """XML 조각에서 표시 텍스트만 뽑는다(태그 제거 + 엔티티 복원 + 공백 무시).
+
+    section0.xml 안에서 `<보 기>`는 `&lt;보 기&gt;`로 이스케이프돼 있으므로
+    엔티티를 되돌리지 않으면 라벨 비교가 빗나간다.
+    """
+    import html
+    return _norm_label(html.unescape(re.sub(r"<[^>]+>", "", xml_fragment or "")))
+
+
+def _is_view_label(norm_text):
+    """이 문단이 <보기> 라벨인가. 본문과 섞이지 않도록 짧은 것만 인정한다."""
+    return norm_text in ("<보기>", "〈보기〉", "보기")
+
+
 def _is_verse(sentences):
     """Verse passages carry stanzaStart. A line break in verse is meaning, not layout."""
     return any(s.get("stanzaStart") for s in sentences)
@@ -198,13 +213,13 @@ def _claw_ops(exam, columns=2):
         v = q.get("view") or {}
         if v.get("text"):
             # <보기>는 짧아 단을 넘지 않으므로 표 박스로 안전하게 낼 수 있다.
-            # 다만 (1) 폭을 단 폭으로 묶지 않으면 2단에서 페이지를 넘치고,
-            #      (2) 머리글 '행'으로 라벨을 넣으면 그 셀이 좁아 '<', '보', '기>' 로 세로로 찌그러진다.
-            # → 머리글 행은 쓰지 않되, 라벨은 **셀 안 첫 줄**에 넣는다. 수능 관례대로
-            #   `<보 기>`가 박스 안에 있어야 하고, python-hwpx 경로와도 모양이 같아진다.
+            # 라벨은 **머리글 행**으로 넣어 본문 셀과 분리한다 — 그래야 라벨만 가운데
+            # 정렬할 수 있다(라벨+본문을 한 셀 한 문단에 넣으면 정렬 단위가 하나가 된다).
+            # 예전에 머리글 셀이 '<','보','기>' 로 세로로 찌그러졌던 것은 머리글 탓이 아니라
+            # `col_widths_cm` 미지정으로 표가 내용 폭에 맞춰 좁아졌기 때문이다(실측).
             ops.append({"type": "append_table",
-                        "rows": [["<보 기>\n" + v["text"]]],
-                        "no_header": True,
+                        "headers": ["<보 기>"],
+                        "rows": [[v["text"]]],
                         "col_widths_cm": [col_cm]})
         for i, c in enumerate(q.get("choices", [])):
             line("%s %s" % (CIRCLED[i] if i < len(CIRCLED) else str(i + 1), c))
@@ -218,6 +233,87 @@ def _claw_ops(exam, columns=2):
     if dis:
         line(dis)
     return ops, (all(boxed) if boxed else False)
+
+
+def _clawhwp_center_view_label(path):
+    """claw-hwp 산출물의 `<보 기>` 머리글 셀을 가운데 정렬한다.
+
+    claw-hwp에는 셀 안 텍스트를 **수평** 정렬하는 op가 없다 — `set_cell_property`는
+    `valign`(수직)만 받고, `apply_paragraph_style`은 본문 문단만 주소지정한다(셀 안 문단
+    인덱스는 범위를 벗어난다. 실측). 그래서 생성 후 XML을 직접 손본다.
+    python-hwpx 경로의 `_center_view_labels()`와 같은 취지이며, 그쪽은 이미 존재하는
+    CENTER paraPr을 재사용하지만 claw-hwp 산출물에는 그런 paraPr이 없어 **복제**해서 만든다.
+
+    실패해도 문서는 유효하므로(정렬만 왼쪽으로 남음) 조용히 넘어간다.
+    """
+    import shutil
+    import tempfile
+    import zipfile
+    try:
+        zin = zipfile.ZipFile(path)
+        data = {i.filename: zin.read(i.filename) for i in zin.infolist()}
+        zin.close()
+        sec = data["Contents/section0.xml"].decode("utf-8")
+        hdr = data["Contents/header.xml"].decode("utf-8")
+
+        # 라벨이 든 셀 문단의 paraPr 수집. 표 셀(`<hp:tc>`) 안으로 범위를 좁혀야 한다 —
+        # 표를 감싼 바깥 `<hp:p>`가 먼저 매칭되면 비탐욕 매칭이 셀 문단을 통째로 삼킨다.
+        targets = set()
+        for tc in re.findall(r"<hp:tc\b.*?</hp:tc>", sec, re.S):
+            for pm in re.finditer(r'<hp:p\b[^>]*paraPrIDRef="(\d+)"[^>]*>(.*?)</hp:p>', tc, re.S):
+                if _is_view_label(_label_text(pm.group(2))):
+                    targets.add(pm.group(1))
+        if not targets:
+            return False
+
+        ids = [int(x) for x in re.findall(r'<hh:paraPr\b[^>]*?\bid="(\d+)"', hdr)]
+        next_id = max(ids) + 1 if ids else 0
+        clones, mapping = [], {}
+        for pp in sorted(targets):
+            src = re.search(r'<hh:paraPr\b[^>]*?\bid="%s"[^>]*>.*?</hh:paraPr>' % pp, hdr, re.S)
+            if not src:
+                continue
+            block = src.group(0)
+            block = re.sub(r'\bid="%s"' % pp, 'id="%d"' % next_id, block, count=1)
+            block = re.sub(r'<hh:align\b[^>]*?horizontal="\w+"',
+                           lambda mm: mm.group(0).replace(
+                               re.search(r'horizontal="(\w+)"', mm.group(0)).group(0),
+                               'horizontal="CENTER"'), block, count=1)
+            clones.append(block)
+            mapping[pp] = str(next_id)
+            next_id += 1
+        if not clones:
+            return False
+
+        hdr = hdr.replace("</hh:paraProperties>", "".join(clones) + "</hh:paraProperties>", 1)
+        hdr = re.sub(r'(<hh:paraProperties\b[^>]*\bitemCnt=")(\d+)(")',
+                     lambda mm: mm.group(1) + str(int(mm.group(2)) + len(clones)) + mm.group(3),
+                     hdr, count=1)
+
+        def repoint(pm):
+            pp = pm.group(1)
+            if pp in mapping and _is_view_label(_label_text(pm.group(2))):
+                return pm.group(0).replace('paraPrIDRef="%s"' % pp,
+                                           'paraPrIDRef="%s"' % mapping[pp], 1)
+            return pm.group(0)
+
+        # 수정 범위도 셀 안으로 한정한다(바깥 문단이 같은 paraPr을 써도 건드리지 않게).
+        sec = re.sub(r"<hp:tc\b.*?</hp:tc>",
+                     lambda tm: re.sub(r'<hp:p\b[^>]*paraPrIDRef="(\d+)"[^>]*>(.*?)</hp:p>',
+                                       repoint, tm.group(0), flags=re.S),
+                     sec, flags=re.S)
+
+        data["Contents/section0.xml"] = sec.encode("utf-8")
+        data["Contents/header.xml"] = hdr.encode("utf-8")
+        fd, tmp = tempfile.mkstemp(suffix=".hwpx")
+        os.close(fd)
+        with zipfile.ZipFile(tmp, "w", zipfile.ZIP_DEFLATED) as z:
+            for name, blob in data.items():
+                z.writestr(name, blob)
+        shutil.move(tmp, path)
+        return True
+    except Exception:
+        return False
 
 
 def build_hwpx_clawhwp(exam, out_path, columns=2, scripts=None):
@@ -275,6 +371,7 @@ def build_hwpx_clawhwp(exam, out_path, columns=2, scripts=None):
         if d:
             os.makedirs(d, exist_ok=True)
         shutil.move(made, out_path)
+        gates["view_label_center"] = "pass" if _clawhwp_center_view_label(out_path) else "n/a"
         return gates
     finally:
         import shutil

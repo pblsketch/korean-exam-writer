@@ -134,17 +134,20 @@ jobs:
               for o in ops:
                   if o["type"] == "append_paragraph":
                       assert "runs" in o and "text" not in o, o
-              # 표(<보기> 또는 지문 박스)는 반드시 단 폭으로 묶여야 한다 — 안 그러면 2단에서 넘친다.
+              # 표(<보기> 또는 지문 박스)는 반드시 단 폭으로 묶여야 한다 — 안 그러면 2단에서
+              # 넘치고, 폭을 안 주면 머리글 셀이 '<','보','기>' 로 세로로 찌그러진다.
               tables = [o for o in ops if o["type"] == "append_table"]
               for t in tables:
                   assert t.get("col_widths_cm"), t
                   assert t["col_widths_cm"][0] <= m._claw_col_cm(2) + 0.01, t
-                  assert t.get("no_header") is True, t     # 머리글 셀은 좁아 세로로 찌그러진다
-              # <보기>가 있는 문항은 표로 나가고, 라벨은 표 밖이 아니라 **셀 안 첫 줄**이어야 한다.
+              # 지문 박스는 머리글 없는 1×1.
+              assert [t for t in tables if t.get("no_header") is True], tables
+              # <보기>는 **머리글 행**으로 나가야 한다(그래야 라벨만 가운데 정렬할 수 있고,
+              # 라벨이 박스 안에 남는다).
               if any((q.get("view") or {}).get("text") for q in exam["questions"]):
-                  assert tables, types
-                  labeled = [t for t in tables if t["rows"][0][0].startswith("<보 기>")]
-                  assert labeled, "<보 기> 라벨이 셀 안에 없음 (박스 밖으로 나감)"
+                  labeled = [t for t in tables if t.get("headers") == ["<보 기>"]]
+                  assert labeled, "<보 기>가 머리글 행이 아님 (박스 밖으로 나가거나 본문과 한 셀)"
+                  assert not labeled[0].get("no_header"), labeled[0]
               # 두 예제는 모두 한 단에 들어가므로 지문이 박스(표)로 나와야 한다.
               assert boxed is True, (dom, boxed)
               json.dumps({"path": "x.hwpx", "operations": ops}, ensure_ascii=False)
