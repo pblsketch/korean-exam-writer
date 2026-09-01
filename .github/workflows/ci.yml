@@ -140,9 +140,11 @@ jobs:
                   assert t.get("col_widths_cm"), t
                   assert t["col_widths_cm"][0] <= m._claw_col_cm(2) + 0.01, t
                   assert t.get("no_header") is True, t     # 머리글 셀은 좁아 세로로 찌그러진다
-              # <보기>가 있는 문항은 표로 나간다.
+              # <보기>가 있는 문항은 표로 나가고, 라벨은 표 밖이 아니라 **셀 안 첫 줄**이어야 한다.
               if any((q.get("view") or {}).get("text") for q in exam["questions"]):
                   assert tables, types
+                  labeled = [t for t in tables if t["rows"][0][0].startswith("<보 기>")]
+                  assert labeled, "<보 기> 라벨이 셀 안에 없음 (박스 밖으로 나감)"
               # 두 예제는 모두 한 단에 들어가므로 지문이 박스(표)로 나와야 한다.
               assert boxed is True, (dom, boxed)
               json.dumps({"path": "x.hwpx", "operations": ops}, ensure_ascii=False)
