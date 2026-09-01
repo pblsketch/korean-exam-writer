@@ -21,6 +21,7 @@ import argparse
 import json
 import logging
 import os
+import re
 import sys
 
 try:
@@ -34,6 +35,15 @@ logging.getLogger("hwpx").setLevel(logging.ERROR)
 logging.disable(logging.WARNING)
 
 CIRCLED = ["①", "②", "③", "④", "⑤"]
+
+# 연(stanza) 사이 빈 줄용. 빈 문단은 텍스트 매칭 기반 테두리 패치에서 누락돼 connect 체인을
+# 끊으므로, strip()에 지워지지 않는 ZWSP를 넣어 지문 박스가 하나로 이어지게 한다.
+STANZA_GAP = "​"
+
+
+def _norm_label(s):
+    """공백을 무시한 라벨 비교용(예: '보 기' == '보기')."""
+    return re.sub(r"\s+", "", s or "")
 
 
 def _is_verse(sentences):
@@ -61,11 +71,14 @@ def _paragraphs(sentences):
 # 마크다운으로 떨어지는 대신 진짜 .hwpx를 낸다. claw-hwp는 rhwp WASM을 vendoring해
 # pip 설치가 필요 없으므로, 교사 배포에서 설치 장벽이 사라진다.
 #
-# 품질 차이 — 딱 하나다: **지문의 흐르는 4면 연결 테두리를 만들 수 없다.**
-# claw-hwp의 apply_paragraph_style에는 테두리 파라미터가 없고(align/indent/
-# line_spacing/margin/spacing/background_color/page_break/keep_with_next 뿐),
-# 1×1 표로 대체하면 단·페이지 경계에서 잘린다. 그래서 폴백에서는 지문을 평문단으로
-# 두고, 그 사실을 호출자에게 gates로 보고한다. 2단·표·조판 기호·굵게·밑줄은 동일하다.
+# 품질 차이 — 지문 박스의 구현 방식이 다르다.
+#   python-hwpx: 흐르는 4면 연결 테두리(connect=1). 아무리 길어도 단·페이지를 넘어 이어진다.
+#   claw-hwp   : 1×1 표. claw-hwp에는 문단 테두리 op가 없다. apply_paragraph_style로
+#                배경 음영을 주는 우회는 paraPr을 오염시켜 지문 정렬을 무너뜨린다
+#                (claw-hwp 문서가 '미검증 — paraPr sanitize concerns'로 표시한 그 문제. 실측 확인).
+#                표는 쪼개지지 못하므로 한 단에 들어갈 분량일 때만 쓰고, 길면 평문단으로 흘린다.
+#                셀은 runs를 못 받아 ㉠~㉤ 표지의 굵게·밑줄이 평문이 된다(표지 문자는 남는다).
+# 2단·<보기> 표·조판 기호는 동일하다.
 # ---------------------------------------------------------------------------
 
 def find_claw_hwp():
@@ -93,10 +106,48 @@ def _p(text, bold=False, underline=False):
     return {"text": text, "bold": bold, "underline": underline}
 
 
+def _claw_col_cm(columns, margin_mm=18, gap_mm=8, page_mm=210):
+    """단 하나의 폭(cm). append_table 은 기본이 페이지 전폭이라 2단에서 넘친다."""
+    text_mm = page_mm - 2 * margin_mm
+    if columns and columns >= 2:
+        text_mm = (text_mm - gap_mm * (columns - 1)) / columns
+    return round(text_mm / 10.0 - 0.3, 1)          # 여유 3mm
+
+
+def _claw_passage_boxable(p):
+    """지문을 1×1 표(=박스)로 감쌀 수 있는가.
+
+    claw-hwp 표는 단·페이지를 넘어 쪼개지지 못한다(`set_table_property`의 page_split은
+    문서에만 있고 create.js/hwpx-edit.js 둘 다 미구현 — 실측). 그러므로 한 단 안에
+    들어갈 분량일 때만 박스로 만들고, 길면 평문단으로 흘려 **잘리지 않게** 한다.
+
+    또 셀 문자열은 `**bold**`/`*italic*`이 자동 파싱되므로, 지문에 리터럴 `*`(고전시가
+    각주 관례)가 있으면 표를 쓰지 않는다 — 각주가 이탤릭으로 먹히는 쪽이 더 나쁘다.
+    """
+    sents = p.get("sentences", [])
+    if any("*" in (s.get("text") or "") for s in sents):
+        return False
+    if _is_verse(sents):
+        lines = len(sents) + max(0, len(_paragraphs(sents)) - 1)
+    else:
+        chars = sum(len(s.get("text") or "") for s in sents)
+        lines = -(-chars // 26)          # 단 폭 기준 대략 26자/줄
+    return lines <= 30
+
+
 def _claw_ops(exam, columns=2):
-    """exam JSON -> claw-hwp create.js operations."""
+    """exam JSON -> (create.js operations, 지문 박스 적용 여부).
+
+    지문 박스는 1×1 표로 만든다. claw-hwp에는 문단 테두리 op가 없고,
+    apply_paragraph_style(background_color)로 음영을 주는 방법은 paraPr을 오염시켜
+    지문 정렬을 무너뜨린다(claw-hwp 문서가 '미검증 — paraPr sanitize concerns'로 표시한
+    바로 그 문제. 실측 확인). 그래서 음영 대신 표를 쓰되, 쪼개지지 못하는 표의 한계를
+    _claw_passage_boxable() 로 막는다.
+    """
     m = exam.get("meta", {})
     ops = [{"type": "setup_document", "page_size": "a4", "margin_mm": 18}]
+    col_cm = _claw_col_cm(columns)
+    boxed = []
 
     def para(runs):
         ops.append({"type": "append_paragraph", "runs": runs})
@@ -114,16 +165,32 @@ def _claw_ops(exam, columns=2):
         if p.get("title"):
             line(("(%s) " % p["part"] if p.get("part") else "") + p["title"], bold=True)
         verse = _is_verse(p.get("sentences", []))
-        for gi, group in enumerate(_paragraphs(p.get("sentences", []))):
-            if verse:
-                if gi:
-                    line("")
-                for s in group:
-                    para([_p(t, bold=b, underline=u) for t, b, u in _sentence_segments(s) if t])
-            else:
-                runs = [_p(t, bold=b, underline=u)
-                        for s in group for t, b, u in _sentence_segments(s) if t]
-                para(runs)
+        groups = _paragraphs(p.get("sentences", []))
+
+        if _claw_passage_boxable(p):
+            # 지문 전체를 한 셀에 넣어 박스로 만든다. 셀 안에서 \n 은 줄바꿈으로 보존된다.
+            blocks = []
+            for group in groups:
+                # 운문은 행이 의미이므로 개행으로, 산문은 한 문단이므로 공백으로 잇는다.
+                # (공백 없이 이으면 '…현상이다.이때…'처럼 문장이 붙어 버린다.)
+                joiner = "\n" if verse else " "
+                blocks.append(joiner.join(_sentence_text(s) for s in group))
+            ops.append({"type": "append_table",
+                        "rows": [["\n\n".join(blocks) if verse else "\n".join(blocks)]],
+                        "no_header": True, "col_widths_cm": [col_cm]})
+            boxed.append(True)
+        else:
+            for gi, group in enumerate(groups):
+                if verse:
+                    if gi:
+                        line("")
+                    for s in group:
+                        para([_p(t, bold=b, underline=u)
+                              for t, b, u in _sentence_segments(s) if t])
+                else:
+                    para([_p(t, bold=b, underline=u)
+                          for s in group for t, b, u in _sentence_segments(s) if t])
+            boxed.append(False)
         line("")
 
     for q in exam.get("questions", []):
@@ -131,9 +198,14 @@ def _claw_ops(exam, columns=2):
         v = q.get("view") or {}
         if v.get("text"):
             # <보기>는 짧아 단을 넘지 않으므로 표 박스로 안전하게 낼 수 있다.
+            # 다만 (1) 폭을 단 폭으로 묶지 않으면 2단에서 페이지를 넘치고,
+            #      (2) 머리글 행으로 라벨을 넣으면 셀이 좁아 '<', '보', '기>' 로 세로로 찌그러진다.
+            # → 라벨은 표 위 문단으로 빼고, 표는 머리글 없는 1×1 로 만든다.
+            line("<보 기>", bold=True)
             ops.append({"type": "append_table",
-                        "headers": ["<%s>" % (v.get("title") or "보 기")],
-                        "rows": [[v["text"]]]})
+                        "rows": [[v["text"]]],
+                        "no_header": True,
+                        "col_widths_cm": [col_cm]})
         for i, c in enumerate(q.get("choices", [])):
             line("%s %s" % (CIRCLED[i] if i < len(CIRCLED) else str(i + 1), c))
         line("")
@@ -145,7 +217,7 @@ def _claw_ops(exam, columns=2):
     dis = (exam.get("verificationReport") or {}).get("disclaimer")
     if dis:
         line(dis)
-    return ops
+    return ops, (all(boxed) if boxed else False)
 
 
 def build_hwpx_clawhwp(exam, out_path, columns=2, scripts=None):
@@ -161,7 +233,8 @@ def build_hwpx_clawhwp(exam, out_path, columns=2, scripts=None):
     stem = os.path.join(tmpdir, "exam")
     made = stem + ".hwpx"
     try:
-        payload = {"path": made, "theme": "government", "operations": _claw_ops(exam, columns)}
+        ops, passage_boxed = _claw_ops(exam, columns)
+        payload = {"path": made, "theme": "government", "operations": ops}
         r = subprocess.run(["node", os.path.join(scripts, "create.js")],
                            input=json.dumps(payload, ensure_ascii=False),
                            capture_output=True, text=True, encoding="utf-8")
@@ -172,24 +245,29 @@ def build_hwpx_clawhwp(exam, out_path, columns=2, scripts=None):
                                % (res.get("message"), res.get("op_index")))
 
         gates = {"engine": "claw-hwp", "create": "pass",
-                 "ops_applied": res.get("ops_applied"),
-                 "passage_box": "unsupported"}
+                 "ops_applied": res.get("ops_applied")}
 
+        gates["passage_box"] = "table" if passage_boxed else "none (지문이 한 단을 넘어 표로 감싸면 잘린다)"
+        edits = []
         if columns and columns >= 2:
-            # 다단은 create가 아니라 edit op다. 편집기는 항상 <stem>_edited.hwpx 로 쓴다.
+            # 다단도 create가 아니라 edit op다. 음영과 함께 한 번에 적용한다.
+            edits.append({"type": "set_columns", "count": columns, "spacing_mm": 8})
+
+        if edits:
+            # 편집기는 항상 <stem>_edited.hwpx 로 쓴다(출력 경로 지정 불가).
             r2 = subprocess.run(["node", os.path.join(scripts, "hwpx-edit.js")],
-                                input=json.dumps({"path": made, "operations": [
-                                    {"type": "set_columns", "count": columns, "spacing_mm": 8}]},
-                                    ensure_ascii=False),
+                                input=json.dumps({"path": made, "operations": edits},
+                                                 ensure_ascii=False),
                                 capture_output=True, text=True, encoding="utf-8")
             e = json.loads((r2.stdout or "").strip())
             if not e.get("ok"):
-                raise RuntimeError("claw-hwp set_columns 실패: %s" % e.get("error"))
+                raise RuntimeError("claw-hwp 편집 실패: %s" % e.get("error"))
             edited = e.get("output")
             if not os.path.isabs(edited):
                 edited = os.path.join(tmpdir, os.path.basename(edited))
             made = edited
-            gates["columns"] = "pass"
+            if columns and columns >= 2:
+                gates["columns"] = "pass"
 
         import shutil
         # os.replace는 드라이브가 다르면 Windows에서 실패한다(temp=C:, 산출물=E: 등).
@@ -239,7 +317,7 @@ def _sentence_segments(s):
 def build_hwpx(exam, out_path, columns=2):
     from hwpx.builder import (
         Document, Section, Paragraph, Run, Heading, Header, Footer,
-        PageNumber, PageSize, Margins, Metadata, PageBreak, Table,
+        PageNumber, PageSize, Margins, Metadata, PageBreak,
     )
     from hwpx.document import HwpxDocument
 
@@ -272,7 +350,12 @@ def build_hwpx(exam, out_path, columns=2):
             if verse:
                 # one paragraph per 시행 — the line break carries meaning
                 if gi:
-                    kids.append(Paragraph(text=""))      # 연 사이 빈 줄
+                    # 연 사이 빈 줄. 그냥 빈 문단을 넣으면 텍스트가 없어 _box_passage_paragraphs
+                    # 의 매칭에서 빠지고, 그 지점에서 connect 체인이 끊겨 **연마다 박스가 하나씩**
+                    # 생긴다. ZWSP(U+200B)는 str.strip()이 지우지 않으므로 매칭에 걸리면서도
+                    # 눈에는 빈 줄로 보인다 → 지문 전체가 하나의 박스로 이어진다.
+                    kids.append(Paragraph(text=STANZA_GAP))
+                    passage_texts.add(STANZA_GAP)
                 for s in group:
                     runs, plain = [], []
                     for txt, b, u in _sentence_segments(s):
@@ -323,10 +406,15 @@ def build_hwpx(exam, out_path, columns=2):
     vr = exam.get("verificationReport", {})
     checks = vr.get("checks", [])
     if checks:
-        kids.append(Table(
-            header=["항목", "결과", "상세"],
-            rows=[[c.get("name", ""), "통과" if c.get("ok") else "위반", c.get("detail", "")] for c in checks],
-            header_shading="EAF1FB", column_widths=[2, 1, 4]))
+        # 2단에서 표는 단 폭(~83mm)에 갇히고 '상세' 열은 ~47mm밖에 못 받아 긴 문장이 잘린다.
+        # 검증 리포트는 셀 정렬이 필요한 자료가 아니라 읽는 글이므로 문단으로 흘린다.
+        kids.append(Paragraph(children=[Run("검증", bold=True, size=BODY)]))
+        for c in checks:
+            mark = "통과" if c.get("ok") else "위반"
+            kids.append(Paragraph(children=[
+                Run("· %s " % c.get("name", ""), bold=True, size=BODY),
+                Run("[%s] " % mark, bold=True, size=BODY),
+                Run(c.get("detail", ""), size=BODY)]))
     srcs = exam.get("sources", [])
     if srcs:
         kids.append(Paragraph(children=[Run("근거·출처", bold=True)]))
@@ -376,8 +464,11 @@ def build_hwpx(exam, out_path, columns=2):
         if hasattr(cp, "clear_text"):
             cp.clear_text()
         _vt = (v.get("title") or "").strip()
-        _cap = (" " + _vt) if _vt and _vt not in ("보기", "<보기>", "〈보기〉") else ""
-        cp.add_run("<보기>" + _cap, bold=True, size=BODY)
+        # 제목이 사실상 '보기'면 라벨을 덧붙이지 않는다. 공백을 무시하고 비교해야 한다 —
+        # 예제의 title은 '보 기'(가운데 공백)라서 예전 비교는 빗나갔고, 결과적으로 박스 안에
+        # '<보기> 보 기'가 두 번 찍혔다.
+        _cap = (" " + _vt) if _vt and _norm_label(_vt) not in ("보기", "<보기>", "〈보기〉") else ""
+        cp.add_run("<보 기>" + _cap, bold=True, size=BODY)
         cp2 = tbl.cell(0, 0).add_paragraph()
         cp2.add_run(v.get("text", ""), size=BODY)
         if hasattr(ph, "clear_text"):
@@ -511,8 +602,9 @@ def _center_view_label(path):
         if 'colCnt="1"' not in block:
             return block
         # first <hp:p> that contains '보기' -> reassign paraPrIDRef
+        # 라벨이 '<보 기>'(가운데 공백)이므로 태그를 걷어낸 뒤 공백 무시하고 비교한다.
         def fix_p(pm):
-            if "보기" not in pm.group(0):
+            if "보기" not in _norm_label(re.sub(r"<[^>]+>", "", pm.group(0))):
                 return pm.group(0)
             fix_p.done = getattr(fix_p, "done", False)
             if fix_p.done:

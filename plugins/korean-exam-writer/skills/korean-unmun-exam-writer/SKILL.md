@@ -99,7 +99,7 @@ description: >-
 - `python ../../scripts/render_html.py exam.json -o exam.html` → 2단 A4 HTML(Chrome에서 PDF 인쇄).
 - `python ../../scripts/exam_to_hwpx.py exam.json -o exam.hwpx` → HWPX 조판.
   설치: `pip install -U 'python-hwpx>=3.2.0,<5' lxml`.
-  **python-hwpx가 없으면 `--engine auto`가 claw-hwp로 폴백**해 마크다운 대신 진짜 `.hwpx`를 낸다(pip 불필요). 이때 지문의 흐르는 테두리만 빠지고 2단·표·조판 기호는 동일하다 → `10-hwpx-mapping.md`.
+  **python-hwpx가 없으면 `--engine auto`가 claw-hwp로 폴백**해 마크다운 대신 진짜 `.hwpx`를 낸다(pip 불필요). 이때 지문 박스는 흐르는 테두리 대신 1×1 표가 되고(한 단에 들어갈 때만), 2단·`<보기>` 표·조판 기호는 동일하다 → `10-hwpx-mapping.md`.
 - 시험지 말머리 배너에 **작품 출처 고지**를 한 줄 덧붙인다(`25` 산출물 고지).
 
 ## 참조 파일

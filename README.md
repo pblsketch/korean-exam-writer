@@ -114,7 +114,7 @@ claude plugin install korean-exam-writer@korean-exam-writer
 **HWPX 출력** — `python -m pip install -U 'python-hwpx>=3.2.0,<5' lxml`
 ([hwpx-plugins](https://github.com/airmang/hwpx-plugins) 스택)
 
-설치가 어려우면 **[claw-hwp](https://github.com/DoHyun468/claw-hwp)만 있어도 된다** — `--engine auto`가 자동으로 폴백해 마크다운 대신 진짜 `.hwpx`를 낸다(pip 불필요, rhwp WASM vendored). 지문의 흐르는 4면 테두리만 빠지고 2단·`<보기>` 표·조판 기호는 동일하다.
+설치가 어려우면 **[claw-hwp](https://github.com/DoHyun468/claw-hwp)만 있어도 된다** — `--engine auto`가 자동으로 폴백해 마크다운 대신 진짜 `.hwpx`를 낸다(pip 불필요, rhwp WASM vendored). 2단·`<보기>` 표·조판 기호는 동일하고, 지문 박스는 1×1 표로 만든다(한 단에 들어갈 때만 — 표는 쪼개지지 못한다).
 
 **ChatGPT** — `gpt/GPT_INSTRUCTIONS.md`를 맞춤형 GPT Instructions에 붙여넣기(비문학, 라이트 계층).
 

@@ -33,10 +33,17 @@ python scripts/exam_to_hwpx.py exam.json --md exam.md            # 마크다운�
 | 순위 | 엔진 | 조건 | 품질 |
 |---|---|---|---|
 | 1 | **python-hwpx** | `hwpx.builder` import 가능 | 최상 — 2단 + **지문 흐르는 4면 연결 테두리** + `hard_gates` |
-| 2 | **claw-hwp** | 플러그인 설치됨(pip 불필요, rhwp WASM vendored) | 2단·표 `<보기>`·조판 기호·굵게·밑줄 동일. **지문 테두리만 없음** |
+| 2 | **claw-hwp** | 플러그인 설치됨(pip 불필요, rhwp WASM vendored) | 2단·`<보기>` 표·조판 기호 동일. 지문 박스는 **1×1 표**로 만들되 한 단에 들어갈 때만(표는 쪼개지지 못함). 표지 ㉠~㉤의 굵게·밑줄은 평문이 됨 |
 | 3 | 마크다운 | 둘 다 없음 | `.md` 대체 저장 후 exit 2 |
 
-**왜 claw-hwp가 지문 테두리를 못 만드는가** — `apply_paragraph_style`의 파라미터가 `align`·`indent`·`line_spacing`·`margin`·`spacing`·`background_color`·`page_break_before`·`keep_with_next`뿐이고 테두리 파라미터가 없다. 1×1 표로 대체하면 단·페이지 경계에서 잘리므로 쓰지 않는다(흐르는 문단 테두리를 택한 이유가 바로 그것이다). 폴백에서는 지문을 평문단으로 두고 `gates.passage_box = "unsupported"`로 보고한다.
+**claw-hwp의 지문 박스** — `apply_paragraph_style`에는 테두리 파라미터가 없다(`align`·`indent`·`line_spacing`·`margin`·`spacing`·`background_color`·`page_break_before`·`keep_with_next` 뿐). `background_color`로 음영을 주는 우회는 **paraPr을 오염시켜 지문 정렬을 무너뜨린다** — claw-hwp 문서가 미검증(`paraPr sanitize concerns`)으로 표시한 그 문제이며 실측으로 확인했다. 그래서 **1×1 표**로 박스를 만든다.
+
+표는 단·페이지를 넘어 쪼개지지 못하고(`set_table_property`의 `page_split`은 문서에만 있고 `create.js`/`hwpx-edit.js` 둘 다 미구현 — 실측), 셀 문자열은 `**bold**`가 자동 파싱된다. 따라서 다음 두 경우에는 표를 쓰지 않고 평문단으로 흘려 **잘림을 막는다**:
+
+- 한 단에 안 들어갈 분량(운문 30행 초과 / 산문 대략 780자 초과)
+- 지문에 리터럴 `*`가 있는 경우(고전시가 각주 관례 — 이탤릭으로 먹히는 쪽이 더 나쁘다)
+
+`gates.passage_box`가 `table` / `none (…)` 으로 어느 쪽이었는지 보고한다.
 
 **claw-hwp 경로의 2단은 2단계다** — `set_columns`는 `create.js`가 아니라 `hwpx-edit.js`의 편집 op이고, 편집기는 항상 `<stem>_edited.hwpx`로 쓴다. 래퍼가 임시 디렉터리에서 생성→편집→이동을 처리한다.
 
